@@ -19,20 +19,31 @@ class Alfred:
         # Create the lexer and the parser
         self.lexer = Lexer(self.keywords.keys())
         self.parser = Parser()
-        # Read all the files
+        # Execute file by file
         for file_ in sys.argv[1:]:
-            self.readLine(file_)
+            # Read the code
+            source = self.read(file_)
+            # Execute the code
+            self.run()
 
-    def readLine(self, _file):
+    def read(self, _file):
+        source = None
         # Open file in read mode
         with open(_file, 'r') as sourcefile:
-            # Read line by line
-            for lineofcode in sourcefile:
-                # Tokenize the line of code with the lexer
-                self.lexer.tokenizer(lineofcode)
-                if debug: print('LEXER', self.lexer.tokens)
-                # Build the program with the parser
-                self.parser.build(self.lexer.tokens)
+            # Process the code
+            self.process(sourcefile)
+
+    def process(self, _sourcefile):
+        # Read line by line
+        for lineofcode in _sourcefile:
+            # Tokenize the line of code with the lexer
+            self.lexer.tokenizer(lineofcode)
+            # Some debug logs
+            if debug: print('LEXER', self.lexer.tokens)
+            # Build the program with the parser
+            self.parser.build(self.lexer.tokens)
+
+    def run(self):
         # Some debug logs
         if debug:
             print('INSTRUCTION POINTER', self.parser.ipointer)
@@ -41,6 +52,7 @@ class Alfred:
         # Run the built program with the evaluator
         self.evaluator = Evaluator(self.parser.jumps, self.parser.instructions, self.keywords)
         self.evaluator.run()
+       
 
 
 if __name__ == '__main__':
