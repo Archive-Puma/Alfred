@@ -1,3 +1,4 @@
+import os
 import sys
 
 # Import the core of the program
@@ -19,6 +20,18 @@ class Alfred:
         # Create the lexer and the parser
         self.lexer = Lexer(self.keywords.keys())
         self.parser = Parser()
+
+        self.config = {
+            'Alfred_DIR': os.path.dirname(os.path.realpath(__file__)),
+            'Alfred_CORE': os.path.join(os.path.dirname(os.path.realpath(__file__)), 'core')
+        }
+
+        print(self.config)
+    
+    def config(self):
+        pass
+
+    def start(self):
         # Execute file by file
         for file_ in sys.argv[1:]:
             # Read the code
@@ -57,3 +70,4 @@ class Alfred:
 
 if __name__ == '__main__':
     alf = Alfred()
+    alf.start()

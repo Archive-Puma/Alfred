@@ -59,7 +59,7 @@ class Lexer:
                     elif word == self.magicquotes['\n'] and tid == 'label':
                         self.tokens.append({
                             'id': tid,
-                            'value': ' '.join(tmp).upper()
+                            'value': ' '.join(tmp)
                         })
                         tid = ''
                         tmp = []
