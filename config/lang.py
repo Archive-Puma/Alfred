@@ -2,10 +2,9 @@
 Author: @CosasDePuma <kikefontanlorenzo@gmail.com>(https://github.com/cosasdepuma)
 """
 
-import lib.std as lib
+from importlib import import_module
 
-KEYWORDS = {
-    'ADIOS': lib.halt,
-    'DI': lib.echo,
-    'VETE': lib.goto
-}
+def manager(lang):
+    """ Manager to import the custom language support """
+    keywords = import_module('config.support.' + lang.lower()).KEYWORDS
+    return keywords

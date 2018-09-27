@@ -5,19 +5,20 @@ Author: @CosasDePuma <kikefontanlorenzo@gmail.com>(https://github.com/cosasdepum
 import sys
 
 # Import the core of the program
+from config.lang import manager
 from core.parser import Parser
 from core.lexer import Lexer
 from core.evaluator import Evaluator
-from config.lang import KEYWORDS
 
-# Debug flag to show logs
-DEBUG = True
+# Configuration variables
+LANG = "ES"
+VERBOSE = True
 
 class Alfred:
     """ Class with the program behaviour """
     def __init__(self):
         # Implement some commands
-        self.keywords = KEYWORDS
+        self.keywords = manager(LANG)
 
         # Create the lexer, the parser and the evaluator
         self.evaluator = None
@@ -53,8 +54,8 @@ class Alfred:
 
     def run(self):
         """ Run the program executing the commands """
-        # Some debug logs
-        if DEBUG:
+        # Some verbose logs
+        if VERBOSE:
             self.parser.string()
         # Run the built program with the evaluator
         self.evaluator = Evaluator(self.parser.jumps, self.parser.instructions, self.keywords)
