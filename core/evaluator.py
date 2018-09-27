@@ -2,6 +2,8 @@
 Author: @CosasDePuma <kikefontanlorenzo@gmail.com>(https://github.com/cosasdepuma)
 """
 
+# pylint: disable=R0903
+
 BAD_EXIT_STATUS_CODE = 0x4a4f4b4552 # Joker
 
 class Evaluator:
@@ -25,23 +27,3 @@ class Evaluator:
             pointer = pointer + 1 if not direction else direction
         # Exit with a -1 code if the program not end with a halt instruction
         exit(BAD_EXIT_STATUS_CODE)
-
-
-#   ____________________________
-#  /                            \
-# |         INSTRUCTIONS         |
-#  \____________________________/
-
-# Prints a message in stdin
-def echo(args, eval):
-    print(' '.join(args))
-
-# Jump to a new instruction
-def goto(args, eval):
-    args = args[1:]
-    args = ' '.join(args)
-    return eval.jumps[args]
-
-# Stop the program with a clean exit
-def halt(args, eval):
-    exit(0)

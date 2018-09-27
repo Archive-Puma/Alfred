@@ -2,13 +2,13 @@
 Author: @CosasDePuma <kikefontanlorenzo@gmail.com>(https://github.com/cosasdepuma)
 """
 
-import os
 import sys
 
 # Import the core of the program
-from parser import Parser
-from lexer import Lexer
-from evaluator import *
+from core.parser import Parser
+from core.lexer import Lexer
+from core.evaluator import Evaluator
+from config.lang import KEYWORDS
 
 # Debug flag to show logs
 DEBUG = True
@@ -17,22 +17,12 @@ class Alfred:
     """ Class with the program behaviour """
     def __init__(self):
         # Implement some commands
-        self.keywords = {
-            'ADIOS': halt,
-            'DI': echo,
-            'VETE': goto
-        }
+        self.keywords = KEYWORDS
+
         # Create the lexer, the parser and the evaluator
         self.evaluator = None
         self.parser = Parser()
         self.lexer = Lexer(self.keywords.keys())
-
-        self.config = {
-            'Alfred_DIR': os.path.dirname(os.path.realpath(__file__)),
-            'Alfred_CORE': os.path.join(os.path.dirname(os.path.realpath(__file__)), 'core')
-        }
-
-        if False: print(self.config)
 
     def start(self):
         """ Start the module by reading the files
@@ -58,9 +48,6 @@ class Alfred:
         for lineofcode in _sourcefile:
             # Tokenize the line of code with the lexer
             self.lexer.tokenizer(lineofcode)
-            # Some debug logs
-            if False:
-                print('LEXER', self.lexer.tokens)
             # Build the program with the parser
             self.parser.build(self.lexer.tokens)
 
