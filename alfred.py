@@ -18,12 +18,14 @@ class Alfred:
     """ Class with the program behaviour """
     def __init__(self):
         # Implement some commands
-        self.keywords = manager(LANG)
+        language = manager(LANG)
+        self.keywords = language[0]
+        self.controlflow_keywords = language[1]
 
         # Create the lexer, the parser and the evaluator
         self.evaluator = None
         self.parser = Parser()
-        self.lexer = Lexer(self.keywords.keys())
+        self.lexer = Lexer(self.keywords.keys(), self.controlflow_keywords)
 
     def start(self):
         """ Start the module by reading the files

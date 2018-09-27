@@ -6,7 +6,7 @@ import re
 
 class Lexer:
     """ Lexer component to tokenize the code """
-    def __init__(self, _keywords):
+    def __init__(self, _keywords, _controlflow_keywords):
         self.tokens = []
         self.keywords = _keywords
         # Avoid some problematic stuff with a custom encoding
@@ -17,9 +17,7 @@ class Lexer:
             'label': '<*%:'
         }
         # Set some control flow keywords (labels, conditionals...)
-        self.controlflow_keywords = {
-            'label': 'RECUERDA ESTE MOMENTO COMO'
-        }
+        self.controlflow_keywords = _controlflow_keywords
 
     # Encode the source code
     def format(self, _lineofcode):
@@ -84,8 +82,7 @@ class Lexer:
                         'value': word.upper()
                     })
                     tmp = []
-                    if word.upper() != 'DI': #FIXME
-                        tid = 'keyword'
+                    tid = 'keyword'
                     continue
             # Append the word to a temp variable
             if word not in self.magicquotes.values():

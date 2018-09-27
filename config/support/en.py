@@ -9,3 +9,7 @@ KEYWORDS = {
     'SAY': lib.echo,
     'GO': lib.goto
 }
+
+CONTROLFLOW_KEYWORDS = {
+    'label': 'REMEMBER THIS MOMENT AS'
+}
