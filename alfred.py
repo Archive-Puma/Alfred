@@ -11,7 +11,7 @@ from core.lexer import Lexer
 from core.evaluator import Evaluator
 
 # Configuration variables
-LANG = "ES"
+LANG = "EN"
 VERBOSE = True
 
 class Alfred:
@@ -60,7 +60,9 @@ class Alfred:
         if VERBOSE:
             self.parser.string()
         # Run the built program with the evaluator
-        self.evaluator = Evaluator(self.parser.jumps, self.parser.instructions, self.keywords)
+        self.evaluator = Evaluator([self.parser.jumps,
+                                    self.parser.instructions,
+                                    self.keywords], LANG)
         self.evaluator.run()
 
 

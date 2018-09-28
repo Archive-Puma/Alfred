@@ -8,10 +8,11 @@ BAD_EXIT_STATUS_CODE = 0x4a4f4b4552 # Joker
 
 class Evaluator:
     """ Evaluator component to run the commands """
-    def __init__(self, _jumps, _instructions, _keywords):
-        self.jumps = _jumps
-        self._keywords = _keywords
-        self.instructions = _instructions
+    def __init__(self, _program, _LANG):
+        self.lang = _LANG
+        self.jumps = _program[0]
+        self.keywords = _program[2]
+        self.instructions = _program[1]
 
     def run(self):
         """ Run the instructions """
@@ -22,7 +23,7 @@ class Evaluator:
             # Get the next instruction
             instruction = self.instructions[pointer]
             # Run the instruction
-            direction = self._keywords[instruction[0]](instruction[1:], self)
+            direction = self.keywords[instruction[0]](instruction[1:], self)
             # Modify the instruction pointer if last command return the new direction
             pointer = pointer + 1 if not direction else direction
         # Exit with a -1 code if the program not end with a halt instruction
