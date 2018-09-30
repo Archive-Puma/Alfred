@@ -23,7 +23,7 @@ class Lib:
         """ Run the algorithm """
         prev = 0
         actual = 1
-        while actual < int(parameters['UP TO']):
+        while actual + prev <= int(parameters['UP TO']):
             nexts = prev + actual
             self.sequence.append(nexts)
             prev = actual
