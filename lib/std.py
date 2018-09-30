@@ -51,4 +51,4 @@ def show(commands, evaluator):
                 }
     # Run and show the module
     instruction.run(options)
-    instruction.show()
+    instruction.command('show')
