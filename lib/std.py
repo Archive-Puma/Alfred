@@ -7,6 +7,21 @@ Author: @CosasDePuma <kikefontanlorenzo@gmail.com>(https://github.com/cosasdepum
 import re
 from importlib import import_module
 
+def define(args, evaluator):
+    """ Define variables """
+    args = ' '.join(args).upper()
+    # Variable
+    name = re.match('.* {0}'.format(evaluator.keywords['=']), args).group()
+    # Variable value
+    value = re.sub('{0} '.format(name), '', args)
+    # Variable name
+    name = re.sub(' {0}'.format(evaluator.keywords['=']), '', name)
+    # Temporal value
+    if value == evaluator.keywords['<<']:
+        value = evaluator.variables['___tmp___']
+        evaluator.variables.pop('___tmp___', None)
+    evaluator.variables[name] = value
+
 def echo(args, evaluator):
     """ Show a message through the stdin """
     print(' '.join(args))
@@ -27,8 +42,18 @@ def learn(args, evaluator):
     lang = evaluator.lang.lower() + '_' if evaluator.lang else ''
     evaluator.keywords[lib] = import_module('lib.' + lang + lib.lower()).Lib()
 
+def run(commands, evaluator):
+    """ Save the output returned after running a module """
+    evaluator.variables['___tmp___'] = _modrun(commands, evaluator).command('get')
+
+
 def show(commands, evaluator):
     """ Show the output returned after running a module """
+    _modrun(commands, evaluator).command('show')
+
+
+def _modrun(commands, evaluator):
+    """ Run a module """
     options = {}
     instruction = None
     # Find the instruction
@@ -37,6 +62,7 @@ def show(commands, evaluator):
             cmd = cmd.upper()
             if cmd in evaluator.keywords.keys():
                 instruction = evaluator.keywords[cmd]
+                break
     # Get the arguments
     if instruction:
         txt = ' '.join(commands).upper()
@@ -49,17 +75,6 @@ def show(commands, evaluator):
                 options = {
                     arg.upper(): matches
                 }
-    # Run and show the module
+    # Run and save the result of the module
     instruction.run(options)
-    instruction.command('show')
-
-def define(args, evaluator):
-    """ --- """
-    args = ' '.join(args).upper()
-    # Variable
-    name = re.match('.* {0}'.format(evaluator.keywords['=']), args).group()
-    # Variable value
-    value = re.sub('{0} '.format(name), '', args)
-    # Variable name
-    name = re.sub(' {0}'.format(evaluator.keywords['=']), '', name)
-    evaluator.variables[name] = value
+    return instruction
