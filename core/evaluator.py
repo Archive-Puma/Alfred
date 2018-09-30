@@ -2,14 +2,13 @@
 Author: @CosasDePuma <kikefontanlorenzo@gmail.com>(https://github.com/cosasdepuma)
 """
 
-# pylint: disable=R0903
-
 BAD_EXIT_STATUS_CODE = 0x4a4f4b4552 # Joker
 
 class Evaluator:
     """ Evaluator component to run the commands """
     def __init__(self, _program, _LANG):
         self.lang = _LANG
+        self.variables = {}
         self.jumps = _program[0]
         self.keywords = _program[2]
         self.instructions = _program[1]
@@ -28,3 +27,14 @@ class Evaluator:
             pointer = pointer + 1 if not direction else direction
         # Exit with a -1 code if the program not end with a halt instruction
         exit(BAD_EXIT_STATUS_CODE)
+
+    def string(self):
+        # FIXME: Unused method
+        """ Show the Evaluator Debug """
+        print("\n\t -- VARIABLES --")
+        print("===================================")
+        print(" Name\t\t\tValue")
+        print("-----------------------------------")
+        for var in self.variables:
+            print(" {0}\t\t{1}".format(var, self.variables[var]))
+        print()

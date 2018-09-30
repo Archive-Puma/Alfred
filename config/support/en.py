@@ -5,7 +5,10 @@ Author: @CosasDePuma <kikefontanlorenzo@gmail.com>(https://github.com/cosasdepum
 import lib.std as lib
 
 KEYWORDS = {
+    '=':        'AS',
+
     'BYE':      lib.halt,
+    'DEFINE':   lib.define,
     'GO':       lib.goto,
     'LEARN':    lib.learn,
     'SAY':      lib.echo,

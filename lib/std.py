@@ -24,7 +24,7 @@ def halt(args, evaluator):
 def learn(args, evaluator):
     """ Stop the program with a clean exit """
     lib = ' '.join(args[1:]).upper()
-    lang = evaluator.lang.lower() + '-' if evaluator.lang else ''
+    lang = evaluator.lang.lower() + '_' if evaluator.lang else ''
     evaluator.keywords[lib] = import_module('lib.' + lang + lib.lower()).Lib()
 
 def show(commands, evaluator):
@@ -52,3 +52,14 @@ def show(commands, evaluator):
     # Run and show the module
     instruction.run(options)
     instruction.command('show')
+
+def define(args, evaluator):
+    """ --- """
+    args = ' '.join(args).upper()
+    # Variable
+    name = re.match('.* {0}'.format(evaluator.keywords['=']), args).group()
+    # Variable value
+    value = re.sub('{0} '.format(name), '', args)
+    # Variable name
+    name = re.sub(' {0}'.format(evaluator.keywords['=']), '', name)
+    evaluator.variables[name] = value
