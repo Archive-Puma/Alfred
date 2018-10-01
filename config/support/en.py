@@ -7,6 +7,7 @@ import lib.std as lib
 KEYWORDS = {
     '=':        'AS',
     '<<':       'ABOVE',
+    '$$':       'THE VALUE OF',
 
     'BYE':      lib.halt,
     'DEFINE':   lib.define,

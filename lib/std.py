@@ -48,8 +48,12 @@ def run(commands, evaluator):
 
 
 def show(commands, evaluator):
-    """ Show the output returned after running a module """
-    _modrun(commands, evaluator).command('show')
+    """ Show the output returned after running a module
+    or the value of a variable """
+    if evaluator.keywords['$$'] in ' '.join(commands).upper():
+        _showvar(commands, evaluator)
+    else:
+        _modrun(commands, evaluator).command('show')
 
 
 def _modrun(commands, evaluator):
@@ -78,3 +82,9 @@ def _modrun(commands, evaluator):
     # Run and save the result of the module
     instruction.run(options)
     return instruction
+
+def _showvar(args, evaluator):
+    """ Show the value of a variable """
+    args = ' '.join(args).upper()
+    args = re.sub(evaluator.keywords['$$'], '', args).strip()
+    print(evaluator.variables[args])
