@@ -2,6 +2,9 @@
 Author: @CosasDePuma <kikefontanlorenzo@gmail.com>(https://github.com/cosasdepuma)
 """
 
+COMMAND = "FIBONACCI"
+
+
 class Lib:
     """ Calculate the Fibonacci sequence up to a certain number """
     def __init__(self):
