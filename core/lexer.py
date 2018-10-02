@@ -26,7 +26,6 @@ class Lexer:
         _lineofcode = re.sub('\\ {2,}', ' ', _lineofcode)
         return _lineofcode.strip()
 
-
     def tokenizer(self, _lineofcode):
         """ Tokenize the source code word by word """
         tid = ''
@@ -35,6 +34,7 @@ class Lexer:
         _lineofcode = self.format(_lineofcode)
         # Read the line of code word by word
         for word in _lineofcode.split(' '):
+            word = plainvowels(word)
             # Check if the previous words contains a keyword
             if tid == 'keyword':
                 # If the word is not an encoded character, it is an argument
@@ -60,3 +60,18 @@ class Lexer:
             # Append the word to a temp variable
             if word not in self.magicquotes.values():
                 tmp.append(word)
+
+
+def plainvowels(word):
+    """ Avoid accents """
+    word = re.sub('[áàâä]', 'a', word)
+    word = re.sub('[éèêë]', 'e', word)
+    word = re.sub('[íìîï]', 'i', word)
+    word = re.sub('[óòôö]', 'o', word)
+    word = re.sub('[úùûü]', 'u', word)
+    word = re.sub('[ÁÀÂÄ]', 'A', word)
+    word = re.sub('[ÉÈÊË]', 'E', word)
+    word = re.sub('[ÍÌÎÏ]', 'I', word)
+    word = re.sub('[ÓÒÔÖ]', 'O', word)
+    word = re.sub('[ÚÙÛÜ]', 'U', word)
+    return word
