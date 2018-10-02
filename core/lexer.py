@@ -11,8 +11,6 @@ class Lexer:
         self.keywords = _keywords
         # Avoid some problematic stuff with a custom encoding
         self.magicquotes = {
-            '."': '<*%QS',
-            '".': '<*%QE',
             '\n': '<*%NL',
             'label': '<*%:'
         }
@@ -22,8 +20,6 @@ class Lexer:
     # Encode the source code
     def format(self, _lineofcode):
         """ Avoid problematic characters """
-        _lineofcode = re.sub('\\ \"', ' ' + self.magicquotes['."'] + ' ', _lineofcode)
-        _lineofcode = re.sub('\"', ' ' + self.magicquotes['".'] + ' ', _lineofcode)
         _lineofcode = re.sub('\n', ' ' + self.magicquotes['\n'] + ' ', _lineofcode)
         _lineofcode = re.sub(self.controlflow_keywords['label'],
                              ' ' +  self.magicquotes['label'] + ' ', _lineofcode, flags=re.I)
@@ -48,32 +44,9 @@ class Lexer:
                         'value': word
                     })
                     tmp = []
-            # Check if the words are part of a string
-            elif tid == 'char':
-                # If we find a second quote mark, it is the final of the string
-                if word == self.magicquotes['".']:
-                    self.tokens.append({
-                        'id': tid,
-                        'value': ' '.join(tmp)
-                    })
-                    tid = ''
-                    tmp = []
-            # Check if the previous words contains a label command
-            elif tid == 'label':
-                # Create the label name when the line ends
-                if word == self.magicquotes['\n']:
-                    self.tokens.append({
-                        'id': tid,
-                        'value': ' '.join(tmp)
-                    })
-                    tid = ''
-                    tmp = []
             else:
-                # Start of the string
-                if word == self.magicquotes['."']:
-                    tid = 'char'
                 # Start of the label
-                elif word == self.magicquotes['label']:
+                if word == self.magicquotes['label']:
                     tid = 'label'
                 # Instruction
                 elif word.upper() in self.keywords:
