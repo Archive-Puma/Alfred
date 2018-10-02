@@ -28,6 +28,7 @@ class Lexer:
 
     def tokenizer(self, _lineofcode):
         """ Tokenize the source code word by word """
+        print(self.controlflow_keywords)
         tid = ''
         tmp = []
         self.tokens = []
@@ -43,6 +44,15 @@ class Lexer:
                         'id': 'arg',
                         'value': word
                     })
+                    tmp = []
+            elif tid == 'label':
+                # Create the label name when the line ends
+                if word == self.magicquotes['\n']:
+                    self.tokens.append({
+                        'id': tid,
+                        'value': ' '.join(tmp)
+                    })
+                    tid = ''
                     tmp = []
             else:
                 # Start of the label
@@ -60,6 +70,7 @@ class Lexer:
             # Append the word to a temp variable
             if word not in self.magicquotes.values():
                 tmp.append(word)
+            print(tmp)
 
 
 def plainvowels(word):
