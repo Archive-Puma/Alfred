@@ -62,6 +62,7 @@ def _modrun(commands, evaluator):
     """ Run a module """
     options = {}
     instruction = None
+    instruction_str = None
     # Find the instruction
     cmds = ' '.join(commands).upper().split(' ')
     for keywords in evaluator.keywords:
@@ -72,11 +73,13 @@ def _modrun(commands, evaluator):
                 if key in cmds:
                     matches += 1
             if matches == len(keyword):
+                instruction_str = keywords
                 instruction = evaluator.keywords[keywords]
                 break
     # Get the arguments
     if instruction:
         txt = ' '.join(commands).upper()
+        txt = re.sub(instruction_str, '', txt)
         for arg in instruction.args:
             # Find the next word after the argument
             matches = re.search('({0})\\ .*?\\ '.format(arg), txt)
