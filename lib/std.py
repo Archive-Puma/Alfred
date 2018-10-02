@@ -39,8 +39,10 @@ def halt(args, evaluator):
 def learn(args, evaluator):
     """ Stop the program with a clean exit """
     lib = ' '.join(args[1:]).upper()
-    lang = evaluator.lang.lower() + '_' if evaluator.lang else ''
-    evaluator.keywords[lib] = import_module('lib.' + lang + lib.lower()).Lib()
+    lib = re.sub(' ', '_', lib)
+    lang = evaluator.lang.lower() + '.' if evaluator.lang else ''
+    lib = import_module('lib.' + lang + lib.lower())
+    evaluator.keywords[lib.COMMAND] = lib.Lib()
 
 def run(commands, evaluator):
     """ Save the output returned after running a module """
@@ -61,19 +63,27 @@ def _modrun(commands, evaluator):
     options = {}
     instruction = None
     # Find the instruction
-    for cmd in commands:
+    cmds = ' '.join(commands).upper().split(' ')
+    for keywords in evaluator.keywords:
         if not instruction:
-            cmd = cmd.upper()
-            if cmd in evaluator.keywords.keys():
-                instruction = evaluator.keywords[cmd]
+            matches = 0
+            keyword = keywords.split(' ')
+            for key in keyword:
+                if key in cmds:
+                    matches += 1
+            if matches == len(keyword):
+                instruction = evaluator.keywords[keywords]
                 break
     # Get the arguments
     if instruction:
         txt = ' '.join(commands).upper()
         for arg in instruction.args:
             # Find the next word after the argument
-            matches = re.search('({0})\\ \\w+'.format(arg), txt).group()
-            matches = re.sub('({0})\\ '.format(arg), '', matches)
+            matches = re.search('({0})\\ .*?\\ '.format(arg), txt)
+            if not matches:
+                matches = re.search('({0})\\ .*'.format(arg), txt)
+            matches = re.sub('({0})'.format(arg), '', matches.group())
+            matches = re.sub('\\ ', '', matches)
             # Create the args dictionary
             if matches:
                 options = {
