@@ -37,7 +37,7 @@ KEYWORDS = {
         'VETE': {
             'function': lib.goto,
             'args': {
-                '(1)*': 'LABEL',
+                'A{*}': 'LABEL',
                 'JUMPS': 'JUMPS'
             }
         }
