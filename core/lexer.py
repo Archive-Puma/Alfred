@@ -1,3 +1,4 @@
+# -*- encoding: utf-8 -*-
 """
 Author: @CosasDePuma <kikefontanlorenzo@gmail.com>(https://github.com/cosasdepuma)
 """
@@ -6,80 +7,39 @@ import re
 
 class Lexer:
     """ Lexer component to tokenize the code """
-    def __init__(self, _keywords, _controlflow_keywords):
-        self.tokens = []
+    def __init__(self, _keywords, _lang):
+        self.lang = _lang
         self.keywords = _keywords
-        # Avoid some problematic stuff with a custom encoding
-        self.magicquotes = {
-            '\n': '<*%NL',
-            'label': '<*%:'
-        }
-        # Set some control flow keywords (labels, conditionals...)
-        self.controlflow_keywords = _controlflow_keywords
-
-    # Encode the source code
-    def format(self, _lineofcode):
-        """ Avoid problematic characters """
-        _lineofcode = re.sub('\n', ' ' + self.magicquotes['\n'] + ' ', _lineofcode)
-        _lineofcode = re.sub(self.controlflow_keywords['label'],
-                             ' ' +  self.magicquotes['label'] + ' ', _lineofcode, flags=re.I)
-        _lineofcode = re.sub('\\ {2,}', ' ', _lineofcode)
-        return _lineofcode.strip()
 
     def tokenizer(self, _lineofcode):
-        """ Tokenize the source code word by word """
-        print(self.controlflow_keywords)
-        tid = ''
-        tmp = []
-        self.tokens = []
-        _lineofcode = self.format(_lineofcode)
-        # Read the line of code word by word
-        for word in _lineofcode.split(' '):
-            word = plainvowels(word)
-            # Check if the previous words contains a keyword
-            if tid == 'keyword':
-                # If the word is not an encoded character, it is an argument
-                if word not in self.magicquotes.values():
-                    self.tokens.append({
-                        'id': 'arg',
-                        'value': word
-                    })
-                    tmp = []
-            elif tid == 'label':
-                # Create the label name when the line ends
-                if word == self.magicquotes['\n']:
-                    self.tokens.append({
-                        'id': tid,
-                        'value': ' '.join(tmp)
-                    })
-                    tid = ''
-                    tmp = []
-            else:
-                # Start of the label
-                if word == self.magicquotes['label']:
-                    tid = 'label'
-                # Instruction
-                elif word.upper() in self.keywords:
-                    self.tokens.append({
-                        'id': 'keyword',
-                        'value': word.upper()
-                    })
-                    tmp = []
-                    tid = 'keyword'
-                    continue
-            # Append the word to a temp variable
-            if word not in self.magicquotes.values():
-                tmp.append(word)
-            print(tmp)
-
+        token = None
+        _lineofcode = _lineofcode.strip()
+        splitted = _lineofcode.split(' ', 1)
+        if len(splitted) == 1:
+            splitted.append('')
+        cmd = plainvowels(splitted[0].upper())
+        if cmd in self.keywords['std']:
+            token = {
+                'id': 'keyword',
+                'key': cmd,
+                'args': splitted[1]
+            }
+        elif cmd in self.keywords['control']:
+            token = {
+                'id': 'control',
+                'key': cmd,
+                'args': splitted[1]
+            }
+        elif cmd in self.keywords['import']:
+            options = {
+                'lang': self.lang.lower(),
+                'lib': splitted[1].split(' ', 1)[1].lower()
+            }
+            self.keywords['third'][options['lib']] = self.keywords['import'][cmd]['function'](options)
+        return token
 
 def plainvowels(word):
     """ Avoid accents """
-    word = re.sub('[áàâä]', 'a', word)
-    word = re.sub('[éèêë]', 'e', word)
-    word = re.sub('[íìîï]', 'i', word)
-    word = re.sub('[óòôö]', 'o', word)
-    word = re.sub('[úùûü]', 'u', word)
     word = re.sub('[ÁÀÂÄ]', 'A', word)
     word = re.sub('[ÉÈÊË]', 'E', word)
     word = re.sub('[ÍÌÎÏ]', 'I', word)

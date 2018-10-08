@@ -1,3 +1,4 @@
+# -*- encoding: utf-8 -*-
 """
 Author: @CosasDePuma <kikefontanlorenzo@gmail.com>(https://github.com/cosasdepuma)
 """
@@ -11,21 +12,19 @@ from core.lexer import Lexer
 from core.evaluator import Evaluator
 
 # Configuration variables
-LANG = "EN"
+LANG = "ES"
 VERBOSE = True
 
 class Alfred:
     """ Class with the program behaviour """
     def __init__(self):
         # Implement some commands
-        language = manager(LANG)
-        self.keywords = language[0]
-        self.controlflow_keywords = language[1]
+        self.keywords = manager(LANG)
 
         # Create the lexer, the parser and the evaluator
         self.evaluator = None
-        self.parser = Parser()
-        self.lexer = Lexer(self.keywords.keys(), self.controlflow_keywords)
+        self.lexer = Lexer(self.keywords, LANG)
+        self.parser = Parser(self.keywords)
 
     def start(self):
         """ Start the module by reading the files
@@ -50,15 +49,12 @@ class Alfred:
         # Read line by line
         for lineofcode in _sourcefile:
             # Tokenize the line of code with the lexer
-            self.lexer.tokenizer(lineofcode)
+            token = self.lexer.tokenizer(lineofcode)
             # Build the program with the parser
-            self.parser.build(self.lexer.tokens)
+            self.parser.build(token)
 
     def run(self):
         """ Run the program executing the commands """
-        # Some verbose logs
-        if VERBOSE:
-            self.parser.string()
         # Run the built program with the evaluator
         self.evaluator = Evaluator([self.parser.jumps,
                                     self.parser.instructions,

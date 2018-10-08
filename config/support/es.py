@@ -5,19 +5,57 @@ Author: @CosasDePuma <kikefontanlorenzo@gmail.com>(https://github.com/cosasdepum
 import lib.std as lib
 
 KEYWORDS = {
-    '=':        'COMO',
-    '<<':       'LO ANTERIOR',
-    '$$':       'EL VALOR DE',
-
-    'ADIOS':    lib.halt,
-    'APRENDE':  lib.learn,
-    'DEFINE':   lib.define,
-    'EJECUTA':  lib.run,
-    'DI':       lib.echo,
-    'MUESTRA':  lib.show,
-    'VETE':     lib.goto
-}
-
-CONTROLFLOW_KEYWORDS = {
-    'label':    'RECUERDA ESTE MOMENTO COMO'
+    'std': {
+        'ADIOS':    {
+            'function': lib.halt,
+            'args': {
+                0: 'EXIT_CODE'
+            },
+        },
+        'DI': {
+            'function': lib.echo,
+            'args': {
+                '*': 'STRING',
+                'VARS': 'VARIABLES'
+            }
+        },
+        'DEFINE': {
+            'function': lib.define,
+            'args': {
+                '*(COMO)': 'NAME',
+                'COMO{*}': 'VALUE',
+                'VARS': 'VARIABLES'
+            }
+        },
+        'MUESTRA': {
+            'function': lib.show,
+            'args': {
+                'EL VALOR DE{*}': 'NAME',
+                'VARS': 'VARIABLES'
+            }
+        },
+        'VETE': {
+            'function': lib.goto,
+            'args': {
+                '(1)*': 'LABEL',
+                'JUMPS': 'JUMPS'
+            }
+        }
+#        'DEFINE':   lib.define,
+#        'EJECUTA':  lib.run,
+#        'MUESTRA':  lib.show,
+    },
+    'import': {
+        'APRENDE': { 'function': lib.learn  }
+    },
+    'variables': {
+        'output': ['EL RESULTADO', 'LA SALIDA'],
+        'endl': ['EL FIN DE LINEA', 'EL FIN DE LÍNEA']
+    },
+    'control': {
+        'RECUERDA': {
+            'args': { 'ESTE MOMENTO COMO': 'JUMP_POINT' }
+        }
+    },
+    'third': {}
 }
