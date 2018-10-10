@@ -1,0 +1,19 @@
+Aprende sobre escaneo de puertos
+Di Realizando diferentes tipos de escáner a Google:
+Define el fin de línea como ': '
+Di Escáner indivual del puerto 80
+Escanea el puerto 80 de google.com
+Define el fin de línea como '\n'
+Muestra el valor de la salida
+Define el fin de línea como ': '
+Di Escáner de los puertos 21, 22, 80, 443
+Define el fin de línea como '\n'
+Escanea los puertos 21, 22, 80 y 443 de google.com
+Define el fin de línea como '\n'
+Muestra el valor de la salida
+Define el fin de línea como ': '
+Di Escáner de los puertos más comunes
+Escanea los puertos abiertos de google.com
+Define el fin de línea como '\n'
+Muestra el valor de la salida
+Adiós Alfred

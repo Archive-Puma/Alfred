@@ -33,11 +33,14 @@ def halt(args):
 
 def learn(args):
     lib = "lib.{0}.{1}".format(args['lang'], args['lib'])
-    NAME = import_module(lib).NAME
-    print(NAME)
+    config = import_module(lib).LIB_CONFIGURATION
+    return config['COMMANDS']
 
 def show(args):
     output = None
     if 'NAME' in args:
-        output = args['VARIABLES'][args['NAME']]
+        if args['NAME'].upper() in args['VAR_KEYS']['output']:
+            output = args['VARIABLES']['___tmp___']
+        else:
+            output = args['VARIABLES'][args['NAME']]
     echo({'STRING': output, 'VARIABLES': args['VARIABLES']})

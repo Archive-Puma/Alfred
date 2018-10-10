@@ -5,75 +5,77 @@ Author: @CosasDePuma <kikefontanlorenzo@gmail.com>(https://github.com/cosasdepum
 import socket
 import threading
 
-COMMAND = "ESCANEO DE PUERTOS"
-LANG = ['Escaneando puertos de', 'Puertos abiertos']
+result = []
+timeout = 0.5
+modes = ['abiertos']
 
-class Lib:
-    """ Check if the most important TCP ports are open """
-    def __init__(self):
-        # Argument labels
-        self.args = ['DE']
-        # Variables
-        self.timeout = 0.5
-        self.open_ports = []
-        self.ports = [7, 9, 11, 13, 17, 18, 19, 20, 21, 22, 23,
-                      25, 37, 39, 42, 43, 49, 50, 53, 63, 67,
-                      68, 69, 79, 80, 88, 95, 101, 102, 107,
-                      109, 110, 111, 113, 115, 117, 119, 123,
-                      137, 138, 139, 143, 161, 162, 163, 164,
-                      174, 177, 178, 179, 191, 194, 201, 202,
-                      204, 209, 245, 347, 363, 369, 389, 427,
-                      434, 435, 443, 444, 445, 464, 468, 487,
-                      488, 496, 500, 535, 538, 546, 989, 990,
-                      3306]
+def _port_array(ports):
+    ports = ports.upper().replace('Y', ',', 1)
+    ports = ports.upper().replace(' ', '')
+    ports = ports.split(',')
+    int_ports = []
+    for port in ports:
+        if not port.isdigit():
+            int_ports = None
+            break
+        else:
+            int_ports.append(int(port))
+    return int_ports
 
-    def command(self, operation):
-        """ Switch of the command to execute """
-        ret = None
-        if operation == 'show':
-            self.show()
-        elif operation == 'get':
-            ret = self.get()
-        return ret
+def _tcpscan(ipaddr, port):
+    global result
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+    sock.settimeout(timeout)
+    status = sock.connect_ex((ipaddr, port))
+    if status == 0:
+        result.append(int(port))
+    sock.close()
 
-    def run(self, parameters):
-        """ Run the scanner """
-        self.open_ports = []
-        print("{0} {1}...".format(LANG[0], parameters['DE'].lower()))
-        self._multiscanner(parameters['DE'])
-        self.open_ports.sort()
+def scan(args):
+    global result
+    result = []
+    ports = None
+    if args['PORT']:
+        ports = [int(args['PORT'])]
+    else:
+        ports = _port_array(args['PORTS'])
+        if not ports:
+            ports = [7, 9, 11, 13, 17, 18, 19, 20, 21, 22, 23,
+                     25, 37, 39, 42, 43, 49, 50, 53, 63, 67,
+                     68, 69, 79, 80, 88, 95, 101, 102, 107,
+                     109, 110, 111, 113, 115, 117, 119, 123,
+                     137, 138, 139, 143, 161, 162, 163, 164,
+                     174, 177, 178, 179, 191, 194, 201, 202,
+                     204, 209, 245, 347, 363, 369, 389, 427,
+                     434, 435, 443, 444, 445, 464, 468, 487,
+                     488, 496, 500, 535, 538, 546, 989, 990,
+                     3306]
+    # --------
+    threads = []
+    for port in ports:
+        thread = threading.Thread(target=_tcpscan, args=(args['IP'], port))
+        threads.append(thread)
+    for thread in threads:
+        thread.start()
+    for thread in threads:
+        thread.join()
+    if result == []:
+        result = None
+    else:
+        result.sort()
+    return result
 
-    def show(self):
-        """ Show the result """
-        print("{0}: ".format(LANG[1]), end='')
-        for port in self.open_ports:
-            print("{0} ".format(port), end='')
-        print()
-
-    def get(self):
-        """ Return the result """
-        return self.open_ports
-
-    def _multiscanner(self, ipaddr):
-        """ Creates a mutithreading scanner """
-        threads = []
-        # Init all the scanners
-        for port in self.ports:
-            thread = threading.Thread(target=self._tcp_scan, args=(ipaddr, port))
-            threads.append(thread)
-        # Start all the threads
-        for thread in threads:
-            thread.start()
-        # Lock the script until all threads complete
-        for thread in threads:
-            thread.join()
-
-    def _tcp_scan(self, ipaddr, port):
-        """ Check if a port is open """
-        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        sock.settimeout(self.timeout)
-        status = sock.connect_ex((ipaddr, port))
-        if status == 0:
-            self.open_ports.append(int(port))
-        sock.close()
+LIB_CONFIGURATION = {
+    'NAME': 'port_scanner',
+    'COMMANDS': {
+        'ESCANEA': {
+            'function': scan,
+            'args': {
+                'DE': 'IP',
+                'EL PUERTO': 'PORT',
+                '(LOS PUERTOS)*(DE)': 'PORTS'
+            }
+        }
+    }
+}

@@ -17,11 +17,13 @@ class Evaluator:
         ipointer = 0
         while ipointer < len(self.instructions):
             instruction = self.instructions[ipointer]
-            if 'JUMPS' in self.keywords['std'][instruction['key']]['args']:
-                instruction['args'][self.keywords['std'][instruction['key']]['args']['JUMPS']] = self.jumps
-            if 'VARS' in self.keywords['std'][instruction['key']]['args']:
+            if 'JUMPS' in self.keywords[instruction['lib']][instruction['key']]['args']:
+                instruction['args'][self.keywords[instruction['lib']][instruction['key']]['args']['JUMPS']] = self.jumps
+            if 'VARS' in self.keywords[instruction['lib']][instruction['key']]['args']:
                 instruction['args']['VAR_KEYS'] = self.keywords['variables']
-                instruction['args'][self.keywords['std'][instruction['key']]['args']['VARS']] = self.variables
-            if instruction['lib'] == 'std':
-                output = self.keywords['std'][instruction['key']]['function'](instruction['args'])
+                instruction['args'][self.keywords[instruction['lib']][instruction['key']]['args']['VARS']] = self.variables
+            output = self.keywords[instruction['lib']][instruction['key']]['function'](instruction['args'])
+            if instruction['lib'] == 'third':
+                self.variables['___tmp___'] = output
+                output = str()
             ipointer = output if type(output) is int else ipointer + 1

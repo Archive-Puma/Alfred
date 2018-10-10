@@ -24,33 +24,51 @@ class Parser:
                         match = re.sub('{0}\s+'.format(arg), '', match.group(), flags=re.IGNORECASE)
                         self.jumps[match] = self.ipointer
             elif _token['id'] == 'keyword':
-                lib = None
-                if _token['key'] in self.keywords['std']:
-                    lib = 'std'
+                key_args = self.keywords[_token['lib']][_token['key']]['args']
                 options = {}
-                for arg in self.keywords[lib][_token['key']]['args']:
+                for arg in key_args:
                     if type(arg) is int:
                         match = _token['args'].split(' ')[arg]
-                        options[self.keywords[lib][_token['key']]['args'][arg]] = match
+                        options[key_args[arg]] = match
                     elif type(arg) is str:
-                        if arg == '*':
-                            options[self.keywords[lib][_token['key']]['args'][arg]] = _token['args']
-                        elif arg[0] == '(' and arg[-1] == '*':
-                            avoids = int(re.sub('[\\(\\)\\*]', '', arg))
-                            match = _token['args'].split(' ', avoids)[-1]
-                            options[self.keywords[lib][_token['key']]['args'][arg]] = match
-                        elif arg[0] == '*' and arg[-1] == ')':
-                            until = re.sub('[\\(\\)\\*]', '', arg)
-                            match = re.sub('\\s+{0}.*'.format(until), '', _token['args'], flags=re.IGNORECASE)
-                            options[self.keywords[lib][_token['key']]['args'][arg]] = match
-                        elif arg[-1] == '}' and arg[-2] == '*':
-                            until = re.sub('\\{\\*\\}', '', arg)
-                            if until in _token['args'].upper():
-                                match = re.split(until, _token['args'], 1, flags=re.IGNORECASE)[1].strip()
-                                options[self.keywords[lib][_token['key']]['args'][arg]] = match
+                        if '*' in arg:
+                            options[key_args[arg]] = get_asterisk_args(arg, _token['args'])
+                        else:
+                            options[key_args[arg]] = get_identifier_args(arg, _token['args'])
                 self.instructions.append({
                     'key': _token['key'],
                     'args': options,
-                    'lib': lib
+                    'lib': _token['lib']
                 })
                 self.ipointer = self.ipointer + 1
+
+def get_asterisk_args(keys, arguments):
+    upper = arguments.upper()
+    _from, _to = keys.split('*', 1)
+    _to = re.sub('[\\(\\)]', '', _to)
+    _from = re.sub('[\\(\\)]', '', _from)
+    if not _from in upper or not _to in upper:
+        arguments = None
+    else:
+        if _to != '':
+            if _to.isdigit():
+                _to = int(_to)
+                # TODO
+            else:
+                arguments = re.split(_to, arguments, flags=re.IGNORECASE)[-2]
+        if _from != '':
+            if _from.isdigit():
+                _from = int(_from)
+                # TODO
+            else:
+                arguments = re.split(_from, arguments, 1, flags=re.IGNORECASE)[1]
+        arguments = arguments.strip()
+    return arguments
+
+def get_identifier_args(key, arguments):
+    if key in arguments.upper():
+        arguments = re.split(key, arguments, 1, flags=re.IGNORECASE)[1].strip()
+        arguments = arguments.split(' ', 1)[0]
+    else:
+        arguments = None
+    return arguments

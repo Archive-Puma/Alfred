@@ -5,6 +5,8 @@ Author: @CosasDePuma <kikefontanlorenzo@gmail.com>(https://github.com/cosasdepum
 
 import sys
 
+# TODO: VETE SI ES VERDAD A UN BUEN MOMENTO
+
 # Import the core of the program
 from config.lang import manager
 from core.parser import Parser

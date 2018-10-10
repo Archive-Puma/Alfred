@@ -22,7 +22,8 @@ class Lexer:
             token = {
                 'id': 'keyword',
                 'key': cmd,
-                'args': splitted[1]
+                'args': splitted[1],
+                'lib': 'std'
             }
         elif cmd in self.keywords['control']:
             token = {
@@ -31,11 +32,23 @@ class Lexer:
                 'args': splitted[1]
             }
         elif cmd in self.keywords['import']:
+            lib = splitted[1].split(' ', 1)[1].lower()
+            lib = re.sub(' ', '_', lib)
             options = {
                 'lang': self.lang.lower(),
-                'lib': splitted[1].split(' ', 1)[1].lower()
+                'lib': lib,
+                'keywords': self.keywords
             }
-            self.keywords['third'][options['lib']] = self.keywords['import'][cmd]['function'](options)
+            self.keywords['third'] = self.keywords['import'][cmd]['function'](options)
+        else:
+            for lib in self.keywords['third']:
+                if cmd in self.keywords['third']:
+                    token = {
+                        'id': 'keyword',
+                        'key': cmd,
+                        'args': splitted[1],
+                        'lib': 'third'
+                    }
         return token
 
 def plainvowels(word):

@@ -23,21 +23,21 @@ KEYWORDS = {
             'function': lib.define,
             'args': {
                 '*(COMO)': 'NAME',
-                'COMO{*}': 'VALUE',
+                '(COMO)*': 'VALUE',
                 'VARS': 'VARIABLES'
             }
         },
         'MUESTRA': {
             'function': lib.show,
             'args': {
-                'EL VALOR DE{*}': 'NAME',
+                '(EL VALOR DE)*': 'NAME',
                 'VARS': 'VARIABLES'
             }
         },
         'VETE': {
             'function': lib.goto,
             'args': {
-                'A{*}': 'LABEL',
+                '(A)*': 'LABEL',
                 'JUMPS': 'JUMPS'
             }
         }
