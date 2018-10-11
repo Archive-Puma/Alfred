@@ -38,19 +38,22 @@ KEYWORDS = {
             'function': lib.goto,
             'args': {
                 '(A)*': 'LABEL',
-                'JUMPS': 'JUMPS'
+                '(A)*(SI)': 'CONDITIONAL JUMP',
+                '(SI)*': 'CONDITIONAL',
+                'JUMPS': 'JUMPS',
+                'VARS': 'VARIABLES'
             }
         }
-#        'DEFINE':   lib.define,
-#        'EJECUTA':  lib.run,
-#        'MUESTRA':  lib.show,
     },
     'import': {
         'APRENDE': { 'function': lib.learn  }
     },
     'variables': {
         'output': ['EL RESULTADO', 'LA SALIDA'],
-        'endl': ['EL FIN DE LINEA', 'EL FIN DE LÍNEA']
+        'endl': ['EL FIN DE LINEA', 'EL FIN DE LÍNEA'],
+        'true': ['VERDAD'],
+        'false': ['MENTIRA', 'FALSO'],
+        'expression': 'ES'
     },
     'control': {
         'RECUERDA': {

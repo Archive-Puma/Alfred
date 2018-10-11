@@ -27,3 +27,4 @@ class Evaluator:
                 self.variables['___tmp___'] = output
                 output = str()
             ipointer = output if type(output) is int else ipointer + 1
+        exit(-1)

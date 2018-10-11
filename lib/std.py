@@ -4,6 +4,10 @@ Author: @CosasDePuma <kikefontanlorenzo@gmail.com>(https://github.com/cosasdepum
 
 from importlib import import_module
 
+def _solve_expressions(expr, variables):
+    print(expr)
+    return False
+
 def define(args):
     if args['VALUE'].upper() in args['VAR_KEYS']['output']:
         args['VALUE'] = args['VARIABLES']['___tmp___']
@@ -22,13 +26,19 @@ def echo(args):
         print(args['STRING'], end=endl)
 
 def goto(args):
-    return args['JUMPS'][args['LABEL']]
+    ipointer = None
+    if args['CONDITIONAL']:
+        if _solve_expressions(args['CONDITIONAL'], args['VAR_KEYS']):
+            ipointer = args['JUMPS'][args['CONDITIONAL JUMP']]
+    else:
+        ipointer = args['JUMPS'][args['LABEL']]
+    return ipointer
 
 def halt(args):
     CODES = {
         'ALFRED': 0
     }
-    EXIT_CODE = CODES[args['EXIT_CODE'].upper()]
+    EXIT_CODE = CODES[args['EXIT_CODE'].upper()] if args['EXIT_CODE'].upper() in CODES else -1
     exit(EXIT_CODE)
 
 def learn(args):
