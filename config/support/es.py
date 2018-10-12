@@ -49,7 +49,7 @@ KEYWORDS = {
         'APRENDE': { 'function': lib.learn  }
     },
     'variables': {
-        'output': ['EL RESULTADO', 'LA SALIDA'],
+        'output': ['LO ANTERIOR', 'LA SALIDA'],
         'endl': ['EL FIN DE LINEA', 'EL FIN DE LÍNEA'],
         'true': ['VERDAD'],
         'false': ['MENTIRA', 'FALSO'],

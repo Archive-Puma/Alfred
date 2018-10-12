@@ -26,5 +26,7 @@ class Evaluator:
             if instruction['lib'] == 'third':
                 self.variables['___tmp___'] = output
                 output = str()
+            if output == -1:
+                output = ipointer + 1
             ipointer = output if type(output) is int else ipointer + 1
         exit(-1)

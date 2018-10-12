@@ -44,6 +44,7 @@ class Parser:
 
 def get_asterisk_args(keys, arguments):
     upper = arguments.upper()
+    splitted = upper.split(' ')
     _from, _to = keys.split('*', 1)
     _to = re.sub('[\\(\\)]', '', _to)
     _from = re.sub('[\\(\\)]', '', _from)
@@ -55,13 +56,30 @@ def get_asterisk_args(keys, arguments):
                 _to = int(_to)
                 # TODO
             else:
-                arguments = re.split(_to, arguments, flags=re.IGNORECASE)[-2]
+                if len(_to.split(' ')) == 1:
+                    if _to in splitted:
+                        index = None
+                        for i in range(len(splitted)):
+                            if _to == splitted[i]:
+                                index = i
+                        arguments = ' '.join(arguments.split(' ')[:index])
+                else:
+                    arguments = re.split(_to, arguments, flags=re.IGNORECASE)[-2]
         if _from != '':
             if _from.isdigit():
                 _from = int(_from)
                 # TODO
             else:
-                arguments = re.split(_from, arguments, 1, flags=re.IGNORECASE)[1]
+                if len(_from.split(' ')) == 1:
+                    if _from in splitted:
+                        index = None
+                        for i in range(len(splitted)):
+                            if _from == splitted[i]:
+                                index = i
+                                break
+                        arguments = ' '.join(arguments.split(' ')[index + 1:])
+                else:
+                    arguments = re.split(_from, arguments, 1, flags=re.IGNORECASE)[1]
         arguments = arguments.strip()
     return arguments
 
