@@ -42,7 +42,7 @@ jobs:
       - save_cache:
           key: alfred-examples
           paths:
-            - example/*
+            - example
 
   test_binary:
     docker:
