@@ -50,8 +50,10 @@ jobs:
     steps:
       - restore_cache:
           keys:
-            - alfred-examples
             - alfred-binary
+      - restore_cache:
+          keys:
+            - alfred-example
       - run:
           name: Linking Alfred
           command: sudo ln -s $PWD/dist/build/alfred/alfred /usr/bin/alfred
