@@ -1,2 +1,10 @@
+*.a
 *.o
 *.hi
+*.so
+*.dyn_o
+*.dyn_hi
+dist/setup-config
+dist/package.conf.inplace
+dist/build/autogen
+dist/build/alfred/alfred-tmp
