@@ -1,14 +1,9 @@
-sudo: false
+# Select branches to test in Travis
 branches:
   only:
     - dev-haskell
-
-langguage: haskell
-ghc:
-  - "7.10"
-
-script:
-  - cabal configure --enable-tests
-  - cabal build
-  - cabal test
-  - make clean
+# Save the state of this folder to
+# rerun the tests faster
+cache:
+  directories:
+          - $HOME/.cabal/packages
