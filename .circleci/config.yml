@@ -61,7 +61,10 @@ jobs:
             alfred --help
       - run:
           name: Hello World
-          command: alfred examples/holamundo.alf
+          command: alfred example/holamundo.alf
+      - run:
+          name: Variables
+          command: alfred example/variables.alf
 
 workflows:
   version: 2
