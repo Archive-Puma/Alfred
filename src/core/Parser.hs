@@ -69,7 +69,7 @@ define' :: Parser Expression
 define' = do
   ignoreCase "define"
   char ' '
-  name <- manyTill (letter <|> char ' ') (ignoreCase "como")
+  name <- manyTill (letter <|> char ' ') (try (ignoreCase "como"))
   let name' = (trim . map toLower) name
   char ' '
   value <- try number <|> try character <|> text
