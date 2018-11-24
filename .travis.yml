@@ -1,4 +1,0 @@
-# Select branches to test in Travis
-branches:
-  only:
-    - dev-haskell
