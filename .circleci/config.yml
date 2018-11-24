@@ -36,24 +36,19 @@ jobs:
           name: Build Program
           command: cabal build
       - save_cache:
-          key: alfred-binary
-          paths:
-            - dist/build/alfred/alfred
-      - save_cache:
-          key: alfred-examples
+          key: alfred-binary-{{ checksum ".circle/config.yml" }}-{{ checksum "src/core/Parser.hs" }}
           paths:
             - example
+            - dist/build/alfred/alfred
 
   test_binary:
     docker:
       - image: fpco/stack-build
     steps:
+      - checkout
       - restore_cache:
           keys:
-            - alfred-binary
-      - restore_cache:
-          keys:
-            - alfred-example
+            - alfred-binary-{{ checksum ".circle/config.yml" }}-{{ checksum "src/core/Parser.hs" }}
       - run:
           name: Linking Alfred
           command: sudo ln -s $PWD/dist/build/alfred/alfred /usr/bin/alfred
