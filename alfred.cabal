@@ -1,0 +1,24 @@
+name:                alfred
+version:             0.3.0
+synopsis:            Just another programming language...
+homepage:            https://github.com/CosasDePuma/Alfred
+license:             MIT
+license-file:        LICENSE
+author:              Kike Fontán
+maintainer:          @CosasDePuma <kikefontanlorenzo@gmail.com>
+category:            Language
+build-type:          Simple
+cabal-version:       >=1.10
+
+executable alfred
+  main-is:             Main.hs
+  build-depends:       base, alfred
+  hs-source-dirs:      src
+  default-language:    Haskell2010
+
+library
+  build-depends:       base, parsec, containers
+  exposed-modules:     Arguments, Parser, Interpreter
+  other-modules:       Language, Repl
+  hs-source-dirs:      src/core
+  default-language:    Haskell2010
