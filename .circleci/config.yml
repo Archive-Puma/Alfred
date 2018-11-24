@@ -68,13 +68,13 @@ workflows:
   builds:
     jobs:
       - make_build:
-        filters:
-          branches:
-            only: master
+          filters:
+            branches:
+              only: master
       - cabal_build:
-        filters:
-          branches:
-            only: master
+          filters:
+            branches:
+              only: master
       - test_binary:
           requires:
             - make_build
