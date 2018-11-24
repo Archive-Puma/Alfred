@@ -3,9 +3,9 @@ module Main where
 --------
 
 -- Alfred modules
-import            Alfred.Parser       (runParser)
-import            Alfred.Arguments    (runArgs)
-import            Alfred.Interpreter  (runEval)
+import Parser       (runParser)
+import Arguments    (runArgs)
+import Interpreter  (runEval)
 
 --------
 
