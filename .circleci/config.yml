@@ -1,5 +1,14 @@
-version: 2.1
+version: 2
 jobs:
+
+  configure:
+    docker:
+      - image: fpco/stack-build
+    steps:
+      - run:
+          name: Docker Container Downloader!
+          command: echo "Hello World!"
+
   make_build:
     docker:
       - image: fpco/stack-build
@@ -11,6 +20,7 @@ jobs:
       - run:
           name: Build Program
           command: make
+
   cabal_build:
     docker:
       - image: fpco/stack-build
@@ -29,32 +39,29 @@ jobs:
       - run:
           name: Build Program
           command: cabal build
-  test:
+
+  cabal_test:
     docker:
       - image: fpco/stack-build
     steps:
-      # Check the Github files
-      - checkout
-      # Check GHC and Cabal
-      - run: cabal --version
-      # Build
-      - run: echo "Test"
+      - run:
+          name: Alfred Version
+          command: ./dist/build/alfred/alfred --version
 
 workflows:
-  version: 2.1
+  version: 2
   builds:
     jobs:
-      - make_build:
-        filters:
-          branches:
-            only: master
-      - cabal_build:
-        filters:
-          branches:
-            only: master
-      - test:
-          requires:
-            - cabal_build
+      - configure:
           filters:
             branches:
               only: master
+      - make_build:
+          requires:
+            - configure
+      - cabal_build:
+          requires:
+            - configure
+      - cabal_test:
+          requires:
+            - cabal_build
