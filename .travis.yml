@@ -1,0 +1,10 @@
+sudo: false
+branches:
+  only:
+    - dev-haskell
+
+ghc:
+  - "7.10"
+
+script:
+  - make
