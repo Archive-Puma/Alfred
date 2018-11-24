@@ -1,7 +1,0 @@
-sudo: false
-
-ghc:
-  - "7.10"
-
-script:
-  - make
