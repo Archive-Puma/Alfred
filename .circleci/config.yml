@@ -38,8 +38,12 @@ jobs:
       - save_cache:
           key: alfred-binary
           paths:
-            - example/
             - dist/build/alfred/alfred
+      - save_cache:
+          key: alfred_examples
+          paths:
+            - example
+
   test_binary:
     docker:
       - image: fpco/stack-build
@@ -47,6 +51,7 @@ jobs:
       - restore_cache:
           keys:
             - alfred-binary
+            - alfred_examples
       - run:
           name: Linking Alfred
           command: sudo ln -s $PWD/dist/build/alfred/alfred /usr/bin/alfred
