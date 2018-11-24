@@ -2,8 +2,3 @@
 branches:
   only:
     - dev-haskell
-# Save the state of this folder to
-# rerun the tests faster
-cache:
-  directories:
-          - $HOME/.cabal/packages
