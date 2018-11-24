@@ -1,0 +1,13 @@
+Alfred
+Define positivo como 101
+Define caracter como A
+Define mensaje como Alfred mola
+Escribe Alfred diferencia entre los principales tipos de variables:
+Muestra mensaje
+Muestra caracter
+Muestra positivo
+Escribe Además puede mostrar el tipo de variable que es o sólo el valor:
+Muestra el valor de mensaje
+Muestra el valor de caracter
+Muestra el valor de positivo
+Adiós Alfred
