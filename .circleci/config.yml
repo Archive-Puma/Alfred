@@ -36,7 +36,7 @@ jobs:
           name: Build Program
           command: cabal build
       - save_cache:
-          key: alfred-binary-{{ checksum ".circle/config.yml" }}-{{ checksum "src/core/Parser.hs" }}
+          key: alfred-binary-{{ checksum ".circleci/config.yml" }}-{{ checksum "src/core/Parser.hs" }}
           paths:
             - example
             - dist/build/alfred/alfred
@@ -48,7 +48,7 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - alfred-binary-{{ checksum ".circle/config.yml" }}-{{ checksum "src/core/Parser.hs" }}
+            - alfred-binary--{{ checksum ".circleci/config.yml" }}-{{ checksum "src/core/Parser.hs" }}
       - run:
           name: Linking Alfred
           command: sudo ln -s $PWD/dist/build/alfred/alfred /usr/bin/alfred
