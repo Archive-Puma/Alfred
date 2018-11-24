@@ -38,6 +38,7 @@ jobs:
       - save_cache:
           key: alfred-binary
           paths:
+            - example
             - dist/build/alfred/alfred
   test_binary:
     docker:
