@@ -9,7 +9,6 @@ jobs:
       # Install GHC and Cabal
       - run:
         - name: Test Cabal
-        - command: |
-          cabal --version
+        - command: cabal --version
       # Build
       - run: echo "Hello"
