@@ -45,7 +45,6 @@ jobs:
     docker:
       - image: fpco/stack-build
     steps:
-      - checkout
       - restore_cache:
           keys:
             - alfred-binary--{{ checksum ".circleci/config.yml" }}-{{ checksum "src/core/Parser.hs" }}
@@ -62,11 +61,6 @@ jobs:
           command: |
             alfred -h
             alfred --help
-      - run:
-          name: Discover
-          command: |
-            pwd
-            ls -Rla
       - run:
           name: Hello World
           command: alfred example/holamundo.alf
