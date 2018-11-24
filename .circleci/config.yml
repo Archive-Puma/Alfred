@@ -8,6 +8,7 @@ jobs:
       # Install GHC and Cabal
       - run:
         - name: Install GHC and Cabal
+        - shell: /bin/bash
         - command: |
           sudo apt-get update
           sudo apt-get install -y software-properties-common
