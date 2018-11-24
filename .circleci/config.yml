@@ -39,6 +39,11 @@ jobs:
       - run:
           name: Build Program
           command: cabal build
+      - run:
+          name: Link the executable
+          command: |
+            sudo ln -s $PWD/dist/build/alfred/alfred /usr/bin/alfred
+            alfred --version
 
   cabal_test:
     docker:
@@ -46,7 +51,7 @@ jobs:
     steps:
       - run:
           name: Alfred Version
-          command: ./dist/build/alfred/alfred --version
+          command: alfred --version
 
 workflows:
   version: 2
