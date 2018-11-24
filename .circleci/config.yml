@@ -1,14 +1,5 @@
 version: 2
 jobs:
-
-  configure:
-    docker:
-      - image: fpco/stack-build
-    steps:
-      - run:
-          name: Docker Container Downloader!
-          command: echo "Hello World!"
-
   make_build:
     docker:
       - image: fpco/stack-build
@@ -18,9 +9,14 @@ jobs:
           name: Check GHC
           command: ghc --version
       - run:
-          name: Build Program
-          command: make
-
+          name: Configure
+          command: make configure
+      - run:
+          name: Build
+          command: make build
+      - run:
+          name: Clean
+          command: make clean
   cabal_build:
     docker:
       - image: fpco/stack-build
@@ -39,17 +35,11 @@ jobs:
       - run:
           name: Build Program
           command: cabal build
-      - run:
-          name: Link the executable
-          command: |
-            sudo ln -s $PWD/dist/build/alfred/alfred /usr/bin/alfred
-            alfred --version
       - save_cache:
           key: alfred-binary
           paths:
             - dist/build/alfred/alfred
-
-  cabal_test:
+  test_binary:
     docker:
       - image: fpco/stack-build
     steps:
@@ -64,21 +54,28 @@ jobs:
           command: |
             alfred -v
             alfred --version
+      - run:
+          name: Alfred Help
+          command: |
+            alfred -h
+            alfred --help
+      - run:
+          name: Hello World
+          command: alfred examples/holamundo.alf
 
 workflows:
   version: 2
   builds:
     jobs:
-      - configure:
-          filters:
-            branches:
-              only: master
       - make_build:
-          requires:
-            - configure
+        filters:
+          branches:
+            only: master
       - cabal_build:
+        filters:
+          branches:
+            only: master
+      - test_binary:
           requires:
-            - configure
-      - cabal_test:
-          requires:
+            - make_build
             - cabal_build
