@@ -45,9 +45,10 @@ jobs:
     docker:
       - image: fpco/stack-build
     steps:
+      - checkout
       - restore_cache:
           keys:
-            - alfred-binary--{{ checksum ".circleci/config.yml" }}-{{ checksum "src/core/Parser.hs" }}
+            - alfred-binary-{{ checksum ".circleci/config.yml" }}-{{ checksum "src/core/Parser.hs" }}
       - run:
           name: Linking Alfred
           command: sudo ln -s $PWD/dist/build/alfred/alfred /usr/bin/alfred
