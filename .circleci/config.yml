@@ -44,14 +44,26 @@ jobs:
           command: |
             sudo ln -s $PWD/dist/build/alfred/alfred /usr/bin/alfred
             alfred --version
+      - save_cache:
+          key: alfred-binary
+          paths:
+            - dist/build/alfred/alfred
 
   cabal_test:
     docker:
       - image: fpco/stack-build
     steps:
+      - restore_cache:
+          keys:
+            - alfred-binary
+      - run:
+          name: Linking Alfred
+          command: sudo ln -s $PWD/dist/build/alfred/alfred /usr/bin/alfred
       - run:
           name: Alfred Version
-          command: alfred --version
+          command: |
+            alfred -v
+            alfred --version
 
 workflows:
   version: 2
