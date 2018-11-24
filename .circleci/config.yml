@@ -1,19 +1,34 @@
 version: 2.1
 jobs:
-  build:
+  make_build:
     docker:
       - image: fpco/stack-build
     steps:
-      # Check the Github files
       - checkout
-      # Check GHC and Cabal
       - run:
-         name: Check GHC and Cabal
-         command: |
+          name: Check GHC
+          command: ghc --version
+      - run:
+          name: Build Program
+          command: make
+  cabal_build:
+    docker:
+      - image: fpco/stack-build
+    steps:
+      - checkout
+      - run:
+          name: Check GHC and Cabal
+          command: |
             ghc --version
             cabal --version
-      # Build
-      - run: echo "Hello"
+      - run:
+          name: Configure Cabal
+          command: |
+            cabal update
+            cabal configure --enable-tests
+      - run:
+          name: Build Program
+          command: cabal build
   test:
     docker:
       - image: fpco/stack-build
@@ -26,13 +41,20 @@ jobs:
       - run: echo "Test"
 
 workflows:
-  version: 2
-  build_and_test:
+  version: 2.1
+  builds:
     jobs:
-      - build
+      - make_build:
+        filters:
+          branches:
+            only: master
+      - cabal_build:
+        filters:
+          branches:
+            only: master
       - test:
           requires:
-            - build
+            - cabal_build
           filters:
             branches:
               only: master
