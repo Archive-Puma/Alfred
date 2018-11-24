@@ -38,7 +38,7 @@ jobs:
       - save_cache:
           key: alfred-binary
           paths:
-            - example
+            - example/
             - dist/build/alfred/alfred
   test_binary:
     docker:
@@ -60,6 +60,11 @@ jobs:
           command: |
             alfred -h
             alfred --help
+      - run:
+          name: Discover
+          command: |
+            pwd
+            ls -Rla
       - run:
           name: Hello World
           command: alfred example/holamundo.alf
