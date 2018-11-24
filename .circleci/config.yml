@@ -7,8 +7,6 @@ jobs:
       # Check the Github files
       - checkout
       # Install GHC and Cabal
-      - run:
-        - name: Test Cabal
-        - command: cabal --version
+      - run: cabal --version
       # Build
       - run: echo "Hello"
