@@ -6,7 +6,33 @@ jobs:
     steps:
       # Check the Github files
       - checkout
-      # Install GHC and Cabal
-      - run: cabal --version
+      # Check GHC and Cabal
+      - run:
+         name: Check GHC and Cabal
+         command: |
+            ghc --version
+            cabal --version
       # Build
       - run: echo "Hello"
+  test:
+    docker:
+      - image: fpco/stack-build:lts
+    steps:
+      # Check the Github files
+      - checkout
+      # Check GHC and Cabal
+      - run: cabal --version
+      # Build
+      - run: echo "Test"
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
