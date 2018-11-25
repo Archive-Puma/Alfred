@@ -31,7 +31,6 @@ jobs:
           name: Configure Cabal
           command: |
             cabal update
-            cabal configure --enable-tests
       - run:
           name: Build Program
           command: cabal build
