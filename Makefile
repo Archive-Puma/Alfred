@@ -8,8 +8,8 @@ BUILD				= $(DIST)/build/$(NAME)
 BUILD-TEST	= $(BUILD)-test
 
 all:
-	make -s build
 	make -s configure
+	make -s build
 	make -s clean
 
 configure:
