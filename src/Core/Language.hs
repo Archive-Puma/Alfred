@@ -14,7 +14,7 @@ data Variable =
   Numero Integer
   | Texto Texto
   | Caracter Caracter
-  deriving (Show)
+  deriving (Show, Eq)
 
 -- Data structure: Special Tokens
 data Token =
