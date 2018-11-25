@@ -76,8 +76,8 @@ jobs:
       - run:
           name: Cabal Dependencies
           command: |
-          cabal update
-          cabal install hspec hspec-discover
+            cabal update
+            cabal install hspec hspec-discover
       - run:
           name: Alfred Cabal Tests
           command: cabal test
