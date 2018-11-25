@@ -8,11 +8,12 @@ import Test.Hspec
 --------
 
 -- Alfred Modules
-import Core.Interpreter
+-- import Core.Interpreter
 
 --------
 
 -- Entrypoint
+spec :: SpecWith ()
 spec = do
   describe "Eval :: Evaluate the AST of the source code" $ do
     it "Empty Program" $ do

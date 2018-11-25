@@ -2,11 +2,6 @@ module Core.Language where
 
 --------
 
--- Haskell Libraries
-import Text.Parsec.Error
-
---------
-
 -- Aliases
 type Nombre    = String
 type Texto     = String
