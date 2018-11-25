@@ -4,7 +4,7 @@ module Core.Parser where
 
 -- Haskell Libraries
 import Data.Char          (isSpace, toLower, toUpper)
-import Text.Parsec        (anyChar, char, digit, letter, many, manyTill, oneOf, try, parse, (<|>))
+import Text.Parsec        (anyChar, char, digit, letter, many, many1, manyTill, oneOf, try, parse, (<|>))
 import Text.Parsec.String (Parser)
 
 --------
@@ -31,7 +31,8 @@ ignoreCase = mapM insensitiveChar
 -- Filter: Numero as a Variable Value
 number :: Parser Variable
 number = do
-  num <- manyTill digit (char '\n')
+  num <- many1 digit
+  _   <- try (char '\n')
   return . Numero . read $ num
 
 -- Filter: Text as a Variable Value
