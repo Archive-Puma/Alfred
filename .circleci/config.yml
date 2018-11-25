@@ -31,7 +31,7 @@ jobs:
           name: Configure Cabal
           command: |
             cabal update
-            cabal install --only-dependencies
+            cabal install hspec hspec-discover
       - run:
           name: Build Program
           command: cabal build
@@ -40,6 +40,10 @@ jobs:
           paths:
             - example
             - dist/build/alfred/alfred
+      - save_cache:
+          key: alfred-tests-{{ checksum ".circleci/config.yml" }}-{{ checksum "src/core/Parser.hs" }}
+          paths:
+            - dist/build/alfred-test/alfred-test
 
   test_binary:
     docker:
@@ -68,6 +72,20 @@ jobs:
       - run:
           name: Variables
           command: alfred example/variables.alf
+  test_code:
+    docker:
+      - image: fpco/stack-build
+    steps:
+      - restore_cache:
+          keys:
+            - alfred-tests-{{ checksum ".circleci/config.yml" }}-{{ checksum "src/core/Parser.hs" }}
+      - run:
+          name: Linking Alfred-Tests
+          command: sudo ln -s $PWD/dist/build/alfred-test/alfred-test /usr/bin/alfred-test
+      - run:
+          name: Alfred Tests
+          command: |
+            alfred-test
 
 workflows:
   version: 2
@@ -82,6 +100,10 @@ workflows:
             branches:
               only: master
       - test_binary:
+          requires:
+            - make_build
+            - cabal_build
+      - test_code:
           requires:
             - make_build
             - cabal_build
