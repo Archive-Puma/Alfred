@@ -42,9 +42,11 @@ eval vars ((ShowValue name):code) = do
       Caracter  val -> putStrLn [val]
     Nothing -> putStrLn ""
   eval vars code
+-- Evaluation: Error
 eval vars (Error:code) = do
   putStrLn "Error :: Parser (Can't parse the code)"
   eval vars code
+-- Evaluation: Error in Repl
 eval vars ((ErrorRepl command):code) = do
   putStrLn $ "Error :: Parser (Can't parse \"" ++ command ++ "\")"
   eval vars code
