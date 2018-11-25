@@ -28,6 +28,6 @@ test-suite alfred-test
   main-is:              Spec.hs
   hs-source-dirs:       test src
   ghc-options:          -Wall
-  build-depends:        base, parsec, containers, hspec, alfred
+  build-depends:        base, parsec, containers, hspec, hspec-expectations, alfred
   default-language:     Haskell2010
   build-tool-depends:   hspec-discover:hspec-discover
