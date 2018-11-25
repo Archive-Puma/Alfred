@@ -4,6 +4,7 @@ module Core.Interpreter (eval, runEval, memEmpty, Memory) where
 
 -- Haskell libraries
 import qualified  Data.Map        as Map (empty, insert, lookup, Map)
+import System.Exit
 
 --------
 
@@ -41,6 +42,10 @@ eval vars ((ShowValue name):code) = do
       Numero    val -> putStrLn $ show val
       Caracter  val -> putStrLn [val]
     Nothing -> putStrLn ""
+  eval vars code
+  -- Evaluation: Error
+eval vars (Exit:code) = do
+  exitWith ExitSuccess
   eval vars code
 -- Evaluation: Error
 eval vars (Error:code) = do

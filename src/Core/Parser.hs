@@ -57,13 +57,14 @@ start' = do
   _ <- char '\n'
   return CallAlfred
 
--- Filter: Token - Adiós Alfred
-end' :: Parser Token
-end' = do
-  _ <- ignoreCase "adios alfred"
-  return GoodbyeAlfred
 
 --------
+
+-- Filter: Command - Adiós Alfred
+exit' :: Parser Expression
+exit' = do
+  _ <- ignoreCase "adios alfred"
+  return Exit
 
 -- Filter: Command - Define
 define' :: Parser Expression
@@ -100,16 +101,16 @@ show' = do
 
 -- Filter: All possible commands
 command :: Parser Expression
-command =  try define' <|>
-           try print'  <|>
-               show'
+command =  try define'  <|>
+           try print'   <|>
+           try show'    <|>
+               exit'
 
 -- Filter: Program struct
 program :: Parser [Expression]
 program = do
   _   <- start'
   ast <- many command
-  _   <- end'
   return ast
 
 --------

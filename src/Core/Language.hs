@@ -28,6 +28,7 @@ data Expression =
   | Print Texto
   | Show Nombre
   | ShowValue Nombre
+  | Exit
   | Error
   | ErrorRepl String
   deriving(Show)
