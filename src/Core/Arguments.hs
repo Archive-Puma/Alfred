@@ -1,4 +1,4 @@
-module Arguments (runArgs) where
+module Core.Arguments (runArgs) where
 
 --------
 
@@ -9,7 +9,7 @@ import System.Environment (getArgs)
 --------
 
 -- Alfred Modules
-import Repl               (runRepl)
+import Core.Repl               (runRepl)
 
 --------
 

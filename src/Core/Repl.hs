@@ -1,4 +1,4 @@
-module Repl (runRepl) where
+module Core.Repl (runRepl) where
 
 --------
 
@@ -8,8 +8,8 @@ import System.IO   (stdout, hFlush)
 --------
 
 -- Alfred Modules
-import Parser      (parseRepl)
-import Interpreter (eval, memEmpty, Memory)
+import Core.Parser      (parseRepl)
+import Core.Interpreter (eval, memEmpty, Memory)
 
 --------
 

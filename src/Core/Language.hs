@@ -1,4 +1,9 @@
-module Language where
+module Core.Language where
+
+--------
+
+-- Haskell Libraries
+import Text.Parsec.Error
 
 --------
 
@@ -28,4 +33,6 @@ data Expression =
   | Print Texto
   | Show Nombre
   | ShowValue Nombre
+  | Error
+  | ErrorRepl String
   deriving(Show)
