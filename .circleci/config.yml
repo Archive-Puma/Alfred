@@ -40,10 +40,6 @@ jobs:
           paths:
             - example
             - dist/build/alfred/alfred
-      - save_cache:
-          key: alfred-tests-{{ checksum ".circleci/config.yml" }}-{{ checksum "src/core/Parser.hs" }}
-          paths:
-            - dist/build/alfred-test/alfred-test
 
   test_binary:
     docker:
@@ -76,16 +72,18 @@ jobs:
     docker:
       - image: fpco/stack-build
     steps:
-      - restore_cache:
-          keys:
-            - alfred-tests-{{ checksum ".circleci/config.yml" }}-{{ checksum "src/core/Parser.hs" }}
+      - checkout
       - run:
-          name: Linking Alfred-Tests
-          command: sudo ln -s $PWD/dist/build/alfred-test/alfred-test /usr/bin/alfred-test
-      - run:
-          name: Alfred Tests
+          name: Cabal Dependencies
           command: |
-            alfred-test
+          cabal update
+          cabal install hspec hspec-discover
+      - run:
+          name: Alfred Cabal Tests
+          command: cabal test
+      - run:
+          name: Alfred Binary Tests
+          command: ./dist/build/alfred-test/alfred-test
 
 workflows:
   version: 2
