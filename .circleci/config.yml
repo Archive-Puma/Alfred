@@ -31,9 +31,7 @@ jobs:
           name: Configure Cabal
           command: |
             cabal update
-            cabal install hspec hspec-discover hspec-ex
-
-pectations
+            cabal install hspec hspec-discover hspec-expectations
       - run:
           name: Build Program
           command: cabal build
