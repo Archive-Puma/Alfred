@@ -28,24 +28,24 @@ ignoreCase = mapM insensitiveChar
 
 --------
 
--- Filter: Number as a Variable Value
+-- Filter: Numero as a Variable Value
 number :: Parser Variable
 number = do
   num <- manyTill digit (char '\n')
-  return . Number . read $ num
+  return . Numero . read $ num
 
 -- Filter: Text as a Variable Value
 text :: Parser Variable
 text = do
   txt <- manyTill anyChar (char '\n')
-  return . Text $ txt
+  return . Texto $ txt
 
--- Filter: Character as a Variable Value
+-- Filter: Caracter as a Variable Value
 character :: Parser Variable
 character = do
   ch <- anyChar
   char '\n'
-  return . Character $ ch
+  return . Caracter $ ch
 
 --------
 

@@ -3,17 +3,17 @@ module Language where
 --------
 
 -- Aliases
-type Name       = String
-type Text       = String
-type Character  = Char
+type Nombre    = String
+type Texto     = String
+type Caracter  = Char
 
 --------
 
 -- Data structure: Variables
 data Variable =
-  Number Integer
-  | Text Text
-  | Character Char
+  Numero Integer
+  | Texto Texto
+  | Caracter Caracter
   deriving (Show)
 
 -- Data structure: Special Tokens
@@ -24,8 +24,8 @@ data Token =
 
 -- -- Data structure: Expressions
 data Expression =
-  Define Name Variable
-  | Print Text
-  | Show Name
-  | ShowValue Name
+  Define Nombre Variable
+  | Print Texto
+  | Show Nombre
+  | ShowValue Nombre
   deriving(Show)

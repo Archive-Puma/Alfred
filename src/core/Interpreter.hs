@@ -13,7 +13,7 @@ import            Language
 --------
 
 -- Aliases
-type Memory = Map.Map Name Variable
+type Memory = Map.Map Nombre Variable
 
 --------
 
@@ -37,9 +37,9 @@ eval vars ((Show name):code) = do
 eval vars ((ShowValue name):code) = do
   case Map.lookup name vars of
     Just variable -> case variable of
-      Text      val -> putStrLn val
-      Number    val -> putStrLn $ show val
-      Character val -> putStrLn [val]
+      Texto     val -> putStrLn val
+      Numero    val -> putStrLn $ show val
+      Caracter  val -> putStrLn [val]
     Nothing -> putStrLn ""
   eval vars code
 
