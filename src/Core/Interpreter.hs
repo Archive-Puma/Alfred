@@ -111,9 +111,7 @@ disableJumps = ["nojumps"]
 -- Evaluate a program
 runEval :: [Expression] -> IO (Memory)
 runEval code = do
-  print code
   jumps <- parseJumps 0 memEmpty code
-  print jumps
   code' <- removeJumps [] code
   eval memEmpty jumps [] code' code'
 
