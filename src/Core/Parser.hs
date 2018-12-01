@@ -32,9 +32,10 @@ ignoreCase = mapM insensitiveChar
 -- Filter: Numero as a Variable Value
 number :: Parser Variable
 number = do
-  num <- many1 digit
-  _   <- try (char '\n')
-  return . Numero . read $ num
+  negative  <- (char '-' >> return "-") <|> return ""
+  num       <- many1 digit
+  _         <- char '\n'
+  return . Numero . read $ negative ++ num
 
 -- Filter: Text as a Variable Value
 text :: Parser Variable
