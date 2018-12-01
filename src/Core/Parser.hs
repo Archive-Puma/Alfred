@@ -10,6 +10,7 @@ import Text.Parsec.String (Parser)
 --------
 
 -- Alfred modules
+import Lang.ES
 import Core.Language
 
 --------
@@ -53,7 +54,7 @@ character = do
 -- Filter: Token - Alfred
 start' :: Parser Token
 start' = do
-  _ <- ignoreCase "alfred"
+  _ <- ignoreCase lang_aldred
   _ <- char '\n'
   return CallAlfred
 
@@ -63,24 +64,41 @@ start' = do
 -- Filter: Command - Adiós Alfred
 exit' :: Parser Expression
 exit' = do
-  _ <- ignoreCase "adios alfred"
+  _ <- ignoreCase lang_bye
   return Exit
 
--- Filter: Command - Define
-define' :: Parser Expression
-define' = do
-  _     <- ignoreCase "define"
+define'label :: Parser Expression
+define'label = do
+  _     <- ignoreCase lang_moment
   _     <- char ' '
-  name  <- manyTill (letter <|> char ' ') (try (ignoreCase "como"))
+  name  <- manyTill anyChar (char '\n')
+  return $ (DefineLabel . trim . map toLower) name
+
+-- Filter: Command - Define
+define'var :: Parser Expression
+define'var = do
+  _     <- ignoreCase lang_define
+  _     <- char ' '
+  name  <- manyTill (letter <|> char ' ') (try (ignoreCase lang_as))
   _     <- char ' '
   value <- try number <|> try character <|> text
-  let name' = (trim . map toLower) name
-  return $ Define name' value
+  return $ (DefineVar . trim . map toLower) name value
+
+
+goto' :: Parser Expression
+goto' = do
+  _     <- ignoreCase lang_go <|> ignoreCase lang_jump
+  _     <- char ' '
+  _     <- ignoreCase lang_to
+  _     <- char ' '
+  name  <- manyTill anyChar (char '\n')
+  return $ (Goto . trim . map toLower) name
+
 
 -- Filter: Command - Escribe
 print' :: Parser Expression
 print' = do
-  _     <- ignoreCase "escribe"
+  _     <- ignoreCase lang_print
   _     <- char ' '
   text' <- manyTill anyChar (char '\n')
   return . Print $ text'
@@ -88,23 +106,24 @@ print' = do
 -- Filter: Command - Muestra
 show' :: Parser Expression
 show' = do
-  _       <- ignoreCase "muestra"
+  _       <- ignoreCase lang_show
   _       <- char ' '
-  onlyVal <- (try (ignoreCase "el valor de") >> char ' ' >> return True) <|> return False
+  onlyVal <- (try (ignoreCase lang_value) >> char ' ' >> return True) <|> return False
   name    <- manyTill anyChar (char '\n')
-  let name' = map toLower name
   return $ case onlyVal of
-    True  -> ShowValue name'
-    False -> Show name'
+    True  -> (ShowValue . map toLower) name
+    False -> (Show . map toLower) name
 
 --------
 
 -- Filter: All possible commands
 command :: Parser Expression
-command =  try define'  <|>
-           try print'   <|>
-           try show'    <|>
-               exit'
+command =   try define'label  <|>
+            try define'var    <|>
+            try goto'         <|>
+            try print'        <|>
+            try show'         <|>
+                exit'
 
 -- Filter: Program struct
 program :: Parser [Expression]
