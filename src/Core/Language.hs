@@ -11,10 +11,14 @@ type Caracter  = Char
 
 -- Data structure: Variables
 data Variable =
-  Numero Integer
+  Numero Int
   | Texto Texto
   | Caracter Caracter
   deriving (Show, Eq)
+instance Enum Variable where
+  succ      (Numero value) = (Numero . succ) value
+  toEnum    _ = undefined
+  fromEnum  _ = undefined
 
 -- Data structure: Special Tokens
 data Token =

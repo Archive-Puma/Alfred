@@ -65,6 +65,7 @@ start' = do
 exit' :: Parser Expression
 exit' = do
   _ <- ignoreCase lang_bye
+  _ <- try (char '\n')
   return Exit
 
 define'label :: Parser Expression
@@ -118,12 +119,12 @@ show' = do
 
 -- Filter: All possible commands
 command :: Parser Expression
-command =   try define'label  <|>
-            try define'var    <|>
-            try goto'         <|>
-            try print'        <|>
-            try show'         <|>
-                exit'
+command = try define'label  <|>
+          try define'var    <|>
+          try goto'         <|>
+          try print'        <|>
+          try show'         <|>
+              exit'
 
 -- Filter: Program struct
 program :: Parser [Expression]

@@ -1,13 +1,13 @@
 Alfred
-Define positivo como 101
-Define caracter como A
-Define mensaje como Alfred mola
-Escribe Alfred diferencia entre los principales tipos de variables:
-Muestra mensaje
-Muestra caracter
-Muestra positivo
-Escribe Además puede mostrar el tipo de variable que es o sólo el valor:
-Muestra el valor de mensaje
-Muestra el valor de caracter
-Muestra el valor de positivo
+Escribe ~ Alfred puede definir variables.
+Define un positivo cualquiera como 101
+Define la primera letra del abecedario como A
+Define la conclusión más importante como Alfred mola
+Escribe ~ También diferencia entre los principales tipos de variables:
+Muestra un positivo cualquiera
+Muestra la primera letra del abecedario
+Muestra la conclusión más importante
+Escribe ~ Además puede mostrar el tipo de variable que es o sólo el valor.
+Escribe ~ Así que, en definitiva:
+Muestra el valor de la conclusión más importante
 Adiós Alfred

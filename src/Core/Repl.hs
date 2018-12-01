@@ -9,7 +9,7 @@ import System.IO   (stdout, hFlush)
 
 -- Alfred Modules
 import Core.Parser      (parseRepl)
-import Core.Interpreter (eval, memEmpty, Memory)
+import Core.Interpreter (evalRepl, memEmpty, Memory)
 
 --------
 
@@ -28,7 +28,7 @@ interactiveMode memory = do
   hFlush stdout
   ast <- getLine >>= parseRepl
   print ast
-  eval memory ast >>= interactiveMode
+  evalRepl memory ast >>= interactiveMode
 
 -- Show the message and run the Repl
 runRepl :: IO b

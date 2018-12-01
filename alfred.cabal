@@ -31,4 +31,4 @@ test-suite alfred-test
   ghc-options:          -Wall
   build-depends:        base, parsec, containers, hspec, hspec-expectations, alfred
   default-language:     Haskell2010
-  build-tool-depends:   hspec-discover:hspec-discover
+  build-depends:        hspec-discover

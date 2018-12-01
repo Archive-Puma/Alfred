@@ -11,4 +11,5 @@ import Core.Interpreter  (runEval)
 
 -- Entrypoint
 main :: IO ()
-main = runArgs >>= runParser >>= runEval >> return ()
+main = do
+  runArgs >>= runParser >>= runEval >> return ()
