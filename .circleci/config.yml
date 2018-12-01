@@ -70,7 +70,7 @@ jobs:
           command: alfred example/variables.alf
       - run:
           name: Momentos
-          command: alfred example/moemntos.alf
+          command: alfred example/momentos.alf
       - run:
           name: Momentos Inversos
           command: alfred example/momentos_inversos.alf
