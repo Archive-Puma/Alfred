@@ -68,6 +68,12 @@ jobs:
       - run:
           name: Variables
           command: alfred example/variables.alf
+      - run:
+          name: Momentos
+          command: alfred example/moemntos.alf
+      - run:
+          name: Momentos Inversos
+          command: alfred example/momentos_inversos.alf
   test_code:
     docker:
       - image: fpco/stack-build
