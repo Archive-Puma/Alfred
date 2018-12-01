@@ -24,10 +24,12 @@ data Token =
 
 -- -- Data structure: Expressions
 data Expression =
-  Define Nombre Variable
+  DefineLabel Nombre
+  | DefineVar Nombre Variable
   | Print Texto
   | Show Nombre
   | ShowValue Nombre
+  | Goto Nombre
   | Exit
   | Error
   | ErrorRepl String

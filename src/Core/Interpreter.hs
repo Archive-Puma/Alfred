@@ -22,7 +22,7 @@ type Memory = Map.Map Nombre Variable
 eval :: Memory -> [Expression] -> IO (Memory)
 eval vars [] = return vars
 -- Evaluation: Command - Define
-eval vars ((Define name value):code) =
+eval vars ((DefineVar name value):code) =
   eval (Map.insert name value vars) code
 -- Evaluation: Command - Escribe
 eval vars ((Print text):code) = do
@@ -60,6 +60,8 @@ eval vars ((ErrorRepl command):code) = do
 -- Empty Memory
 memEmpty :: Memory
 memEmpty = Map.empty
+
+
 
 -- Evaluate a program
 runEval :: [Expression] -> IO (Memory)
