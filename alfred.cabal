@@ -19,7 +19,8 @@ executable alfred
 library
   build-depends:        base, parsec, containers
   exposed-modules:      Core.Arguments, Core.Parser, Core.Interpreter
-  other-modules:        Core.Language, Core.Repl
+  other-modules:        Core.Language, Core.Repl,
+                        Lang.ES
   hs-source-dirs:       src
   default-language:     Haskell2010
 
