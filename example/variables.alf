@@ -1,12 +1,23 @@
 Alfred
 Escribe ~ Alfred puede definir variables.
 Define un positivo cualquiera como 101
-Define la primera letra del abecedario como A
+Define un negativo cualquiera como -12
+Define la primera letra del abecedario como 'A'
+Define un texto comillado como 'Los nombres son "juegos de palabras"'
+Define un texto doblecomillado como "Las comillas dobles son más 'formales'"
+Define True como Verdadero
+Define False como Falso
+Define una lista de variables como [Cierto,Mentira,0,-1,'[',"Soy Alfred",'Tu lenguaje preferido',Molo demasiado]
 Define la conclusión más importante como Alfred mola
 Escribe ~ También diferencia entre los principales tipos de variables:
 Muestra un positivo cualquiera
+Muestra un negativo cualquiera
 Muestra la primera letra del abecedario
-Muestra la conclusión más importante
+Muestra un texto comillado
+Muestra un texto doblecomillado
+Muestra True
+Muestra False
+Muestra una lista de variables
 Escribe ~ Además puede mostrar el tipo de variable que es o sólo el valor.
 Escribe ~ Así que, en definitiva:
 Muestra el valor de la conclusión más importante

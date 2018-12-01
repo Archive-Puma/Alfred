@@ -4,7 +4,7 @@ module Core.Parser where
 
 -- Haskell Libraries
 import Data.Char          (isSpace, toLower, toUpper)
-import Text.Parsec        (anyChar, char, digit, letter, many, many1, manyTill, oneOf, try, parse, (<|>))
+import Text.Parsec        (anyChar, between, char, digit, letter, many, many1, manyTill, oneOf, noneOf, sepBy, try, parse, (<|>))
 import Text.Parsec.String (Parser)
 
 --------
@@ -34,7 +34,6 @@ number :: Parser Variable
 number = do
   negative  <- (char '-' >> return "-") <|> return ""
   num       <- many1 digit
-  _         <- char '\n'
   return . Numero . read $ negative ++ num
 
 -- Filter: Text as a Variable Value
@@ -50,6 +49,63 @@ character = do
   _   <- char '\n'
   return . Caracter $ ch
 
+
+--------
+
+integer :: Parser Variable
+integer = do
+  neg <- (char '-' >> return '-') <|> return ' '
+  num <- many1 digit
+  return . Numero . read $ neg:num
+
+unquotedString :: Parser Variable
+unquotedString = do
+  str <- many1 (noneOf "\n")
+  return (Texto str)
+
+unquotedStringInList :: Parser Variable
+unquotedStringInList = do
+  str <- many1 (noneOf ",[]")
+  return (Texto str)
+
+quotedString :: Parser Variable
+quotedString = do
+  quote <- try (char '\"') <|> char '\''
+  str   <- many (noneOf [quote])
+  _     <- try (char quote)
+  return (Texto str)
+
+quotedChar :: Parser Variable
+quotedChar = do
+  quote <- try (char '\"') <|> char '\''
+  ch    <- noneOf [quote]
+  _     <- try (char quote)
+  return (Caracter ch)
+
+true :: Parser Variable
+true = do
+  _ <- try (ignoreCase "verdadero") <|> try (ignoreCase "verdad") <|> ignoreCase "cierto"
+  return (Booleano True)
+
+false :: Parser Variable
+false = do
+  _ <- try (ignoreCase "falso") <|> ignoreCase "mentira"
+  return (Booleano False)
+
+list :: Parser Variable
+list = do
+  content <- between (char '[') (char ']') (many (noneOf "]"))
+  elems   <- case parse (sepBy (try variable <|> unquotedStringInList) (char ',')) "Alfred :: Parser :: List" content of
+    Right elems'  -> return elems'
+  return (Lista elems)
+
+variable :: Parser Variable
+variable =  try true          <|>
+            try false         <|>
+            try integer       <|>
+            try quotedChar    <|>
+            try quotedString  <|>
+                list
 --------
 
 -- Filter: Token - Alfred
@@ -83,7 +139,9 @@ define'var = do
   _     <- char ' '
   name  <- manyTill (letter <|> char ' ') (try (ignoreCase lang_as))
   _     <- char ' '
-  value <- try number <|> try character <|> text
+  value <- variable <|> unquotedString
+  -- value <- many (noneOf "\n")
+  _     <- char '\n'
   return $ (DefineVar . trim . map toLower) name value
 
 

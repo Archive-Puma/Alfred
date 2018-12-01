@@ -4,16 +4,16 @@ module Core.Language where
 
 -- Aliases
 type Nombre    = String
-type Texto     = String
-type Caracter  = Char
 
 --------
 
 -- Data structure: Variables
 data Variable =
   Numero Int
-  | Texto Texto
-  | Caracter Caracter
+  | Texto String
+  | Booleano Bool
+  | Caracter Char
+  | Lista [Variable]
   deriving (Show, Eq)
 instance Enum Variable where
   succ      (Numero value) = (Numero . succ) value
@@ -30,7 +30,7 @@ data Token =
 data Expression =
   DefineLabel Nombre
   | DefineVar Nombre Variable
-  | Print Texto
+  | Print String
   | Show Nombre
   | ShowValue Nombre
   | Goto Nombre

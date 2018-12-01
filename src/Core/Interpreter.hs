@@ -30,6 +30,14 @@ removeJumps code (instruction:rest)     = removeJumps (code ++ [instruction]) re
 
 --------
 
+toString :: Variable -> String
+toString variable = case variable of
+  Texto     value -> value
+  Numero    value -> show value
+  Caracter  value -> [value]
+  Booleano  True  -> "True"
+  Booleano  False -> "False"
+
 -- Evaluation: No more lines of code
 eval :: Memory
      -> Memory
@@ -71,9 +79,8 @@ eval vars jumps flags source ((Show name):code)              = do
 eval vars jumps flags source ((ShowValue name):code)         = do
   case Map.lookup name vars of
     Just variable -> case variable of
-      Texto     val -> putStrLn val
-      Numero    val -> putStrLn $ show val
-      Caracter  val -> putStrLn [val]
+      Lista list  -> (print . map toString) list
+      otherwise   -> (putStrLn . toString) variable
     Nothing -> putStrLn ""
   eval vars jumps flags source code
 
