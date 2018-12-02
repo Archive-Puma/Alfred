@@ -9,7 +9,7 @@ import System.Environment (getArgs)
 --------
 
 -- Alfred Modules
-import Core.Repl               (runRepl)
+import Core.Repl          (runRepl)
 
 --------
 

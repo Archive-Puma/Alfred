@@ -5,6 +5,7 @@ CORE				= Core
 LANG				= Lang
 NAME				= alfred
 LIB					= $(SRC)/$(CORE)
+PARSER			= $(LIB)/Parser
 BUILD				= $(DIST)/build/$(NAME)
 BUILD-TEST	= $(BUILD)-test
 TRANSLATES	= $(SRC)/$(LANG)
@@ -18,7 +19,7 @@ configure:
 	[ -d $(BUILD) ] || mkdir -vp $(BUILD)
 
 build:
-	$(CC) -o $(BUILD)/$(NAME) $(SRC)/Main $(LIB)/*.hs $(TRANSLATES)/*.hs
+	$(CC) -o $(BUILD)/$(NAME) $(SRC)/Main $(LIB)/*.hs $(PARSER)/*.hs $(TRANSLATES)/*.hs
 
 # FIXME: (Change this $(OS))
 clean:

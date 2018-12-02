@@ -1,17 +1,14 @@
-module ParserSpec where
+module Parser.FunctionsSpec where
 
 --------
 
 -- Haskell Libraries
-import Test.Hspec                       (describe, it, shouldBe, shouldSatisfy, SpecWith)
-import Test.Hspec.Expectations.Contrib  (isLeft)
-import Text.Parsec                      (parse)
+import Test.Hspec                       (describe, it, shouldBe, SpecWith)
 
 --------
 
 -- Alfred Modules
-import Core.Parser
-import Core.Language
+import Core.Parser.Functions (trim)
 
 --------
 
@@ -70,25 +67,3 @@ spec = do
       trim " Alfred is cool\n\t"      `shouldBe`      "Alfred is cool"
     it "Final test"                           $ do
       trim "\t Alfred is \n\tcool\n"  `shouldBe`      "Alfred is \n\tcool"
-  ----
-  describe "Number :: Parse numbers as variables" $ do
-    it "Sigle character"                      $ do
-      parse number "Test" "1\n"       `shouldBe`       Right (Numero 1)
-    it "Many characters"                      $ do
-      parse number "Test" "1280\n"    `shouldBe`       Right (Numero 1280)
-    it "Nothing"                              $ do
-      parse number "Test" "\n"        `shouldSatisfy`  isLeft
-    it "Single letter"                        $ do
-      parse number "Test" "a\n"       `shouldSatisfy`  isLeft
-    it "Single symbol"                        $ do
-      parse number "Test" "$\n"       `shouldSatisfy`  isLeft
-    it "Number with suffix"                   $ do
-      parse number "Test" "10f\n"     `shouldSatisfy`  isLeft
-      parse number "Test" "10?\n"     `shouldSatisfy`  isLeft
-    it "Any input without EOL"                $ do
-      parse number "Test" ""          `shouldSatisfy`  isLeft
-      parse number "Test" "0"         `shouldSatisfy`  isLeft
-      parse number "Test" "21"        `shouldSatisfy`  isLeft
-      parse number "Test" "21f"       `shouldSatisfy`  isLeft
-      parse number "Test" "a"         `shouldSatisfy`  isLeft
-      parse number "Test" "$"         `shouldSatisfy`  isLeft

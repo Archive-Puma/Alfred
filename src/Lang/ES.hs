@@ -16,3 +16,6 @@ lang_value  = "el valor de"
 lang_bye,lang_moment                              :: String
 lang_bye    = "adios" ++ lang_space ++ lang_aldred
 lang_moment = lang_define ++ lang_space ++ "el momento"
+lang_true,lang_false                              :: [String]
+lang_true   = ["verdad", "verdadero", "cierto"]
+lang_false  = ["falso", "mentira"]

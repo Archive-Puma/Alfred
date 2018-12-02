@@ -3,8 +3,8 @@ module Core.Interpreter (eval, evalRepl, runEval, memEmpty, Memory) where
 --------
 
 -- Haskell libraries
-import qualified  Data.Map        as Map (size,empty, insert, lookup, Map)
-import System.Exit
+import qualified  Data.Map      as Map (size,empty, insert, lookup, Map)
+import            System.Exit
 
 --------
 
