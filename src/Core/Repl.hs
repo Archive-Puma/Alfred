@@ -3,13 +3,13 @@ module Core.Repl (runRepl) where
 --------
 
 -- Haskell libraries
-import System.IO   (stdout, hFlush)
+import System.IO        (stdout,hFlush)
 
 --------
 
 -- Alfred Modules
 import Core.Parser      (parseRepl)
-import Core.Interpreter (evalRepl, memEmpty, Memory)
+import Core.Interpreter (evalRepl,memEmpty,Memory)
 
 --------
 
@@ -26,9 +26,7 @@ interactiveMode :: Memory -> IO b
 interactiveMode memory = do
   putStr "🎩 ~ "
   hFlush stdout
-  ast <- getLine >>= parseRepl
-  print ast
-  evalRepl memory ast >>= interactiveMode
+  getLine >>= parseRepl >>= evalRepl memory >>= interactiveMode
 
 -- Show the message and run the Repl
 runRepl :: IO b

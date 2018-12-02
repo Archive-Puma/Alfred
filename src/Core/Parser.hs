@@ -3,13 +3,13 @@ module Core.Parser where
 --------
 
 -- Haskell Libraries
-import Text.Parsec (parse)
+import Text.Parsec              (parse)
 
 --------
 
 -- Alfred Modules
-import Core.Language
-import Core.Parser.Instructions (command, program)
+import Core.Language            (Expression(Error,ErrorRepl))
+import Core.Parser.Instructions (command,program)
 
 --------
 

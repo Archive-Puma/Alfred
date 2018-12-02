@@ -1,9 +1,9 @@
-module Core.Interpreter (eval, evalRepl, runEval, memEmpty, Memory) where
+module Core.Interpreter (evalRepl,runEval,memEmpty,Memory) where
 
 --------
 
 -- Haskell libraries
-import qualified  Data.Map      as Map (size,empty, insert, lookup, Map)
+import qualified  Data.Map      as Map (empty,insert,lookup,Map)
 import            System.Exit
 
 --------

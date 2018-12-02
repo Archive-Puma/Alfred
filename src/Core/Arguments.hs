@@ -3,7 +3,7 @@ module Core.Arguments (runArgs) where
 --------
 
 -- Haskell libraries
-import System.Exit        (exitWith, ExitCode(ExitSuccess))
+import System.Exit        (exitWith,ExitCode(ExitSuccess))
 import System.Environment (getArgs)
 
 --------
