@@ -23,7 +23,6 @@ instance Enum Variable where
 -- Data structure: Special Tokens
 data Token =
   CallAlfred
-  | GoodbyeAlfred
   deriving(Show)
 
 -- -- Data structure: Expressions

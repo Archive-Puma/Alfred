@@ -7,7 +7,7 @@ Define un texto comillado como 'Los nombres son "juegos de palabras"'
 Define un texto doblecomillado como "Las comillas dobles son más 'formales'"
 Define True como Verdadero
 Define False como Falso
-Define una lista de variables como [Cierto,Mentira,0,-1,'[',"Soy Alfred",'Tu lenguaje preferido',Molo demasiado]
+Define una lista de variables como [Cierto,Falso,0,-1,'$',"Soy Alfred",'Tu lenguaje preferido',Molo demasiado]
 Define la conclusión más importante como Alfred mola
 Escribe ~ También diferencia entre los principales tipos de variables:
 Muestra un positivo cualquiera
