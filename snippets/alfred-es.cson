@@ -1,43 +1,36 @@
 '.source.alfred.es':
-  # Instruction: SAY
-  'Muestra un mensaje por consola':
-    prefix: 'Di'
-    body: 'Di ${1:mensaje}'
-  # Instruction: GO TO
-  'Salta a la etiqueta designada':
-    prefix: 'Vete a'
-    body: 'Vete a ${1:etiqueta}'
-  'Define una etiqueta':
-    prefix: 'Recuerda este momento como'
-    body: 'Recuerda este momento como ${1:etiqueta}'
-  # Instrution: LEARN
-  'Importa una librería':
-    prefix: 'Aprende sobre'
-    body: 'Aprende sobre ${1:librería}'
-  'Importa una librería ':
-    prefix: 'Aprende a'
-    body: 'Aprende a ${1:librería}'
-  # Instrution: SHOW / RUN
-  'Ejecuta una librería':
-    prefix: 'Ejecuta'
-    body: 'Ejecuta ${1:librería}'
-  'Muestra el resultado de ejecutar una librería':
-    prefix: 'Muestra'
-    body: 'Muestra ${1:librería}'
-  # Instrution: DEFINE
-  'Muestra el valor de una variable por consola':
-    prefix: 'Muestra el valor de'
-    body: 'Muestra el valor de ${1:variable}'
-  'Define el valor de una variable':
-    prefix: 'Define'
-    body: 'Define ${1:variable} como ${2:valor}'
-  'Variable temporal':
-    prefix: 'lo anterior'
-    body: 'lo anterior'
-  # Instruction: BYE
-  'Detiene el programa':
-    prefix: 'Adios'
-    body: 'Adiós ${1:Alfred}'
-  'Código de salida correcto':
+  # Token: Start
+  'Inicio del programa':
     prefix: 'Alfred'
-    body: 'Alfred'
+    body:   'Alfred'
+  # Instruction: Print
+  'Muestra un mensaje por consola':
+    prefix: 'Escribe'
+    body:   'Escribe ${1:mensaje}'
+  # Instruction: Goto
+  'Salta al momento':
+    prefix: 'Vete a'
+    body:   'Vete a ${1:momento}'
+  'Salta al momento ':
+    prefix: 'Salta a'
+    body:   'Salta a ${1:momento}'
+  # Instruction: Define Label
+  'Define un momento':
+    prefix: 'Define el momento'
+    body:   'Define el momento ${1:momento}'
+  # Instruction: Define Variable
+  'Define una variable':
+    prefix: 'Define'
+    body:   'Define ${1:variable} como ${2:valor  }'
+  # Instrution: Show
+  'Muestra una variable':
+    prefix: 'Muestra'
+    body:   'Muestra ${1:variable}'
+  # Instrution: Show Value
+  'Muestra el valor de una variable':
+    prefix: 'Muestra el valor de'
+    body:   'Muestra el valor de ${1:variable}'
+  # Instruction: Exit
+  'Detiene el programa':
+    prefix: 'Adios Alfred'
+    body: 'Adios Alfred'

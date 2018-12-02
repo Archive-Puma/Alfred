@@ -1,99 +1,105 @@
-name: 'Alfred (ES)'
-scopeName: 'source.alfred.es'
-fileTypes: ['alf']
+name:           'Alfred (ES)'
+scopeName:      'source.alfred.es'
+fileTypes:      ['.es.alf','.alf']
+firstLineRegex: '^(?i)alfred(?-i)$'
+contentRegex:   '^(?i)adi[óo]s alfred(?-i)$'
+
+# AZUL    support.type.alfred
+# CARNE   support.class.alfred
+# VERDE   string.quoted.alfred
+# MORADO  storage.modifier.alfred
+
 patterns: [
-  # Constants
   {
-    match: '\\b([AÁÀÄÂaáàäâ][Ll][Ff][Rr][EÉÈËÊeéèëê][Dd])\\b'
-    name: 'support.constant.alfred'
+    # Comando: Alfred
+    match:  '^(?i)alfred(?-i)$',
+    name:   'support.type.alfred'
   },
   {
-    match: '([Ll][OÓÒÖÔoóòöô]\\s+[AÁÀÄÂaáàäâ][Nn][Tt][EÉÈËÊeéèëê][Rr][IÍÌÏÎiíìïî][OÓÒÖÔoóòöô][Rr])\\b'
-    name: 'support.constant.alfred'
-  }
-  # Single instructions
-  {
-    match: '\\b([AÁÀÄÂaáàäâ][Dd][IÍÌÏÎiíìïî][OÓÒÖÔoóòöô][Ss])\\b'
-    name: 'keyword.control.alfred'
+    # Comando: Adiós Alfred
+    match:  '^(?i)adi[óo]s alfred(?-i)$',
+    name:   'support.type.alfred'
   },
-  # Variables
   {
-    match: '([Dd][EÉÈËÊeéèëê][Ff][IÍÌÏÎiíìïî][Nn][EÉÈËÊeéèëê])\\s+(.*)\\s+([Cc][OÓÒÖÔoóòöô][Mm][OÓÒÖÔoóòöô])'
+    # Constante: Single Quoted
+    match:  '\'[^\']+\'',
+    name:   'string.quoted.alfred'
+  },
+  {
+    # Constante: Doble Quoted
+    match:  '"[^"]+"',
+    name:   'string.quoted.alfred'
+  },
+  {
+    # Constante: True
+    match:  '(?: |,|\\[)((?i)(verdadero|verdad|cierto)(?-i))(?:$| |,|])',
     captures:
-      '1':
-        name: 'storage.modifier.alfred'
-      '2':
-        name: 'support.type.alfred'
-      '3':
-        name: 'storage.type.alfred'
-    name: 'meta.function.alfred'
-  },
-  {
-    match: '([Mm][UÚÙÜÛuúùüû][EÉÈËÊeéèëê][Ss][Tt][Rr][AÁÀÄÂaáàäâ])\\s+([EÉÈËÊeéèëê][Ll]\\s+[Vv][AÁÀÄÂaáàäâ][Ll][OÓÒÖÔoóòöô][Rr]\\s+[Dd][EÉÈËÊeéèëê])\\s+(.+)'
-    captures:
-      '1':
-        name: 'storage.type.alfred'
-      '2':
-        name: 'keyword.control.alfred'
-      '3':
-        name: 'support.type.alfred'
-    name: 'meta.function.alfred'
-  },
-  # Lib/Module Instructions
-  {
-    match: '([AÁÀÄÂaáàäâ][Pp][Rr][EÉÈËÊeéèëê][Nn][Dd][EÉÈËÊeéèëê]\\s+\\w+)\\s+(.+)'
-    captures:
-      '1':
-        name: 'storage.type.alfred'
       '2':
         name: 'support.class.alfred'
-    name: 'meta.function.alfred'
+    name:   'meta.function.alfred'
   },
   {
-    match: '([EÉÈËÊeéèëê][Jj][EÉÈËÊeéèëê][Cc][UÚÙÜÛuúùüû][Tt][AÁÀÄÂaáàäâ])\\s+(.*)'
+    # Constante: False
+    match:  '((?i)(falso|mentira)(?-i))(?:$| |,|])',
     captures:
-      '1':
-        name: 'storage.type.alfred'
       '2':
-        name: 'variable.parameter.alfred'
-    name: 'meta.function.alfred'
+        name: 'support.class.alfred'
+    name:   'meta.function.alfred'
   },
   {
-    match: '([Mm][UÚÙÜÛuúùüû][EÉÈËÊeéèëê][Ss][Tt][Rr][AÁÀÄÂaáàäâ])\\s+(.*)'
+    # Comando: Escribe {Texto}
+    match:  '^((?i)escribe(?-i)) (.*)$',
     captures:
       '1':
-        name: 'storage.type.alfred'
-      '2':
-        name: 'variable.parameter.alfred'
-    name: 'meta.function.alfred'
-  },
-  # Logs
-  {
-    match: '([Dd][IÍÌÏÎiíìïî])\\s+(.+)'
-    captures:
-      '1':
-        name: 'keyword.control.alfred'
+        name: 'support.type.alfred'
       '2':
         name: 'string.quoted.alfred'
-    name: 'meta.function.alfred'
-  },
-  # Conditionals and jumps
-  {
-    match: '([Vv][EÉÈËÊeéèëê][Tt][EÉÈËÊeéèëê]\\s+[AÁÀÄÂaáàäâ])\\s+(.+)'
-    captures:
-      '1':
-        name: 'keyword.control.alfred'
-      '2':
-        name: 'variable.other.alfred'
-    name: 'meta.function.alfred'
+    name:   'meta.function.alfred'
   },
   {
-    match: '([Rr][EÉÈËÊeéèëê][Cc][UÚÙÜÛuúùüû][EÉÈËÊeéèëê][Rr][Dd][AÁÀÄÂaáàäâ]\\s+[EÉÈËÊeéèëê][Ss][Tt][EÉÈËÊeéèëê]\\s+[Mm][OÓÒÖÔoóòöô][Mm][EÉÈËÊeéèëê][Nn][Tt][OÓÒÖÔoóòöô]\\s+[Cc][OÓÒÖÔoóòöô][Mm][OÓÒÖÔoóòöô])\\s+(.+)'
+    # Comando: Define {Nombre} como {Valor}
+    match:  '^((?i)define(?-i)) (.+) ((?i)como(?-i)(?!.*(?i)como(?-i)))',
     captures:
       '1':
-        name: 'keyword.control.alfred'
+        name: 'support.type.alfred'
+      '3':
+        name: 'support.type.alfred'
+    name:   'meta.function.alfred'
+  },
+  {
+    # Comando: Define el momento {Nombre}
+    match:  '^([Dd][Ee][Ff][Ii][Nn][Ee] [Ee][Ll] [Mm][Oo][Mm][Ee][Nn][Tt][Oo]) (.*)$',
+    captures:
+      '1':
+        name: 'support.type.alfred'
       '2':
-        name: 'variable.other.alfred'
-    name: 'meta.function.alfred'
+        name: 'storage.modifier.alfred'
+    name:   'meta.function.alfred'
+  },
+  {
+    # Comando: Salta/Vete a {Nombre}
+    match:  '^(([Ss][Aa][Ll][Tt][Aa])|([Vv][Ee][Tt][Ee]) [Aa]) (.*)$',
+    captures:
+      '1':
+        name: 'support.type.alfred'
+      '4':
+        name: 'storage.modifier.alfred'
+    name:   'meta.function.alfred'
+  },
+  {
+    # Comando: Muestra el valor de {Variable}
+    match:  '^([Mm][Uu][Ee][Ss][Tt][Rr][Aa] [Ee][Ll] [Vv][Aa][Ll][Oo][Rr] [Dd][Ee]) (.*)$',
+    captures:
+      '1':
+        name: 'support.type.alfred'
+    name:   'meta.function.alfred'
+  },
+  {
+    # Comando: Muestra {Variable}
+    match:  '^([Mm][Uu][Ee][Ss][Tt][Rr][Aa]) (.*)$',
+    captures:
+      '1':
+        name: 'support.type.alfred'
+    name:   'meta.function.alfred'
   }
 ]
