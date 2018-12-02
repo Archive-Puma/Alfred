@@ -2,24 +2,22 @@ CC					= ghc
 SRC					= src
 DIST				= dist
 CORE				= Core
-LANG				= Lang
 NAME				= alfred
-LIB					= $(SRC)/$(CORE)
-PARSER			= $(LIB)/Parser
 BUILD				= $(DIST)/build/$(NAME)
 BUILD-TEST	= $(BUILD)-test
-TRANSLATES	= $(SRC)/$(LANG)
 
 all:
 	make -s configure
 	make -s build
 	make -s clean
 
+# FIXME: (Change this $(OS))
 configure:
 	[ -d $(BUILD) ] || mkdir -vp $(BUILD)
 
+# FIXME: (Change this $(OS))
 build:
-	$(CC) -o $(BUILD)/$(NAME) $(SRC)/Main $(LIB)/*.hs $(PARSER)/*.hs $(TRANSLATES)/*.hs
+	$(CC) -o $(BUILD)/$(NAME) `find $(SRC) -name '*.hs'`
 
 # FIXME: (Change this $(OS))
 clean:
