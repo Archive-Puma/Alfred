@@ -104,10 +104,16 @@ workflows:
             branches:
               only: master
       - test_binary:
+          filters:
+            branches:
+              only: master
           requires:
             - make_build
             - cabal_build
       - test_code:
+          filters:
+            branches:
+              only: master
           requires:
             - make_build
             - cabal_build
