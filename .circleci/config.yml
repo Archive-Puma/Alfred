@@ -98,22 +98,22 @@ workflows:
       - make_build:
           filters:
             branches:
-              only: master
+              only: haskell
       - cabal_build:
           filters:
             branches:
-              only: master
+              only: haskell
       - test_binary:
           filters:
             branches:
-              only: master
+              only: haskell
           requires:
             - make_build
             - cabal_build
       - test_code:
           filters:
             branches:
-              only: master
+              only: haskell
           requires:
             - make_build
             - cabal_build
