@@ -1,0 +1,66 @@
+{
+    "interactionModel": {
+      "languageModel": {
+        "invocationName": "el lenguaje alfred",
+        "types": [
+
+        ],
+        "intents": [
+          {
+            "name": "AMAZON.CancelIntent",
+            "samples": []
+          },
+          {
+            "name": "AMAZON.HelpIntent",
+            "samples": [
+              "ayuda",
+              "ayúdame",
+              "necesito ayuda",
+              "instrucciones",
+              "qué puedo hacer",
+              "documentación",
+              "abre la documentación",
+              "dónde hay documentación",
+              "dónde está la documentación"
+            ]
+          },
+          {
+            "name": "AMAZON.StopIntent",
+            "samples": [
+              "cierra la skill",
+              "cerrar la skill",
+              "para",
+              "parar",
+              "para la skill",
+              "parar la skill",
+              "sal",
+              "salir",
+              "sal de la skill",
+              "salir de la skill"
+            ]
+          },
+
+
+          {
+            "name": "Command_DI",
+            "slots": [
+              {
+                "name": "texto",
+                "type": "AMAZON.SearchQuery"
+              }
+            ],
+            "samples": [
+                "Di {texto}"
+            ]
+          },
+          {
+            "name": "Command_ADIOSALFRED",
+            "slots": [],
+            "samples": [
+              "Adiós Alfred"
+            ]
+          }
+        ]
+      }
+    }
+  }
