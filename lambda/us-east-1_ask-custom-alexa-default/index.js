@@ -29,7 +29,8 @@ const Alexa = require('ask-sdk-core');
 // -=x=-=x=-=x=-=x=-=x=-=x=-
 
 const VARIABLES = {};
-const AVAILABLE_COMMANDS = [ "Define la variable", "Muestra el tipo de", "Muestra el valor de", "Adiós Alfred" ];
+const AVAILABLE_COMMANDS = [
+  "Di", "Define la variable", "Muestra el tipo de", "Muestra el valor de", "Adiós Alfred" ];
 
 const DIALOGS = {
   'prompt': '¿Qué instrucción deseas que ejecute?',
