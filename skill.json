@@ -3,32 +3,50 @@
     "publishingInformation": {
       "locales": {
         "es-ES": {
-          "summary": "Sample Short Description",
+          "summary": "Intérprete REPL para el lenguaje de programación Alfred",
           "examplePhrases": [
-            "Alexa open hello world template",
-            "Alexa tell hello world template I am Jeff",
-            "Alexa tell hello world template my name is Peter"
+            "Alexa, abre el lenguaje Alfred",
+            "Alexa, abre el lenguaje Alfred y di ¡Hola Mundo!",
+            "Alexa, abre el lenguaje Alfred y define la variable Nombre"
           ],
           "keywords": [
-            "keyword1",
-            "keyword2",
-            "keyword3"
+            "alfred",
+            "lenguaje",
+            "interprete"
           ],
           "name": "Lenguaje: Alfred",
-          "description": "Sample Full Description",
-          "smallIconUri": "https://s3.amazonaws.com/cdn.dabblelab.com/img/skill-template-default-sm.png",
-          "largeIconUri": "https://s3.amazonaws.com/cdn.dabblelab.com/img/skill-template-default-lg.png"
+          "smallIconUri": "https://s3.amazonaws.com/CAPS-SSE/echo_developer/acaa/5370c0c09d7c49c6a827a0abf2b37e3b/APP_ICON?versionId=Mx2GeN72dpCdHIUePx5naawof04rN.L9&AWSAccessKeyId=AKIAJFEYRBGIHK2BBYKA&Expires=1544578782&Signature=B8Q%2BcnyXlK2sAN4FTRp4yCLLmYU%3D",
+          "description": "Intérprete REPL por voz para el lenguaje de programación Alfred.\n\nComandos disponibles actualmente:\n\n- Di {texto}\n- Define la variable {nombre}\n- Muestra el tipo de {variable}\n- Muestra el valor de {variable}\n- Adiós Alfred\n\nSi deseas más información o contribuir al lenguaje, puedes acceder al siguiente link:\nhttps://github.com/CosasDePuma/Alfred/",
+          "largeIconUri": "https://s3.amazonaws.com/CAPS-SSE/echo_developer/4288/0d1d7dc35de040a2b9db818f3694d4a1/APP_ICON_LARGE?versionId=nskXmZv174g6RnKVqEE8mo41NjM_NgzK&AWSAccessKeyId=AKIAJFEYRBGIHK2BBYKA&Expires=1544578782&Signature=pVZiB8oFG2xslyckz9PDjNDmkVQ%3D"
+        },
+        "es-MX": {
+          "summary": "Intérprete REPL para el lenguaje de programación Alfred",
+          "examplePhrases": [
+            "Alexa, abre el lenguaje Alfred",
+            "Alexa, abre el lenguaje Alfred y di ¡Hola Mundo!",
+            "Alexa, abre el lenguaje Alfred y define la variable Nombre"
+          ],
+          "keywords": [
+            "alfred",
+            "lenguaje",
+            "interprete"
+          ],
+          "name": "Lenguaje: Alfred",
+          "smallIconUri": "https://s3.amazonaws.com/CAPS-SSE/echo_developer/acaa/5370c0c09d7c49c6a827a0abf2b37e3b/APP_ICON?versionId=Mx2GeN72dpCdHIUePx5naawof04rN.L9&AWSAccessKeyId=AKIAJFEYRBGIHK2BBYKA&Expires=1544578782&Signature=B8Q%2BcnyXlK2sAN4FTRp4yCLLmYU%3D",
+          "description": "Intérprete REPL por voz para el lenguaje de programación Alfred.\n\nComandos disponibles actualmente:\n\n- Di {texto}\n- Define la variable {nombre}\n- Muestra el tipo de {variable}\n- Muestra el valor de {variable}\n- Adiós Alfred\n\nSi deseas más información o contribuir al lenguaje, puedes acceder al siguiente link:\nhttps://github.com/CosasDePuma/Alfred/",
+          "largeIconUri": "https://s3.amazonaws.com/CAPS-SSE/echo_developer/4288/0d1d7dc35de040a2b9db818f3694d4a1/APP_ICON_LARGE?versionId=nskXmZv174g6RnKVqEE8mo41NjM_NgzK&AWSAccessKeyId=AKIAJFEYRBGIHK2BBYKA&Expires=1544578782&Signature=pVZiB8oFG2xslyckz9PDjNDmkVQ%3D"
         }
       },
       "isAvailableWorldwide": true,
       "testingInstructions": "No special instructions.",
-      "category": "EDUCATION_AND_REFERENCE",
+      "category": "SMART_HOME",
       "distributionCountries": []
     },
     "apis": {
       "custom": {
         "endpoint": {
-          "sourceDir": "lambda/custom"
+          "uri": "ask-custom-alexa-default",
+          "sourceDir": "lambda/us-east-1_ask-custom-alexa-default"
         }
       }
     },
@@ -37,8 +55,12 @@
       "allowsPurchases": false,
       "locales": {
         "es-ES": {
-          "termsOfUseUrl": "http://dabblelab.com/terms",
-          "privacyPolicyUrl": "http://dabblelab.com/privacy"
+          "termsOfUseUrl": "https://privacypolicies.com/privacy/view/c06b2bf0ee34be53fa4ab4b202cd7db6",
+          "privacyPolicyUrl": "https://privacypolicies.com/privacy/view/c06b2bf0ee34be53fa4ab4b202cd7db6"
+        },
+        "es-MX": {
+          "termsOfUseUrl": "https://privacypolicies.com/privacy/view/c06b2bf0ee34be53fa4ab4b202cd7db6",
+          "privacyPolicyUrl": "https://privacypolicies.com/privacy/view/c06b2bf0ee34be53fa4ab4b202cd7db6"
         }
       },
       "isExportCompliant": true,
