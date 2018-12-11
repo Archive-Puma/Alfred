@@ -21,7 +21,18 @@
               "documentación",
               "abre la documentación",
               "dónde hay documentación",
-              "dónde está la documentación"
+              "dónde está la documentación",
+
+              "comandos",
+              "instrucciones",
+              "qué comandos hay",
+              "qué instrucciones hay",
+              "qué comandos existen",
+              "qué instrucciones existen",
+              "cuáles son los comandos",
+              "cuáles son las instrucciones",
+              "cuáles son los comandos disponibles",
+              "cuáles son las instrucciones disponibles"
             ]
           },
           {
@@ -40,7 +51,34 @@
             ]
           },
 
-
+          {
+            "name": "Command_ADIOSALFRED",
+            "slots": [],
+            "samples": [
+              "Adiós Alfred"
+            ]
+          },
+          {
+            "name": "Command_DEFINE",
+            "slots": [
+              {
+                "name": "valor",
+                "type": "AMAZON.SearchQuery",
+                "samples": [
+                  "como {valor}",
+                  "con el valor {valor}",
+                  "igual a {valor}"
+                ]
+              },
+              {
+                "name": "nombre",
+                "type": "AMAZON.SearchQuery"
+              }
+            ],
+            "samples": [
+              "define la variable {nombre}"
+            ]
+          },
           {
             "name": "Command_DI",
             "slots": [
@@ -54,13 +92,91 @@
             ]
           },
           {
-            "name": "Command_ADIOSALFRED",
-            "slots": [],
+            "name": "Command_MUESTRATIPO",
+            "slots": [
+              {
+                "name": "nombre",
+                "type": "AMAZON.SearchQuery"
+              }
+            ],
             "samples": [
-              "Adiós Alfred"
+              "muestra el tipo de {nombre}",
+              "muestra la clase de {nombre}"
+            ]
+          },
+          {
+            "name": "Command_MUESTRAVALOR",
+            "slots": [
+              {
+                "name": "nombre",
+                "type": "AMAZON.SearchQuery"
+              }
+            ],
+            "samples": [
+              "muestra el valor de {nombre}"
+            ]
+          }
+        ],
+        "types": []
+      },
+      "dialog": {
+        "intents": [
+          {
+            "name": "Command_DEFINE",
+            "confirmationRequired": false,
+            "prompts": {},
+            "slots": [
+              {
+                "name": "nombre",
+                "type": "AMAZON.SearchQuery",
+                "confirmationRequired": false,
+                "elicitationRequired": true,
+                "prompts": {
+                    "elicitation": "Elicit.Command_DEFINE.nombre"
+                }
+              }
+            ],
+            "slots": [
+              {
+                "name": "valor",
+                "type": "AMAZON.SearchQuery",
+                "confirmationRequired": false,
+                "elicitationRequired": true,
+                "prompts": {
+                    "elicitation": "Elicit.Command_DEFINE.valor"
+                }
+              }
             ]
           }
         ]
-      }
+      },
+      "prompts": [
+        {
+          "id": "Elicit.Command_DEFINE.nombre",
+          "variations": [
+            {
+              "type": "PlainText",
+              "value": "¿Con qué nombre te gustaría guardarlo?"
+            },
+            {
+              "type": "PlainText",
+              "value": "¿Qué nombre deseas ponerle a la variable?"
+            }
+          ]
+        },
+        {
+          "id": "Elicit.Command_DEFINE.valor",
+          "variations": [
+            {
+              "type": "PlainText",
+              "value": "¿Qué valor va a tener la variable?"
+            },
+            {
+              "type": "PlainText",
+              "value": "¿A qué valor va a ser igual la variable?"
+            }
+          ]
+        }
+      ]
     }
   }

@@ -28,16 +28,29 @@ const Alexa = require('ask-sdk-core');
 // !       VARIABLES       ¡
 // -=x=-=x=-=x=-=x=-=x=-=x=-
 
+const VARIABLES = {};
+const AVAILABLE_COMMANDS = [ "Define la variable", "Muestra el tipo de", "Muestra el valor de", "Adiós Alfred" ];
+
 const DIALOGS = {
   'prompt': '¿Qué instrucción deseas que ejecute?',
 
   'LaunchRequest': {
-    'welcome': "Bienvenido al intérprete del lenguaje de programación Alfred. ",
-    'onlyrepl': "Actualmente sólo está disponible la versión interactiva, por lo que ejecutaré las instrucciones que me vayas diciendo. ",
-    'exit': 'Si deseas salir de la Skill di "Salir" o ejecuta el comando "Adiós Alfred". ',
-    'prompt': '¿Qué deseas hacer?'
+    'welcome':  "Bienvenido al intérprete por voz del lenguaje de programación Alfred. ",
+    'onlyrepl': "Ejecutaré las instrucciones que me vayas diciendo de una en una. ",
+    'help':     'Si necesitas ayuda prueba a decir "Ayuda". ',
+    'exit':     'Si deseas salir de la Skill di "Salir" o ejecuta el comando "Adiós Alfred". ',
+    'prompt':   "¿Qué deseas hacer?"
+  },
+  'HelpRequest': {
+    'instructions': "Las instrucciones disponibles actualmente son: " + AVAILABLE_COMMANDS.join(", ") + ". "
+  },
+  'ExitRequest': {
+    'exit':     "Cerrando la Skill... ¡Adiós!"
+  },
+  'Unhandled': {
+    'error':    "Perdona, no he entendido lo que me has dicho. "
   }
-}
+};
 
 // -=x=-=x=-=x=-=x=-=x=-=x=-
 // !        HANDLER        ¡
@@ -49,7 +62,7 @@ const LaunchRequestHandler = {
   },
   handle(handlerInput) {
 
-    const reprompt = DIALOGS.LaunchRequest.onlyrepl + DIALOGS.LaunchRequest.exit + DIALOGS.LaunchRequest.prompt;
+    const reprompt   = DIALOGS.LaunchRequest.onlyrepl + DIALOGS.LaunchRequest.help + DIALOGS.LaunchRequest.exit + DIALOGS.LaunchRequest.prompt;
     const speechText = DIALOGS.LaunchRequest.welcome + reprompt;
 
     return handlerInput.responseBuilder
@@ -64,6 +77,50 @@ const ByeCommandHandler = {
   /* Integrado dentro de CancelAndStopIntentHandler */
 };
 
+const SlotConfirmationHandler = {
+  canHandle(handlerInput) {
+    const request = handlerInput.requestEnvelope.request;
+    return request.type === 'IntentRequest' &&
+           request.dialogState !== 'COMPLETED' &&
+           request.intent.name === 'Command_DEFINE';
+  },
+  handle(handlerInput) {
+    const currentIntent = handlerInput.requestEnvelope.request.intent;
+    return handlerInput.responseBuilder
+      .addDelegateDirective(currentIntent)
+      .getResponse();
+  },
+};
+
+const DefineCommandHandler = {
+  canHandle(handlerInput) {
+    return handlerInput.requestEnvelope.request.type === 'IntentRequest'
+      && handlerInput.requestEnvelope.request.intent.name === 'Command_DEFINE';
+  },
+  handle(handlerInput) {
+
+    let speechText;
+
+    const name    = handlerInput.requestEnvelope.request.intent.slots.nombre.value;
+    const value   = handlerInput.requestEnvelope.request.intent.slots.valor.value;
+
+    if(name === undefined)
+      speechText = 'No he entendido el nombre de la variable. Por favor, di DEFINE LA VARIABLE junto con el nombre que desees ponerle.';
+    else {
+
+      const action = (VARIABLES[name] === undefined) ? "definida" : "modificada";
+
+      VARIABLES[name] = value;
+
+      speechText = "La variable " + name + " igual a " + value + " ha sido correctamente " + action + ".";
+    }
+
+    return handlerInput.responseBuilder
+      .speak(speechText)
+      .reprompt(DIALOGS.prompt)
+      .getResponse();
+  },
+};
 
 const SayCommandHandler = {
   canHandle(handlerInput) {
@@ -81,17 +138,99 @@ const SayCommandHandler = {
   },
 };
 
+const ShowTypeCommandHandler = {
+  canHandle(handlerInput) {
+    return handlerInput.requestEnvelope.request.type === 'IntentRequest'
+      && handlerInput.requestEnvelope.request.intent.name === 'Command_MUESTRATIPO';
+  },
+  handle(handlerInput) {
+
+    let speechText;
+
+    const name = handlerInput.requestEnvelope.request.intent.slots.nombre.value;
+
+    if(name === undefined)
+      speechText = 'No he entendido el nombre de la variable. Por favor, di MUESTRA EL TIPO DE junto con el nombre que desees ponerle.';
+    else {
+
+      if(VARIABLES[name] === undefined)
+        speechText = "No existe ninguna variable " + name + " que haya sido definida.";
+      else {
+
+        let type = typeof(VARIABLES[name]);
+        if(type === "string")       type = "texto";
+        else if(type === "number")  type = "número";
+
+        speechText = "La variable " + name + " contiene un " + type + ".";
+      }
+    }
+
+    return handlerInput.responseBuilder
+      .speak(speechText)
+      .reprompt(DIALOGS.prompt)
+      .getResponse();
+  },
+};
+
+const ShowValueCommandHandler = {
+  canHandle(handlerInput) {
+    return handlerInput.requestEnvelope.request.type === 'IntentRequest'
+      && handlerInput.requestEnvelope.request.intent.name === 'Command_MUESTRAVALOR';
+  },
+  handle(handlerInput) {
+
+    let speechText;
+
+    const name = handlerInput.requestEnvelope.request.intent.slots.nombre.value;
+
+    if(name === undefined)
+      speechText = 'No he entendido el nombre de la variable. Por favor, di MUESTRA EL VALOR DE junto con el nombre que desees ponerle.';
+    else {
+
+      if(VARIABLES[name] === undefined)
+        speechText = "No existe ninguna variable " + name + " que haya sido definida.";
+      else
+        speechText = "" + VARIABLES[name];
+    }
+
+    return handlerInput.responseBuilder
+      .speak(speechText)
+      .reprompt(DIALOGS.prompt)
+      .getResponse();
+  },
+};
+
 const HelpIntentHandler = {
   canHandle(handlerInput) {
     return handlerInput.requestEnvelope.request.type === 'IntentRequest'
       && handlerInput.requestEnvelope.request.intent.name === 'AMAZON.HelpIntent';
   },
   handle(handlerInput) {
-    const speechText = 'You can introduce yourself by telling me your name';
+
+    const speechText = DIALOGS.HelpRequest.instructions + DIALOGS.prompt;
+    const reprompt   = DIALOGS.LaunchRequest.onlyrepl + DIALOGS.LaunchRequest.help + DIALOGS.LaunchRequest.exit + DIALOGS.LaunchRequest.prompt;
+
 
     return handlerInput.responseBuilder
       .speak(speechText)
-      .reprompt(speechText)
+      .reprompt(reprompt)
+      .getResponse();
+  },
+};
+
+const UnhandledHandler = {
+  canHandle(handlerInput) {
+    return handlerInput.requestEnvelope.request.type === 'IntentRequest'
+      && handlerInput.requestEnvelope.request.intent.name === 'Unhandled';
+  },
+  handle(handlerInput) {
+
+    const speechText = DIALOGS.Unhandled.error + DIALOGS.LaunchRequest.help + DIALOGS.LaunchRequest.exit + DIALOGS.LaunchRequest.prompt;
+    const reprompt   = DIALOGS.LaunchRequest.onlyrepl + DIALOGS.LaunchRequest.help + DIALOGS.LaunchRequest.exit + DIALOGS.LaunchRequest.prompt;
+
+    return handlerInput.responseBuilder
+      .speak(speechText)
+      .reprompt(reprompt)
       .getResponse();
   },
 };
@@ -104,10 +243,8 @@ const CancelAndStopIntentHandler = {
         || handlerInput.requestEnvelope.request.intent.name === 'Command_ADIOSALFRED');
   },
   handle(handlerInput) {
-    const speechText = '¡Adiós¡';
-
     return handlerInput.responseBuilder
-      .speak(speechText)
+      .speak(DIALOGS.ExitRequest.exit)
       .getResponse();
   },
 };
@@ -128,11 +265,15 @@ const ErrorHandler = {
     return true;
   },
   handle(handlerInput, error) {
-    console.log(`Error handled: ${error.message}`);
+
+    console.log("[ERROR] " + error.message);
+
+    const speechText = DIALOGS.Unhandled.error + DIALOGS.LaunchRequest.help + DIALOGS.LaunchRequest.exit + DIALOGS.LaunchRequest.prompt;
+    const reprompt   = DIALOGS.LaunchRequest.onlyrepl + DIALOGS.LaunchRequest.help + DIALOGS.LaunchRequest.exit + DIALOGS.LaunchRequest.prompt;
 
     return handlerInput.responseBuilder
-      .speak('Sorry, I can\'t understand the command. Please say again.')
-      .reprompt('Sorry, I can\'t understand the command. Please say again.')
+      .speak(speechText)
+      .reprompt(reprompt)
       .getResponse();
   },
 };
@@ -142,9 +283,14 @@ const skillBuilder = Alexa.SkillBuilders.custom();
 exports.handler = skillBuilder
   .addRequestHandlers(
     LaunchRequestHandler,
+    SlotConfirmationHandler,
     // ByeCommandHandler,
+    DefineCommandHandler,
     SayCommandHandler,
+    ShowTypeCommandHandler,
+    ShowValueCommandHandler,
 
+    UnhandledHandler,
     HelpIntentHandler,
     CancelAndStopIntentHandler,
     SessionEndedRequestHandler
