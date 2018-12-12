@@ -104,16 +104,16 @@ workflows:
             branches:
               only: haskell
       - test_binary:
-          filters:
-            branches:
-              only: haskell
           requires:
             - make_build
             - cabal_build
+          filters:
+            branches:
+              only: haskell
       - test_code:
-          filters:
-            branches:
-              only: haskell
           requires:
             - make_build
             - cabal_build
+          filters:
+            branches:
+              only: haskell
