@@ -27,8 +27,14 @@ jobs:
           paths: ./node_modules
       # Run the Unit Tests & Code Coverage
       - run:
-          name: Unit Tests & Code Coverage
+          name: Unit Tests
           command: npm run coverage
+      # Run Coverage to Codecov.io
+      - run:
+          name: Code Coverage
+          command: |
+            npm install --global codecov
+            codecov
 
 # ====================================================================
 
