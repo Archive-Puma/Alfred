@@ -25,10 +25,10 @@ jobs:
       - save_cache:
           key: dependencies-{{ checksum "package.json" }}
           paths: ./node_modules
-      # Run the Unit Tests
+      # Run the Unit Tests & Code Coverage
       - run:
-          name: Unit Tests
-          command: npm test
+          name: Unit Tests & Code Coverage
+          command: npm run coverage
 
 # ====================================================================
 
