@@ -25,7 +25,7 @@ jobs:
       - save_cache:
           key: dependencies-{{ checksum "package.json" }}
           paths: ./node_modules
-      # Run the Unit Tests & Code Coverage
+      # Run the Unit Tests
       - run:
           name: Unit Tests
           command: npm test
@@ -35,6 +35,7 @@ jobs:
           command: |
             npm install --global codecov
             npm run coverage
+            npm run codecov-report
             codecov
 
 # ====================================================================
