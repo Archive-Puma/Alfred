@@ -97,22 +97,22 @@ jobs:
     steps:
       - checkout
       - run:
-        - name: Update NPM
-        - command: sudo npm install --global npm@latest
+          name: Update NPM
+          command: sudo npm install --global npm@latest
       - run:
-        - name: Lambda Directory
-        - command: cd lambda/us-east-1_ask-custom-alexa-default
+          name: Lambda Directory
+          command: cd lambda/us-east-1_ask-custom-alexa-default
       - restore_cache:
         key: dependencies-{{ checksum "package.json" }}
       - run:
-        - name: NPM Install
-        - command: npm install
+          name: NPM Install
+          command: npm install
       - save_cache:
-        - key: dependencies-{{ checksum "package.json" }}
-        - paths: ./node_modules
+          key: dependencies-{{ checksum "package.json" }}
+          paths: ./node_modules
       - run:
-        - name: Unit Tests
-        - command: npm test
+          name: Unit Tests
+          command: npm test
 
 
 workflows:
