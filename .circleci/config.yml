@@ -37,6 +37,6 @@ workflows:
   builds:
     jobs:
       - unit_test:
-        filters:
-          branch:
-            only: alexa
+          filters:
+            branch:
+              only: alexa
