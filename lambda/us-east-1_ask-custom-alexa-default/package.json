@@ -4,7 +4,8 @@
   "description": "Alexa \"Languaje: Alfred\" Skill",
   "main": "index.js",
   "scripts": {
-    "test": "UNIT_TEST=true mocha test.js"
+    "test": "UNIT_TEST=true mocha test.js",
+    "coverage": "nyc --reporter=text mocha"
   },
   "repository": {
     "type": "git",
@@ -24,6 +25,7 @@
   "devDependencies": {
     "chai": "^4.2.0",
     "mocha": "^5.2.0",
+    "nyc": "^13.1.0",
     "virtual-alexa": "^0.6.14"
   }
 }

@@ -1,2 +1,3 @@
+lambda/**/.nyc_output
 lambda/**/node_modules/*
 !lambda/**/node_modules/ask-sdk*
