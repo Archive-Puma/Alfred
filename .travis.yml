@@ -1,0 +1,13 @@
+language: node_js
+node_js:
+  - "iojs"  # Latest IoJS release
+  - "node"  # Latest NodeJS release
+  - "lts/*" # Latest LTS NodeJS release
+cache: npm  # Cache the dependencies
+before_install:
+  - "npm install --global npm@latest"
+install:
+  - "cd $TRAVIS_BUILD_DIR/lambda/us-east-1_ask-custom-alexa-default"
+  - "npm install"
+script:
+  - "npm test"
