@@ -2,7 +2,7 @@ version: 2
 jobs:
   # Alexa Version - Unit Test
   # https://circleci.com/docs/2.0/language-javascript/
-  unit_test:
+  build:
     docker:
       - image: circleci/node
     steps:
@@ -31,11 +31,3 @@ jobs:
       - run:
         - name: Unit Tests
         - command: npm test
-
-# ====================================================================
-
-workflows:
-  version: 2
-  builds:
-    jobs:
-      - unit_test
