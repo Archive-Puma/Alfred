@@ -91,10 +91,44 @@ jobs:
           name: Alfred Binary Tests
           command: ./dist/build/alfred-test/alfred-test
 
+  # Alexa version Unit Test
+  # https://circleci.com/docs/2.0/language-javascript/
+  alexa-unit_test:
+    docker:
+      - image: circleci/node
+    steps:
+      # Clone the source code
+      - checkout
+      # Update NPM to latest version
+      - run:
+        - name: Update NPM
+        - command: sudo npm install --global npm@latest
+      # Lambda Directory
+      - run:
+        - name: Lambda Directory
+        - command: cd lambda/us-east-1_ask-custom-alexa-default
+      # Restore dependencies
+      - restore_cache:
+        key: dependencies-{{ checksum "package.json" }}
+      # Upgrade/Install NPM modules
+      - run:
+        - name: NPM Install
+        - command: npm install
+      # Save updated dependencies
+      - save_cache:
+        - key: dependencies-{{ checksum "package.json" }}
+        - paths: ./node_modules
+      # Run the Unit Tests
+      - run:
+        - name: Unit Tests
+        - command: npm test
+
+
 workflows:
   version: 2
   builds:
     jobs:
+      # HASKELL
       - make_build:
           filters:
             branches:
@@ -107,13 +141,11 @@ workflows:
           requires:
             - make_build
             - cabal_build
-          filters:
-            branches:
-              only: haskell
       - test_code:
           requires:
             - make_build
             - cabal_build
+      - alexa-unit_test:
           filters:
             branches:
-              only: haskell
+              only: alexa
