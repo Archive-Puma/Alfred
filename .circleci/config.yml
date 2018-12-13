@@ -28,12 +28,13 @@ jobs:
       # Run the Unit Tests & Code Coverage
       - run:
           name: Unit Tests
-          command: npm run coverage
+          command: npm test
       # Run Coverage to Codecov.io
       - run:
           name: Code Coverage
           command: |
             npm install --global codecov
+            npm run coverage
             codecov
 
 # ====================================================================

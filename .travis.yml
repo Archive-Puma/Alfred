@@ -11,5 +11,6 @@ before_install:
 install:
   - npm install
 script:
+  - npm test
   - npm run coverage
   - codecov # Code Coverage
