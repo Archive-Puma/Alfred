@@ -91,7 +91,7 @@ jobs:
           name: Alfred Binary Tests
           command: ./dist/build/alfred-test/alfred-test
 
-  # Alexa version Unit Test
+  # Alexa Version - Unit Test
   # https://circleci.com/docs/2.0/language-javascript/
   alexa-unit_test:
     docker:
@@ -145,6 +145,7 @@ workflows:
           requires:
             - make_build
             - cabal_build
+      # ALEXA
       - alexa-unit_test:
           filters:
             branches:
