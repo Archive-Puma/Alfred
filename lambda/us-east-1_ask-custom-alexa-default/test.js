@@ -10,7 +10,11 @@ const DIALOGS = {
 
   'LaunchRequest':  "Bienvenido al intérprete por voz del lenguaje de programación Alfred. Ejecutaré las instrucciones que me vayas diciendo de una en una. Si necesitas ayuda prueba a decir \"Ayuda\". Si deseas salir de la Skill di \"Salir\" o ejecuta el comando \"Adiós Alfred\". ¿Qué deseas hacer?",
   'HelpRequest':    "Las instrucciones disponibles actualmente son: Di, Define la variable, Muestra el tipo de, Muestra el valor de, Adiós Alfred. ¿Qué instrucción deseas que ejecute?",
-  'StopRequest':    "Cerrando la Skill... ¡Adiós!"
+  'StopRequest':    "Cerrando la Skill... ¡Adiós!",
+
+  'Show': {
+    'undefined':    [ "No existe ninguna variable ", " que haya sido definida."]
+  }
 };
 
 speak = (dialog) => DIALOGS.speak[0] + dialog + DIALOGS.speak[1];
@@ -44,7 +48,7 @@ describe('[Unit Test] Lenguaje: Alfred (es-ES)', function() {
     res = await alexa.utter("salir de la skill");
     expect(res.response.outputSpeech.ssml).to.equal(speak(DIALOGS.StopRequest));
   });
-  
+
   it('"Command: Say" Request', async function() {
     let res;
     res = await alexa.utter("di");
@@ -55,6 +59,22 @@ describe('[Unit Test] Lenguaje: Alfred (es-ES)', function() {
     expect(res.response.outputSpeech.ssml).to.equal(speak("joder"));
     res = await alexa.utter("di hola mundo");
     expect(res.response.outputSpeech.ssml).to.equal(speak("hola mundo"));
+  });
+
+  it('"Command: Show" Request', async function() {
+    let res;
+    res = await alexa.utter("muestra el valor de");
+    expect(res.response.outputSpeech.ssml).to.equal(speak(DIALOGS.Show.undefined[0] + DIALOGS.Show.undefined[1]));
+    res = await alexa.utter("muestra el valor de x");
+    expect(res.response.outputSpeech.ssml).to.equal(speak(DIALOGS.Show.undefined[0] + "x" + DIALOGS.Show.undefined[1]));
+  });
+
+  it('"Command: ShowType" Request', async function() {
+    let res;
+    res = await alexa.utter("muestra el tipo de");
+    expect(res.response.outputSpeech.ssml).to.equal(speak(DIALOGS.Show.undefined[0] + DIALOGS.Show.undefined[1]));
+    res = await alexa.utter("muestra el tipo de x");
+    expect(res.response.outputSpeech.ssml).to.equal(speak(DIALOGS.Show.undefined[0] + "x" + DIALOGS.Show.undefined[1]));
   });
 
   it('"Command: ByeAlfred" Request', async function() {
