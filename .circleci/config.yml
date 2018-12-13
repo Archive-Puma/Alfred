@@ -2,7 +2,7 @@ version: 2
 jobs:
   # Alexa Version - Unit Test
   # https://circleci.com/docs/2.0/language-javascript/
-  build:
+  unit_test:
     docker:
       - image: circleci/node
     steps:
@@ -10,24 +10,32 @@ jobs:
       - checkout
       # Update NPM to latest version
       - run:
-        - name: Update NPM
-        - command: sudo npm install --global npm@latest
+          name: Update NPM
+          command: sudo npm install --global npm@latest
       # Lambda Directory
       - run:
-        - name: Lambda Directory
-        - command: cd lambda/us-east-1_ask-custom-alexa-default
+          name: Lambda Directory
+          command: cd lambda/us-east-1_ask-custom-alexa-default
       # Restore dependencies
       - restore_cache:
-        key: dependencies-{{ checksum "package.json" }}
+          key: dependencies-{{ checksum "package.json" }}
       # Upgrade/Install NPM modules
       - run:
-        - name: NPM Install
-        - command: npm install
+          name: NPM Install
+          command: npm install
       # Save updated dependencies
       - save_cache:
-        - key: dependencies-{{ checksum "package.json" }}
-        - paths: ./node_modules
+          key: dependencies-{{ checksum "package.json" }}
+          paths: ./node_modules
       # Run the Unit Tests
       - run:
-        - name: Unit Tests
-        - command: npm test
+          name: Unit Tests
+          command: npm test
+
+# ====================================================================
+
+workflows:
+  version: 2
+  builds:
+    jobs:
+      - unit_test
