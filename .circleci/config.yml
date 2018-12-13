@@ -33,7 +33,7 @@ jobs:
       - run:
           name: Code Coverage
           command: |
-            npm install --global codecov
+            sudo npm install --global codecov@latest
             npm run coverage
             npm run codecov-report
             bash <(curl -s https://codecov.io/bash)
