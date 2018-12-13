@@ -3,6 +3,8 @@ jobs:
   # Alexa Version - Unit Test
   # https://circleci.com/docs/2.0/language-javascript/
   unit_test:
+    branches:
+      only: alexa
     working_directory: ~/alexa/lambda/us-east-1_ask-custom-alexa-default
     docker:
       - image: circleci/node
@@ -36,7 +38,4 @@ workflows:
   version: 2
   builds:
     jobs:
-      - unit_test:
-          filters:
-            branch:
-              only: alexa
+      - unit_test
