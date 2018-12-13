@@ -10,17 +10,10 @@ jobs:
       # Clone the source code
       - checkout:
           path: ~/alexa
-      - run:
-          name: List Dir
-          command: ls -la
       # Update NPM to latest version
       - run:
           name: Update NPM
           command: sudo npm install --global npm@latest
-      # Lambda Directory
-      - run:
-          name: Lambda Directory
-          command: cd lambda/us-east-1_ask-custom-alexa-default
       # Restore dependencies
       - restore_cache:
           key: dependencies-{{ checksum "package.json" }}
