@@ -6,9 +6,6 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Check GHC
-          command: ghc --version
-      - run:
           name: Configure
           command: make configure
       - run:
@@ -23,11 +20,6 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Check GHC and Cabal
-          command: |
-            ghc --version
-            cabal --version
-      - run:
           name: Configure Cabal
           command: |
             cabal update
@@ -35,8 +27,8 @@ jobs:
       - run:
           name: Build Program
           command: cabal build
-      - save_cache:
-          key: alfred-binary-{{ checksum ".circleci/config.yml" }}-{{ checksum "src/core/Parser.hs" }}
+      - persist_to_workspace:
+          root: .
           paths:
             - example
             - dist/build/alfred/alfred
@@ -45,10 +37,8 @@ jobs:
     docker:
       - image: fpco/stack-build
     steps:
-      - checkout
-      - restore_cache:
-          keys:
-            - alfred-binary-{{ checksum ".circleci/config.yml" }}-{{ checksum "src/core/Parser.hs" }}
+      - attach_workspace:
+          at: .
       - run:
           name: Linking Alfred
           command: sudo ln -s $PWD/dist/build/alfred/alfred /usr/bin/alfred
