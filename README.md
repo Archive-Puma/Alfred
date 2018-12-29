@@ -30,6 +30,3 @@
       src="https://img.shields.io/badge/version-v0.3.0-blue.svg?style=flat-square">
   </a>
 </p>
-
-
----
