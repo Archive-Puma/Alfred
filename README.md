@@ -18,7 +18,18 @@
 </p>
 
 <p align="center">
-  [![Build](https://img.shields.io/circleci/project/github/CosasDePuma/Alfred/haskell.svg?style=flat-square&logo=circleci)](https://circleci.com/gh/CosasDePuma/Alfred/tree/haskell)
-  [![Version](https://img.shields.io/badge/version-v0.3.0-blue.svg?style=flat-square)](https://github.com/CosasDePuma/Alfred/tree/haskell)
-	<br>
+  <a href="https://circleci.com/gh/CosasDePuma/Alfred/tree/haskell">
+    <img
+      alt="Build"
+      src="https://img.shields.io/circleci/project/github/CosasDePuma/Alfred/haskell.svg?style=flat-square&logo=circleci">
+  </a>
+
+  <a href="https://github.com/CosasDePuma/Alfred/tree/haskell">
+    <img
+      alt="Version"
+      src="https://img.shields.io/badge/version-v0.3.0-blue.svg?style=flat-square">
+  </a>
 </p>
+
+
+---
