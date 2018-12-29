@@ -1,0 +1,16 @@
+= Alfred
+Kike Fontán (@CosasDePuma) <kikefontanlorenzo@gmail.com>
+
+// Settings
+:toc: preamble
+
+[.description]
+==== Just another programming language
+---
+
+image::.repo/alfred.png[]
+
+[cols="^"]
+|===
+|image:https://img.shields.io/circleci/project/github/CosasDePuma/Alfred/haskell.svg?style=flat-square&logo=circleci[link=https://circleci.com/gh/CosasDePuma/Alfred/tree/haskell] image:https://img.shields.io/badge/version-v0.3.0-blue.svg?style=flat-square[link=https://github.com/CosasDePuma/Alfred/releases]
+|===
