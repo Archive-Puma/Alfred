@@ -10,7 +10,6 @@
     Alfred
   </strong>
 </h1>
----
 
 <p align="center">
 	<strong>
