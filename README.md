@@ -74,9 +74,18 @@ make clean
 
 The compilation process can be reduced to a single command:
 
-```
+```bash
 make
 ```
+
+##### Cabal
+
+You can compile the interpreter using `cabal` simply with the command:
+
+```bash
+cabal build
+```
+
 
 
 
