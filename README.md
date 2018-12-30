@@ -14,7 +14,6 @@
     Just another programming language
 	</strong>
 </p>
-
 <p align="center">
   <a href="https://circleci.com/gh/CosasDePuma/Alfred/tree/haskell">
     <img
@@ -29,6 +28,55 @@
   </a>
 </p>
 
+
+
+
+:vhs: Clone the repository!
+----
+Clone or download the project:
+```sh
+git clone https://github.com/cosasdepuma/alfred.git --branch haskell Alfred-Haskell
+```
+
+
+
+
+:wrench: Build the interpreter
+---
+All the compiled files will be placed in the `dist` directory.
+
+
+You can compile the interpreter in two different ways but both are totally valid:
+
+##### Makefile
+
+>  :warning: This option is not available for Windows devices.
+
+>  :warning: The `make` program must be installed on the system.
+
+Before compiling the interpreter, it is necessary to check and correct the requirements with the command:
+
+```bash
+make configure
+```
+
+Now we can start the process running:
+
+```bash
+make build
+```
+
+Finally, we will delete all the unwanted files from the compilation process:
+
+```bash
+make clean
+```
+
+The compilation process can be reduced to a single command:
+
+```
+make
+```
 
 
 
