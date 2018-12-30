@@ -48,7 +48,7 @@ All the compiled files will be placed in the `dist` directory.
 
 You can compile the interpreter in two different ways but both are totally valid:
 
-##### Makefile
+### Makefile
 
 >  :warning: This option is not available for Windows devices.
 
@@ -78,7 +78,7 @@ The compilation process can be reduced to a single command:
 make
 ```
 
-##### Cabal
+### Cabal
 
 You can compile the interpreter using `cabal` simply with the command:
 
