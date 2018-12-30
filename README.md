@@ -1,0 +1,106 @@
+<h1 align="center">
+	<img
+		width="300"
+		alt="Alfred Haskell"
+		src="./.repo/alfred.png">
+</h1>
+<h1 align="center">
+	<strong>
+    Alfred
+  </strong>
+</h1>
+<p align="center">
+	<strong>
+    Just another programming language
+	</strong>
+</p>
+
+<p align="center">
+  <a href="https://circleci.com/gh/CosasDePuma/Alfred/tree/haskell">
+    <img
+      alt="Build"
+      src="https://img.shields.io/circleci/project/github/CosasDePuma/Alfred/haskell.svg?style=flat-square&logo=circleci">
+  </a>
+
+  <a href="https://github.com/CosasDePuma/Alfred/tree/haskell">
+    <img
+      alt="Version"
+      src="https://img.shields.io/badge/version-v0.3.0-blue.svg?style=flat-square">
+  </a>
+</p>
+
+
+
+
+:octopus: Support the developer!
+----
+Everything I do and publish can be used for free whenever I receive my corresponding merit.
+
+Anyway, if you want to help me in a more direct way, you can leave me a tip by clicking on this badge:
+
+<p align="center">
+    </br>
+    <a href="https://www.paypal.me/cosasdepuma/"><img src="https://img.shields.io/badge/Donate-PayPal-blue.svg?style=for-the-badge&logo=paypal" alt="PayPal Donation"></img></a>
+</p>
+
+
+
+
+:earth_africa: Scheme of contents
+----
+```
+Alfred (Haskell)
+ < Repository >
+|__ .repo
+|	|__ alfred.png
+|__ .gitignore
+|__ LICENSE
+|__ README.md
+< Build >
+|__ Makefile
+|__ Setup.hs
+|__ alfred.cabal
+< CD/CI >
+|__ .circleci
+|	|__ config.yml
+< Distribution >
+|__ dist
+|	|__ build
+|	 	|__ alfred
+|	 	|	|__ alfred
+|	 	|__ alfred-test
+|	 		|__ alfred-test
+< Source >
+|__ src
+|	|__ Main.hs
+|	|__ Core
+|	|	|__ Parser
+|	|	|	|__ Instructions
+|	|	|	|	|__ Jumps.hs
+|	|	|	|	|__ Std.hs
+|	|	|	|	|__ Stdout.hs
+|	|	|	|	|__ Variables.hs
+|	|	|	|__ Functions.hs
+|	|	|	|__ Instructions.hs
+|	|	|	|__ Stdout.hs
+|	|	|	|__ Variables.hs
+|	|	|_ Arguments.hs
+|	|	|_ Interpreter.hs
+|	|	|_ Parser.hs
+|	|	|_ Repl.hs
+< Language Support >
+|	|_ Lang
+|	 	|_ ES.hs
+< Unit Test >
+|_ test
+|	|_ Parser
+|	|	|_ FunctionsSpecs.hs
+|	|_ Main.hs
+|	|_ Spec.hs
+< Alfred Examples >
+|_ example
+	|_ holamundo.alf
+	|_ momentos_inversos.alf
+	|_ momentos.alf
+	|_ variables.alf
+```
