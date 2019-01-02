@@ -9,8 +9,7 @@
       "README.md"
     ],
     "order": [
-      "commands.md",
-      "escribe.md"
+      "command:escribe.md"
     ]
   },
   "separator": ":-",
