@@ -2,21 +2,15 @@ version: 2
 jobs:
   make_build:
     docker:
-      - image: fpco/stack-build
+      - image: cosasdepuma/circleci:haskell
     steps:
       - checkout
       - run:
-          name: Configure
-          command: make configure
-      - run:
-          name: Build
-          command: make build
-      - run:
-          name: Clean
-          command: make clean
+          name: Make
+          command: make
   cabal_build:
     docker:
-      - image: fpco/stack-build
+      - image: cosasdepuma/circleci:haskell
     steps:
       - checkout
       - run:
@@ -35,7 +29,7 @@ jobs:
 
   test_binary:
     docker:
-      - image: fpco/stack-build
+      - image: cosasdepuma/circleci:haskell
     steps:
       - attach_workspace:
           at: .
@@ -66,7 +60,7 @@ jobs:
           command: alfred example/momentos_inversos.alf
   test_code:
     docker:
-      - image: fpco/stack-build
+      - image: cosasdepuma/circleci:haskell
     steps:
       - checkout
       - run:
