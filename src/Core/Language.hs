@@ -42,4 +42,5 @@ data Expression =
 data Operation =
   Add
   | Substract
+  | Multiply
   deriving(Show)

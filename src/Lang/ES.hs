@@ -3,12 +3,14 @@ module Lang.ES where
 lang_space                                          :: String
 lang_space  = " "
 lang_adds,lang_alfred,lang_define,lang_go,lang_jump :: String
-lang_print,lang_show,lang_subs,lang_to,lang_value   :: String
+lang_mult,lang_print,lang_show,lang_subs,lang_to    :: String
+lang_value                                          :: String
 lang_adds   = "sumale"
 lang_alfred = "alfred"
 lang_define = "define"
 lang_go     = "vete"
 lang_jump   = "salta"
+lang_mult   = "multiplica por"
 lang_print  = "escribe"
 lang_show   = "muestra"
 lang_subs   = "restale"

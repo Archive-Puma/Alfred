@@ -76,6 +76,7 @@ eval vars jumps flags source ((Math operation name number):code)  = do
             Numero operand1 -> case operation of
               Add       -> Map.insert name (Numero $ operand1 + operand2) vars
               Substract -> Map.insert name (Numero $ operand1 - operand2) vars
+              Multiply  -> Map.insert name (Numero $ operand1 * operand2) vars
             otherwise     -> vars
           Nothing       -> vars
         otherwise         -> vars

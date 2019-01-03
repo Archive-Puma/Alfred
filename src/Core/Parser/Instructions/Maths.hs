@@ -1,4 +1,4 @@
-module Core.Parser.Instructions.Maths (add'substract') where
+module Core.Parser.Instructions.Maths (add'substract', multiply') where
 
     --------
     
@@ -10,8 +10,8 @@ module Core.Parser.Instructions.Maths (add'substract') where
     --------
     
     -- Alfred modules
-    import Lang.ES                (lang_adds,lang_subs,lang_to)
-    import Core.Language          (Expression(Math),Operation(Add,Substract))
+    import Lang.ES                (lang_adds,lang_mult,lang_subs,lang_to)
+    import Core.Language          (Expression(Math),Operation(Add,Substract,Multiply))
     import Core.Parser.Functions  (ignoreCase,trim)
     import Core.Parser.Variables  (integer)
     
@@ -27,6 +27,16 @@ module Core.Parser.Instructions.Maths (add'substract') where
       _         <- ignoreCase lang_to
       name      <- manyTill anyChar (char '\n')
       return $ Math command ((trim . map toLower) name) quantity
+
+    -- Filter: Command - Súmale / Réstale
+    multiply' :: Parser Expression
+    multiply' = do
+      _         <- ignoreCase lang_mult
+      _         <- char ' '
+      quantity  <- integer
+      _         <- char ' '
+      name      <- manyTill anyChar (char '\n')
+      return $ Math Multiply ((trim . map toLower) name) quantity
     
     --------
     
