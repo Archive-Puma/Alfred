@@ -1,4 +1,4 @@
-module Core.Parser.Variables (unquotedString,variable) where
+module Core.Parser.Variables (unquotedString,variable,integer) where
 
 --------
 

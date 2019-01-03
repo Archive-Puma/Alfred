@@ -15,6 +15,7 @@ import Core.Parser.Functions              (ignoreCase,trim)
 import Core.Parser.Variables              (unquotedString,variable)
 import Core.Parser.Instructions.Std       (start',exit')
 import Core.Parser.Instructions.Jumps     (define'label,goto')
+import Core.Parser.Instructions.Maths     (add'substract')
 import Core.Parser.Instructions.Stdout    (print',show',show'value)
 import Core.Parser.Instructions.Variables (define'var)
 
@@ -22,12 +23,13 @@ import Core.Parser.Instructions.Variables (define'var)
 
 -- Filter: All possible commands
 command :: Parser Expression
-command = try define'label  <|>
-          try define'var    <|>
-          try goto'         <|>
-          try print'        <|>
-          try show'value    <|>
-          try show'         <|>
+command = try define'label    <|>
+          try define'var      <|>
+          try goto'           <|>
+          try print'          <|>
+          try show'value      <|>
+          try show'           <|>
+          try add'substract'  <|>
               exit'
 
 --------

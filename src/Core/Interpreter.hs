@@ -57,18 +57,31 @@ eval vars jumps flags source ((Goto name):code) = case Map.lookup name jumps of
 
 
 -- Evaluation: Command - Define variable
-eval vars jumps flags source ((DefineVar name value):code)   = do
+eval vars jumps flags source ((DefineVar name value):code)        = do
   eval (Map.insert name value vars) jumps flags source code
 
 
 -- Evaluation: Command - Escribe
-eval vars jumps flags source ((Print text):code)             = do
+eval vars jumps flags source ((Print text):code)                  = do
   putStrLn text
   eval vars jumps flags source code
 
+-- Evaluation: Command - Súmale / Réstale
+eval vars jumps flags source ((Math operation name number):code)  = do
+  eval vars' jumps flags source code
+    where
+      vars' = case number of
+        Numero operand2 -> case Map.lookup name vars of
+          Just variable -> case variable of
+            Numero operand1 -> case operation of
+              Add       -> Map.insert name (Numero $ operand1 + operand2) vars
+              Substract -> Map.insert name (Numero $ operand1 - operand2) vars
+            otherwise     -> vars
+          Nothing       -> vars
+        otherwise         -> vars
 
 -- Evaluation: Command - Muestra
-eval vars jumps flags source ((Show name):code)              = do
+eval vars jumps flags source ((Show name):code)                   = do
   case Map.lookup name vars of
     Just val -> print val
     Nothing -> putStrLn ""
@@ -76,7 +89,7 @@ eval vars jumps flags source ((Show name):code)              = do
 
 
 -- Evaluation: Command - Muestra el valor de
-eval vars jumps flags source ((ShowValue name):code)         = do
+eval vars jumps flags source ((ShowValue name):code)              = do
   case Map.lookup name vars of
     Just variable -> case variable of
       Lista list  -> (print . map toString) list
@@ -86,19 +99,19 @@ eval vars jumps flags source ((ShowValue name):code)         = do
 
 
 -- Evaluation: Error
-eval vars jumps flags source (Exit:code)                     = do
+eval vars jumps flags source (Exit:code)                          = do
   exitWith ExitSuccess
   eval vars jumps flags source code
 
 
 -- Evaluation: Error
-eval vars jumps flags source (Error:code)                    = do
+eval vars jumps flags source (Error:code)                         = do
   putStrLn "Error :: Parser (Can't parse the code)"
   eval vars jumps flags source code
 
 
 -- Evaluation: Error in Repl
-eval vars jumps flags source ((ErrorRepl command):code)      = do
+eval vars jumps flags source ((ErrorRepl command):code)           = do
   putStrLn $ "Error :: Parser (Can't parse \"" ++ command ++ "\")"
   eval vars jumps flags source code
 

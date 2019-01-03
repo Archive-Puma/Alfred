@@ -29,11 +29,17 @@ data Token =
 data Expression =
   DefineLabel Nombre
   | DefineVar Nombre Variable
+  | Goto Nombre
   | Print String
   | Show Nombre
   | ShowValue Nombre
-  | Goto Nombre
   | Exit
   | Error
   | ErrorRepl String
+  | Math Operation Nombre Variable
+  deriving(Show)
+
+data Operation =
+  Add
+  | Substract
   deriving(Show)
