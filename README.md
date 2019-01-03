@@ -134,6 +134,7 @@ Alfred (Haskell)
 |	|	|__ Parser
 |	|	|	|__ Instructions
 |	|	|	|	|__ Jumps.hs
+| | | | |__ Maths.hs
 |	|	|	|	|__ Std.hs
 |	|	|	|	|__ Stdout.hs
 |	|	|	|	|__ Variables.hs
