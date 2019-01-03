@@ -3,7 +3,7 @@ module Core.Parser.Instructions.Std (start',exit') where
 --------
 
 -- Haskell Libraries
-import Text.Parsec            (char,try)
+import Text.Parsec            (char,many,many1)
 import Text.Parsec.String     (Parser)
 
 --------
@@ -20,7 +20,7 @@ import Core.Parser.Variables  (unquotedString,variable)
 start' :: Parser Token
 start' = do
   _ <- ignoreCase lang_alfred
-  _ <- char '\n'
+  _ <- many1 (char '\n')
   return CallAlfred
 
 --------
@@ -29,5 +29,5 @@ start' = do
 exit' :: Parser Expression
 exit' = do
   _ <- ignoreCase lang_bye
-  _ <- try (char '\n')
+  _ <- many (char '\n')
   return Exit

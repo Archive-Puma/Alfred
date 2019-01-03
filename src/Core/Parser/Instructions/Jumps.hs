@@ -4,7 +4,7 @@ module Core.Parser.Instructions.Jumps (define'label,goto') where
 
 -- Haskell Libraries
 import Data.Char              (toLower)
-import Text.Parsec            (anyChar,char,manyTill,(<|>))
+import Text.Parsec            (anyChar,char,many,manyTill,(<|>))
 import Text.Parsec.String     (Parser)
 
 --------
@@ -22,6 +22,7 @@ define'label = do
   _     <- ignoreCase lang_moment
   _     <- char ' '
   name  <- manyTill anyChar (char '\n')
+  _     <- many (char '\n')
   return $ (DefineLabel . trim . map toLower) name
 
 --------
@@ -34,4 +35,5 @@ goto' = do
   _     <- ignoreCase lang_to
   _     <- char ' '
   name  <- manyTill anyChar (char '\n')
+  _     <- many (char '\n')
   return $ (Goto . trim . map toLower) name

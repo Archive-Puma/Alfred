@@ -4,7 +4,7 @@ module Core.Parser.Instructions.Stdout (print',show',show'value) where
 
 -- Haskell Libraries
 import Data.Char              (toLower)
-import Text.Parsec            (anyChar,char,manyTill,try,(<|>))
+import Text.Parsec            (anyChar,char,many,manyTill,try,(<|>))
 import Text.Parsec.String     (Parser)
 
 --------
@@ -22,6 +22,7 @@ print' = do
   _     <- ignoreCase lang_print
   _     <- char ' '
   text' <- manyTill anyChar (char '\n')
+  _     <- many (char '\n')
   (return . Print) text'
 
 --------
@@ -32,6 +33,7 @@ show' = do
   _     <- ignoreCase lang_show
   _     <- char ' '
   name  <- manyTill anyChar (char '\n')
+  _     <- many (char '\n')
   (return . Show . map toLower) name
 
 -- Filter: Command - Muestra el valor de
@@ -42,4 +44,5 @@ show'value = do
   _     <- ignoreCase lang_value
   _     <- char ' '
   name  <- manyTill anyChar (char '\n')
+  _     <- many (char '\n')
   (return . ShowValue . map toLower) name

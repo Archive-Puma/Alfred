@@ -4,7 +4,7 @@ module Core.Parser.Instructions.Maths (add'substract', multiply') where
     
     -- Haskell Libraries
     import Data.Char              (toLower)
-    import Text.Parsec            (anyChar,char,digit,manyTill,try,(<|>))
+    import Text.Parsec            (anyChar,char,digit,many,manyTill,try,(<|>))
     import Text.Parsec.String     (Parser)
     
     --------
@@ -26,6 +26,7 @@ module Core.Parser.Instructions.Maths (add'substract', multiply') where
       _         <- char ' '
       _         <- ignoreCase lang_to
       name      <- manyTill anyChar (char '\n')
+      _         <- many (char '\n')
       return $ Math command ((trim . map toLower) name) quantity
 
     -- Filter: Command - Súmale / Réstale
@@ -36,6 +37,7 @@ module Core.Parser.Instructions.Maths (add'substract', multiply') where
       quantity  <- integer
       _         <- char ' '
       name      <- manyTill anyChar (char '\n')
+      _         <- many (char '\n')
       return $ Math Multiply ((trim . map toLower) name) quantity
     
     --------

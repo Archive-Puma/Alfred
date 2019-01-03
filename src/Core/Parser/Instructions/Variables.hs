@@ -4,7 +4,7 @@ module Core.Parser.Instructions.Variables (define'var) where
 
 -- Haskell Libraries
 import Data.Char              (toLower)
-import Text.Parsec            (char,letter,manyTill,try,(<|>))
+import Text.Parsec            (char,letter,many1,manyTill,try,(<|>))
 import Text.Parsec.String     (Parser)
 
 --------
@@ -25,5 +25,5 @@ define'var = do
   name  <- manyTill (letter <|> char ' ') (try (ignoreCase lang_as))
   _     <- char ' '
   value <- variable <|> unquotedString
-  _     <- char '\n'
+  _     <- many1 (char '\n')
   return $ (DefineVar . trim . map toLower) name value
