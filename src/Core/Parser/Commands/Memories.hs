@@ -11,7 +11,7 @@ import Text.Parsec.String                       (Parser)
 --------
 
 -- Alfred Modules
-import Core.Parser.Types                        (f'text,varname'd)
+import Core.Parser.Types                        (f'text)
 import Core.Language.Types                      (Command(DefineMoment,GotoMoment))
 import Core.Parser.Auxiliary                    (iC)
 import Core.Language.Translations.ES as Lang    (define_moment,goto)

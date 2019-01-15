@@ -21,6 +21,7 @@ data Command =
     -- Base
     HiAlfred
     | ByeAlfred
+    | Comment
     -- Standard
     | DefineVariable Name Value
     -- Memories

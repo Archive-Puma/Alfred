@@ -20,5 +20,5 @@ import Core.Language.Translations.ES as Lang    (error_parse)
 parse' :: String -> Command
 parse' code =
     case parse command "" code of
-        Right   value -> value
-        Left    error -> Error (Lang.error_parse ++ ": " ++ code)
+        Right value -> value
+        Left  _     -> Error (Lang.error_parse ++ ": " ++ code)

@@ -5,8 +5,8 @@ where
 --------
 
 -- Haskell Libraries
-import Text.Parsec                              (anyChar,char,choice,digit,letter,many1,
-                                                manyTill,optionMaybe,space,try,(<|>))
+import Text.Parsec                              (alphaNum,anyChar,char,choice,digit,letter,
+                                                many1,manyTill,optionMaybe,space,try,(<|>))
 import Text.Parsec.String                       (Parser)
 
 --------
@@ -50,8 +50,7 @@ varname'd = do
 
 -- Valid characters in a variable name
 validchars :: Parser Char
-validchars =    try letter  <|>
-                try digit   <|>
+validchars =    try alphaNum  <|>
                     space
 
 -- Reserved words in a define command

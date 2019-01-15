@@ -40,6 +40,13 @@ spec = do
         it "[AÁA] ByeAlfred" $ do
             process "ADIÓS ALFRED" `shouldBe` [ByeAlfred]
 
+        it "[aaa] Comment" $ do
+            process "(alfred)" `shouldBe` [Comment]
+        it "[Aaa] Comment" $ do
+            process "(Alfred)" `shouldBe` [Comment]
+        it "[AAA] Comment" $ do
+            process "(ALFRED)" `shouldBe` [Comment]
+
         {- IO -}
         
         it "[aaa] Write" $ do
