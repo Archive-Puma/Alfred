@@ -5,6 +5,7 @@ where
 
 -- Alfred Modules
 import Core.Source.Preprocessor     (process)
+import Core.Source.Postprocessor    (evaluate)
 import Core.Environment.Arguments   (runArgs)
 
 --------
@@ -13,5 +14,6 @@ import Core.Environment.Arguments   (runArgs)
 main :: IO ()
 main = do
     program <- runArgs
-    print $ process program
+    let ast = process program
+    evaluate ast
     return ()
