@@ -11,28 +11,8 @@ import System.Environment (getArgs)
 --------
 
 -- Alfred Modules
+import Core.Environment.About   (usage,check'version,show'version)
 --import Core.Repl          (runRepl)
-
---------
-
--- Dispay the help message
-usage :: IO ()
-usage = putStrLn "\n\
-    \Alfred 2018 - Just another programming language...\n\
-    \(c)2018 CosasDePuma.  All rights reserved.\n\
-    \\n\
-    \Usage:\n\
-    \\talfred [-h] [-i] [-v] [filename.alf, ...]\n\
-    \Options\n\
-    \\t-h, --help\t\tDisplay this help message\n\
-    \\t-i, --interactive\tRun Repl (interactive mode)\n\
-    \\t-v, --version\t\tDisplay version information and exit\n"
-
---------
-
--- Display the version
-version :: IO ()
-version = putStrLn "alfred v0.4.0"
 
 --------
 
@@ -44,15 +24,22 @@ exit = exitWith ExitSuccess
 
 -- Parse the arguments
 parseArgs :: [String] -> IO String
--- parseArgs [] = runRepl >> exit                            -- Run Repl
+-- -- run Repl
+-- parseArgs [] = runRepl >> exit
 -- parseArgs ["-i"] = runRepl >> exit
 -- parseArgs ["--interactive"] = runRepl >> exit
-parseArgs ["-h"] = usage >> exit                          -- Display a help message
+-- -- display a help message
+parseArgs ["-h"] = usage >> exit
 parseArgs ["--help"] = usage >> exit
-parseArgs ["-v"] = version >> exit                        -- Display the version of the program
-parseArgs ["--version"] = version >> exit
-parseArgs [('-':_)] = usage >> exit                       -- Display a help message
-parseArgs filename = concat `fmap` mapM readFile filename -- Concatenate all the source files
+-- -- display the version of the program
+parseArgs ["-v"] = show'version >> exit                     
+parseArgs ["--version"] = show'version >> exit
+-- -- check if there is a newer version                  
+parseArgs ["--check-version"] = check'version >> exit
+-- -- unhandled arguments
+parseArgs [('-':_)] = usage >> exit
+-- -- filenames
+parseArgs filename = concat `fmap` mapM readFile filename
 
 --------
 
