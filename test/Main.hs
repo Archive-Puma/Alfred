@@ -1,4 +1,5 @@
-module Main where
+module Main
+where
 
 import            Test.Hspec.Runner
 import            Test.Hspec.Formatters

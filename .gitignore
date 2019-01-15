@@ -5,7 +5,11 @@
 *.log
 *.dyn_o
 *.dyn_hi
+dist/hpc
+dist/test
+dist/setup
 dist/setup-config
 dist/package.conf.inplace
 dist/build/autogen
+dist/build/tests/tests-tmp
 dist/build/alfred/alfred-tmp

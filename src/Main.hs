@@ -1,15 +1,17 @@
-module Main where
+module Main
+where
 
 --------
 
--- Alfred modules
-import Core.Parser       (runParser)
-import Core.Arguments    (runArgs)
-import Core.Interpreter  (runEval)
+-- Alfred Modules
+import Core.Source.Preprocessor     (process)
+import Core.Environment.Argument    (runArgs)
 
 --------
 
 -- Entrypoint
 main :: IO ()
 main = do
-  runArgs >>= runParser >>= runEval >> return ()
+    program <- runArgs
+    print $ process program
+    return ()

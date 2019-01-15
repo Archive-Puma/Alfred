@@ -1,38 +1,31 @@
-name:                   alfred
-version:                0.3.0
-synopsis:               Just another programming language...
-homepage:               https://github.com/CosasDePuma/Alfred
-license:                MIT
-license-file:           LICENSE
-author:                 Kike Fontán
-maintainer:             @CosasDePuma <kikefontanlorenzo@gmail.com>
-category:               Language
-build-type:             Simple
-cabal-version:          >=1.10
+name:                alfred
+version:             0.4.0
+-- synopsis:            
+-- description:         
+homepage:            https://github.com/cosasdepuma/alfred/wiki
+license:             MIT
+license-file:        LICENSE
+author:              Kike Fontan (@CosasDePuma)
+maintainer:          kikefontanlorenzo@gmail.com
+-- copyright:           
+category:            Language
+build-type:          Simple
+-- extra-source-files:  
+cabal-version:       >=1.10
 
 executable alfred
-  main-is:              Main.hs
-  build-depends:        base, parsec, containers
-  hs-source-dirs:       src
-  default-language:     Haskell2010
+  main-is:             Main.hs
+  -- other-modules:       
+  other-extensions:    FlexibleContexts
+  build-depends:       base >=4.8 && <4.9, parsec >=3.1 && <3.2
+  hs-source-dirs:      src
+  default-language:    Haskell2010
 
-library
-  build-depends:        base, parsec, containers
-  exposed-modules:      Core.Arguments, Core.Parser, Core.Interpreter
-  other-modules:        Core.Language, Core.Repl, Lang.ES,
-                        Core.Parser.Functions, Core.Parser.Instructions,
-                        Core.Parser.Instructions.Jumps, Core.Parser.Instructions.Std,
-                        Core.Parser.Instructions.Stdout, Core.Parser.Instructions.Variables,
-                        Core.Parser.Variables
-
-  hs-source-dirs:       src
-  default-language:     Haskell2010
-
-test-suite alfred-test
+test-suite tests
   type:                 exitcode-stdio-1.0
   main-is:              Spec.hs
   hs-source-dirs:       test src
   ghc-options:          -Wall
-  build-depends:        base, parsec, containers, hspec, hspec-expectations, alfred
+  build-depends:        base, parsec, hspec, hspec-expectations
   default-language:     Haskell2010
   build-depends:        hspec-discover
