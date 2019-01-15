@@ -1,5 +1,3 @@
-{-# LANGUAGE OverloadedStrings #-}
-
 module Core.Environment.About
     (usage,check'version,show'version)
 where
