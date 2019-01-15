@@ -5,7 +5,7 @@ where
 
 -- Alfred Modules
 import Core.Source.Preprocessor     (process)
-import Core.Environment.Argument    (runArgs)
+import Core.Environment.Arguments   (runArgs)
 
 --------
 

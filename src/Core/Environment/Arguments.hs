@@ -1,4 +1,4 @@
-module Core.Environment.Argument
+module Core.Environment.Arguments
     (runArgs)
 where
 

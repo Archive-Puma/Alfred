@@ -89,6 +89,13 @@ cabal build
 
 
 
+:books: Docs
+---
+You can find a complete documentation in this [Wiki](https://github.com/cosasdepuma/alfred/wiki).
+
+
+
+
 :octopus: Support the developer!
 ----
 Everything I do and publish can be used for free whenever I receive my corresponding merit.
@@ -109,13 +116,13 @@ Anyway, if you want to help me in a more direct way, you can leave me a tip by c
 Alfred (Haskell)
  < Repository >
 |__ .repo
+| |__ alfred.jpg
 |	|__ alfred.png
 |__ .gitignore
 |__ LICENSE
 |__ README.md
 < Build >
 |__ Makefile
-|__ Setup.hs
 |__ alfred.cabal
 < CD/CI >
 |__ .circleci
@@ -125,40 +132,38 @@ Alfred (Haskell)
 |	|__ build
 |	 	|__ alfred
 |	 	|	|__ alfred
-|	 	|__ alfred-test
-|	 		|__ alfred-test
+|	 	|__ tests
+|	 		|__ tests
 < Source >
 |__ src
 |	|__ Main.hs
 |	|__ Core
-|	|	|__ Parser
-|	|	|	|__ Instructions
-|	|	|	|	|__ Jumps.hs
-|	|	|	|	|__ Maths.hs
-|	|	|	|	|__ Std.hs
-|	|	|	|	|__ Stdout.hs
-|	|	|	|	|__ Variables.hs
-|	|	|	|__ Functions.hs
-|	|	|	|__ Instructions.hs
-|	|	|	|__ Stdout.hs
-|	|	|	|__ Variables.hs
-|	|	|_ Arguments.hs
-|	|	|_ Interpreter.hs
-|	|	|_ Parser.hs
-|	|	|_ Repl.hs
-< Language Support >
-|	|_ Lang
-|	 	|_ ES.hs
+|   |__ Environment
+|   | |__ Arguments.hs
+|   |__ Language
+|   | |__ Tranlations
+|   | | |__ ES.hs
+|   | |__ Types.hs
+|   |__ Parser
+|   | |__ Commands
+|   | | |__ Base.hs
+|   | | |__ IO.hs
+|   | | |__ Memories.hs
+|   | | |__ Standard.hs
+|   | |__ Auxiliary.hs
+|   | |__ Commands.hs
+|   | |__ Parser.hs
+|   | |__ Types.hs
+|   |__ Source
+|     |__ Preprocessor.hs
 < Unit Test >
 |_ test
-|	|_ Parser
-|	|	|_ FunctionsSpecs.hs
+|	|_ Core
+|	|	|_ Source
+| |   |_ Preprocessor.hs
 |	|_ Main.hs
 |	|_ Spec.hs
 < Alfred Examples >
 |_ example
-	|_ holamundo.alf
-	|_ momentos_inversos.alf
-	|_ momentos.alf
-	|_ variables.alf
+	|_ pruebas.alf
 ```
