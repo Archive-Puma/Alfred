@@ -117,7 +117,7 @@ Alfred (Haskell)
  < Repository >
 |__ .repo
 | |__ alfred.jpg
-|	|__ alfred.png
+| |__ alfred.png
 |__ .gitignore
 |__ LICENSE
 |__ README.md
@@ -126,18 +126,18 @@ Alfred (Haskell)
 |__ alfred.cabal
 < CD/CI >
 |__ .circleci
-|	|__ config.yml
+| |__ config.yml
 < Distribution >
 |__ dist
-|	|__ build
-|	 	|__ alfred
-|	 	|	|__ alfred
-|	 	|__ tests
-|	 		|__ tests
+| |__ build
+|   |__ alfred
+|   | |__ alfred
+|   |__ tests
+|     |__ tests
 < Source >
 |__ src
-|	|__ Main.hs
-|	|__ Core
+| |__ Main.hs
+| |__ Core
 |   |__ Environment
 |   | |__ Arguments.hs
 |   |__ Language
@@ -158,12 +158,12 @@ Alfred (Haskell)
 |     |__ Preprocessor.hs
 < Unit Test >
 |_ test
-|	|_ Core
-|	|	|_ Source
+| |_ Core
+| | |_ Source
 | |   |_ Preprocessor.hs
-|	|_ Main.hs
-|	|_ Spec.hs
+| |_ Main.hs
+| |_ Spec.hs
 < Alfred Examples >
 |_ example
-	|_ pruebas.alf
+  |_ pruebas.alf
 ```
