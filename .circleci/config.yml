@@ -1,5 +1,8 @@
 version: 2
 jobs:
   build:
+    machine: True
+    steps:
+      - checkout
     branches:
-      ignore: master
+      ignore: python3
