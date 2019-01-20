@@ -1,15 +1,14 @@
 Language = {
     'Invoke': 'alfred',
     'Syntax': {
-        # Base
-        'adios': {
-            'alfred': 'Base.Exit'
+        'a': {
+            'adi[oó]s alfred': 'Base.Exit'
         },
-
-        # IO
-        'escribe': {
-            '%quoted%': 'IO.Write'
+        'd': {
+            'define la variable (?P<name>.+) como (?P<value>.+)': 'Standard.Define'
+        },
+        'e': {
+            'escribe "(?P<text>.+)"': 'IO.Write'
         }
-
     }
 }

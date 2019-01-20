@@ -10,7 +10,7 @@ class Arguments:
 
         self.__parser.add_argument(
             '-v', '--version',
-            action='version', version='%(prog)s v0.5.0')
+            action='version', version='%(prog)s v0.5.1')
 
         self.__parser.add_argument(
             'FILE',

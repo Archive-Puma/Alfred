@@ -2,7 +2,7 @@ from ..Language.Binds import Functions
 
 class Evaluator:
     def __init__(self):
-        pass
+        self.__variables = {}
 
     def evaluate(self,ast):
         ipointer = 0
@@ -13,7 +13,12 @@ class Evaluator:
                 command = Functions
                 for depth in tree:
                     command = command[depth]
-                command.run(instruction['vars'])
+                result = command.run(instruction['vars'],self.__variables)
+
+                if result:
+                    if result['variable']:
+                        var = result['variable']
+                        self.__variables[var['name']] = var['value']
             else:
-                print("[ERROR NO CONTROLADO] No existe la instrucción de la línea " + line)
+                print("[ERROR NO CONTROLADO] No existe la instrucción de la línea " + str(ipointer))
             ipointer = ipointer + 1
