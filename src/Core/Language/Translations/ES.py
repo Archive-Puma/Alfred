@@ -9,6 +9,15 @@ Language = {
         },
         'e': {
             'escribe "(?P<text>.+)"': 'IO.Write'
-        }
+        },
+        'm': {
+            'muestra la variable (?P<name>.+)': 'IO.Show.Variable',
+            'muestra el tipo de la variable (?P<name>.+)': 'IO.Show.Type',
+            'muestra el valor de la variable (?P<name>.+)': 'IO.Show.Variable',
+        },
+        'v': {
+            'vete al momento (?P<name>.+)': 'Control.Moments.Jump'
+        },
+        '?': ['define este momento como (?P<name>.+)']
     }
 }

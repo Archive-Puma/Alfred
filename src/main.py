@@ -1,9 +1,9 @@
 # -*- enconding: utf-8 -*-
 
-from Core.Parser.Base           import Parser
-from Core.Evaluator.Base        import Evaluator
-from Core.Source.Preprocessor   import Preprocessor
-from Core.Environment.Arguments import Arguments
+from Core.Parser                import Parser
+from Core.Evaluator             import Evaluator
+from Core.Source                import Preprocessor
+from Core.Environment           import Arguments
 
 if __name__ == '__main__':
     args = Arguments().parse()
@@ -15,6 +15,6 @@ if __name__ == '__main__':
         code,jumps = preprocessor.get()
         
         parser.parse(code)
-        ast = parser.get()
+        ast,jumps = parser.get()
 
-        evaluator.evaluate(ast)
+        evaluator.evaluate(ast,jumps)

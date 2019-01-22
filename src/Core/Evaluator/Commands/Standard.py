@@ -3,8 +3,14 @@ class Define:
         pass
     def run(self,variables,env=None):
         result = {}
+
+        value = variables['value']
+
+        if value[0] is '"' and value[-1] is '"':
+            value = value[1:-1]
+
         result['variable'] = {
             'name': variables['name'],
-            'value': variables['value']
+            'value': value
         }
         return result

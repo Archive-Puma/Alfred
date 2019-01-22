@@ -2,6 +2,8 @@
 
 import argparse
 
+VERSION = '0.5.2'
+
 class Arguments:
     def __init__(self):
         self.__parser = argparse.ArgumentParser(
@@ -10,7 +12,7 @@ class Arguments:
 
         self.__parser.add_argument(
             '-v', '--version',
-            action='version', version='%(prog)s v0.5.1')
+            action='version', version='%(prog)s v{0}'.format(VERSION))
 
         self.__parser.add_argument(
             'FILE',
