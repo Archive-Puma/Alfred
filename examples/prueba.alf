@@ -1,10 +1,24 @@
 (Esto es un comentario)
 Alfred
-Define este momento como Inicio del programa
-Define la variable El mejor superheroe como "Batman"
-Muestra la variable El mejor superheroe
-Muestra el tipo de la variable El mejor superheroe
-Escribe "Buenos días"
+
+(Standard)
+Define la variable Mi número favorito como 4
+
+(Moments)
 Vete al momento Inicio del programa
+Define este momento como Inicio del programa
+
+(Math)
+Súmale 12 a mi número favorito
+Réstale 4 a mi número favorito
+Multiplica mi número favorito por 10
+Divide mi número favorito entre 2
+
+(IO)
+Escribe "Buenos días"
+Muestra la variable mi número favorito
+Muestra el tipo de la variable mi número favorito
+
+(Base)
 Adiós Alfred
 

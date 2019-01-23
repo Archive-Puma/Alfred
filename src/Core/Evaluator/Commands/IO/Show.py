@@ -3,7 +3,8 @@ class Type:
         self.__nl = '\n'
         self.__types = {
             str: 'Texto',
-            int: 'Entero'
+            int: 'Entero',
+            float: 'Decimal'
         }
 
     def run(self,variables,env=None):

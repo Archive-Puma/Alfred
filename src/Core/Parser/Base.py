@@ -13,6 +13,7 @@ class Parser:
         self.__defJump = Language['Syntax']['?']
 
     def __regex(self,loc):
+        print(loc)
         ast     = dict()
         index   = 0
         result  = None
@@ -24,7 +25,8 @@ class Parser:
             index = index + 1
 
         if result:
-            self.__JUMPS[result.group('name')] = self.__IP
+            name = result.group('name').lower()
+            self.__JUMPS[name] = self.__IP
         else:
             index = 0
             self.__IP = self.__IP + 1
@@ -33,7 +35,15 @@ class Parser:
                 if result:
                     ast = { 'command': Instructions[Pattern[index]], 'vars': {} }
                     for variable in list(result.groupdict().keys()):
-                        ast['vars'][variable] = result.group(variable)
+                        value = result.group(variable)
+                        if variable == 'name':
+                           value = value.lower()
+                        elif variable == 'value':
+                            if value.isnumeric():
+                                value = int(value)
+                        elif variable == 'number':
+                            value = int(value)
+                        ast['vars'][variable] = value
                     self.__AST.append(ast)
                 index = index + 1
 

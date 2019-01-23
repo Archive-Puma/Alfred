@@ -6,8 +6,9 @@ class Define:
 
         value = variables['value']
 
-        if value[0] is '"' and value[-1] is '"':
-            value = value[1:-1]
+        if type(value) is str:
+            if value[0] is '"' and value[-1] is '"':
+                value = value[1:-1]
 
         result['variable'] = {
             'name': variables['name'],

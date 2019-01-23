@@ -1,8 +1,14 @@
 
-from ..Evaluator.Commands.IO        import Show,Write
-from ..Evaluator.Commands.Base      import Exit
-from ..Evaluator.Commands.Control   import Moments
-from ..Evaluator.Commands.Standard  import Define
+from ..Evaluator.Commands.IO        import (
+    Show,Write)
+from ..Evaluator.Commands.Base      import (
+    Exit)
+from ..Evaluator.Commands.Math      import (
+    Addition,Subtraction,Multiplication,Division)
+from ..Evaluator.Commands.Control   import (
+    Moments)
+from ..Evaluator.Commands.Standard  import (
+    Define)
 
 Functions = {
     'Base': {
@@ -17,6 +23,12 @@ Functions = {
             'Type': Show.Type(),
             'Variable': Show.Variable()
         }
+    },
+    'Math': {
+        'Addition': Addition(),
+        'Division': Division(),
+        'Multiplication': Multiplication(),
+        'Subtraction': Subtraction()
     },
     'Control': {
         'Moments': {
