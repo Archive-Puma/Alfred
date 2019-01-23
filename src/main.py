@@ -5,7 +5,7 @@ from Core.Evaluator             import Evaluator
 from Core.Source                import Preprocessor
 from Core.Environment           import Arguments
 
-if __name__ == '__main__':
+def main():
     args = Arguments().parse()
     if args.source:
         parser          = Parser()
@@ -18,3 +18,9 @@ if __name__ == '__main__':
         ast,jumps = parser.get()
 
         evaluator.evaluate(ast,jumps)
+
+if __name__ == '__main__':
+    try:
+        main()
+    except KeyboardInterrupt:
+        print("\nInterrupción ejecutada")
