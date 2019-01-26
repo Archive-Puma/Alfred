@@ -6,7 +6,7 @@ class Addition:
         result = dict()
 
         name = variables['name']
-        value = env['variable'][name]
+        value = env['variables'][name]
         value = value + variables['number']
 
         result['variable'] = {
@@ -25,7 +25,7 @@ class Subtraction:
         result = dict()
 
         name = variables['name']
-        value = env['variable'][name]
+        value = env['variables'][name]
         value = value - variables['number']
 
         result['variable'] = {
@@ -44,7 +44,7 @@ class Multiplication:
         result = dict()
 
         name = variables['name']
-        value = env['variable'][name]
+        value = env['variables'][name]
         value = value * variables['number']
 
         result['variable'] = {
@@ -63,7 +63,7 @@ class Division:
         result = dict()
 
         name    = variables['name']
-        value   = env['variable'][name]
+        value   = env['variables'][name]
         vartype = type(value)
 
         if not variables['number'] is 0:

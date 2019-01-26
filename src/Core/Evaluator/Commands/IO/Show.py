@@ -9,7 +9,7 @@ class Type:
 
     def run(self,variables,env=None):
         name = variables['name']
-        variable = env['variable'][name]
+        variable = env['variables'][name]
         vartype = type(variable)
         
         print(self.__types[vartype], end=self.__nl)
@@ -22,6 +22,6 @@ class Variable:
 
     def run(self,variables,env=None):
         name = variables['name']
-        variable = env['variable'][name]
+        variable = env['variables'][name]
         print(variable, end=self.__nl)
         return None

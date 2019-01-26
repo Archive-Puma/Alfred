@@ -2,7 +2,7 @@
 
 import argparse
 
-VERSION = '0.5.4'
+VERSION = '0.5.5'
 
 class Arguments:
     def __init__(self):

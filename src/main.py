@@ -5,22 +5,30 @@ from Core.Evaluator             import Evaluator
 from Core.Source                import Preprocessor
 from Core.Environment           import Arguments
 
-def main():
-    args = Arguments().parse()
-    if args.source:
-        parser          = Parser()
-        evaluator       = Evaluator()
-        preprocessor    = Preprocessor(args.source)
+class Main:
+    def __init__(self):
+        args = Arguments().parse()
+        if args.source:
+            self.__parser          = Parser()
+            self.__evaluator       = Evaluator()
+            self.__preprocessor    = Preprocessor(args.source)
 
-        code,jumps = preprocessor.get()
+    def run(self):
+        code,jumps = self.__preprocessor.get()
         
-        parser.parse(code)
-        ast,jumps = parser.get()
+        self.__parser.parse(code)
+        ast,jumps = self.__parser.get()
 
-        evaluator.evaluate(ast,jumps)
+        self.__evaluator.evaluate(ast,jumps)
+
+    def interrupt(self):
+        self.__evaluator.interrupt()
 
 if __name__ == '__main__':
+    main = Main()
     try:
-        main()
+        main.run()
+        while True:
+            pass
     except KeyboardInterrupt:
-        print("\nInterrupción ejecutada")
+        main.interrupt()

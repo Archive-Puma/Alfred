@@ -9,6 +9,9 @@ from ..Evaluator.Commands.Control   import (
     Moments)
 from ..Evaluator.Commands.Standard  import (
     Define)
+from ..Evaluator.Commands.Network import (
+    HTTP
+)
 
 Functions = {
     'Base': {
@@ -33,6 +36,11 @@ Functions = {
     'Control': {
         'Moments': {
             'Jump': Moments.Jump()
+        }
+    },
+    'Network': {
+        'HTTP': {
+            'Server': HTTP.Server()
         }
     }
 }

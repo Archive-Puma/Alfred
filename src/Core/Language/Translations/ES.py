@@ -4,6 +4,9 @@ Language = {
         'a': {
             'adi[oó]s alfred': 'Base.Exit'
         },
+        'c': {
+            'crea un servidor (web|http)(?: en el puerto (?P<port>\d+))?': 'Network.HTTP.Server'
+        },
         'd': {
             'define la variable (?P<name>.+) como (?P<value>.+)': 'Standard.Define',
             'divide (?P<name>.+) entre (?P<number>\d+)': 'Math.Division'
