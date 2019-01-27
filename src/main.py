@@ -31,4 +31,5 @@ if __name__ == '__main__':
         while True:
             pass
     except KeyboardInterrupt:
-        main.interrupt()
+        # main.interrupt()
+        pass
