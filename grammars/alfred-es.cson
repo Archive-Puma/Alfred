@@ -1,105 +1,141 @@
-name:           'Alfred (ES)'
-scopeName:      'source.alfred.es'
-fileTypes:      ['.es.alf','.alf']
-firstLineRegex: '^(?i)alfred(?-i)$'
-contentRegex:   '^(?i)adi[óo]s alfred(?-i)$'
-
-# AZUL    support.type.alfred
-# CARNE   support.class.alfred
-# VERDE   string.quoted.alfred
-# MORADO  storage.modifier.alfred
+scopeName:        'source.alfred.es'
+name:             'Alfred Language (ES)'
+fileTypes:        [ 'alf.es', 'alf' ]
+contentRegex:     '^\\s*(?i:alfred)\\s*$'
+limitLineLength:  false
 
 patterns: [
   {
-    # Comando: Alfred
-    match:  '^(?i)alfred(?-i)$',
-    name:   'support.type.alfred'
+    comment: 'Comentarios'
+    name: 'comment.alfred'
+    match: '^\\s*\\(.*\\)\\s*$'
   },
   {
-    # Comando: Adiós Alfred
-    match:  '^(?i)adi[óo]s alfred(?-i)$',
-    name:   'support.type.alfred'
+    comment: 'Constante: Texto'
+    name: 'string.alfred'
+    match: '".*"\\s*$'
   },
   {
-    # Constante: Single Quoted
-    match:  '\'[^\']+\'',
-    name:   'string.quoted.alfred'
+    comment: 'Constante: Entero'
+    name: 'constant.numeric.alfred'
+    match: '\\d+\\s*$'
   },
+
   {
-    # Constante: Doble Quoted
-    match:  '"[^"]+"',
-    name:   'string.quoted.alfred'
+    comment: 'Instrucción de inicio'
+    name: 'constant.alfred'
+    match: '^\\s*(?i)alfred\\s*$'
   },
+
   {
-    # Constante: True
-    match:  '(?: |,|\\[)((?i)(verdadero|verdad|cierto)(?-i))(?:$| |,|])',
+    comment: 'Instrucción: Base.Exit'
+    match: '^\\s*(?i)(adi[oó]s) (alfred)\\s*$'
     captures:
-      '2':
-        name: 'support.class.alfred'
-    name:   'meta.function.alfred'
+      1:
+        name: 'entity.name.function.alfred'
+      2:
+        name: 'constant.alfred'
+  },
+
+  {
+    comment: 'Instrucción: Standard.Define'
+    match: '^\\s*(?i)(define) (la variable) .+ (como) '
+    captures:
+      1:
+        name: 'entity.name.function.alfred'
+      2:
+        name: 'entity.name.type.alfred'
+      3:
+        name: 'entity.name.function.alfred'
+  },
+
+  {
+    comment: 'Instrucción: IO.Write'
+    match: '^\\s*(?i)(escribe) (".+")\\s*$'
+    captures:
+      1:
+        name: 'entity.name.function.alfred'
+      2:
+        name: 'string.alfred'
   },
   {
-    # Constante: False
-    match:  '((?i)(falso|mentira)(?-i))(?:$| |,|])',
+    comment: 'Instrucción: IO.Show'
+    match: '^\\s*(?i)(?i)(muestra) ((?:el tipo de )?la variable) .+\\s*$'
     captures:
-      '2':
-        name: 'support.class.alfred'
-    name:   'meta.function.alfred'
+      1:
+        name: 'entity.name.function.alfred'
+      2:
+        name: 'entity.name.type.alfred'
+  },
+
+  {
+    comment: 'Instrucción: Math.Addition/Subtraction'
+    match: '^\\s*(?i)(s[uú]male|r[eé]stale) (\\d+) (a) .+\\s*$'
+    captures:
+      1:
+        name: 'entity.name.function.alfred'
+      2:
+        name: 'constant.numeric.alfred'
+      3:
+        name: 'entity.name.function.alfred'
   },
   {
-    # Comando: Escribe {Texto}
-    match:  '^((?i)escribe(?-i)) (.*)$',
+    comment: 'Instrucción: Math.Multiplication'
+    match: '^\\s*(?i)(multiplica) .+ (por) (\\d+)\\s*$'
     captures:
-      '1':
-        name: 'support.type.alfred'
-      '2':
-        name: 'string.quoted.alfred'
-    name:   'meta.function.alfred'
+      1:
+        name: 'entity.name.function.alfred'
+      2:
+        name: 'entity.name.function.alfred'
+      3:
+        name: 'constant.numeric.alfred'
   },
   {
-    # Comando: Define {Nombre} como {Valor}
-    match:  '^((?i)define(?-i)) (.+) ((?i)como(?-i)(?!.*(?i)como(?-i)))',
+    comment: 'Instrucción: Math.Division'
+    match: '^\\s*(?i)(divide) .+ (entre) (\\d+)\\s*$'
     captures:
-      '1':
-        name: 'support.type.alfred'
-      '3':
-        name: 'support.type.alfred'
-    name:   'meta.function.alfred'
+      1:
+        name: 'entity.name.function.alfred'
+      2:
+        name: 'entity.name.function.alfred'
+      3:
+        name: 'constant.numeric.alfred'
+  },
+
+  {
+    comment: 'Instrucción: Control.Moments.Define'
+    match: '^\\s*(?i)(define) (este momento) (como) .+\\s*$'
+    captures:
+      1:
+        name: 'entity.name.function.alfred'
+      2:
+        name: 'entity.name.type.alfred'
+      3:
+        name: 'entity.name.function.alfred'
   },
   {
-    # Comando: Define el momento {Nombre}
-    match:  '^([Dd][Ee][Ff][Ii][Nn][Ee] [Ee][Ll] [Mm][Oo][Mm][Ee][Nn][Tt][Oo]) (.*)$',
+    comment: 'Instrucción: Control.Moments.Jump'
+    match: '^\\s*(?i)(vete a)(l momento) .+\\s*$'
     captures:
-      '1':
-        name: 'support.type.alfred'
-      '2':
-        name: 'storage.modifier.alfred'
-    name:   'meta.function.alfred'
-  },
-  {
-    # Comando: Salta/Vete a {Nombre}
-    match:  '^(([Ss][Aa][Ll][Tt][Aa])|([Vv][Ee][Tt][Ee]) [Aa]) (.*)$',
-    captures:
-      '1':
-        name: 'support.type.alfred'
-      '4':
-        name: 'storage.modifier.alfred'
-    name:   'meta.function.alfred'
-  },
-  {
-    # Comando: Muestra el valor de {Variable}
-    match:  '^([Mm][Uu][Ee][Ss][Tt][Rr][Aa] [Ee][Ll] [Vv][Aa][Ll][Oo][Rr] [Dd][Ee]) (.*)$',
-    captures:
-      '1':
-        name: 'support.type.alfred'
-    name:   'meta.function.alfred'
-  },
-  {
-    # Comando: Muestra {Variable}
-    match:  '^([Mm][Uu][Ee][Ss][Tt][Rr][Aa]) (.*)$',
-    captures:
-      '1':
-        name: 'support.type.alfred'
-    name:   'meta.function.alfred'
+      1:
+        name: 'entity.name.function.alfred'
+      2:
+        name: 'entity.name.type.alfred'
   }
+
+  {
+    comment: 'Instrucción: Network.HTTP'
+    match: '^\\s*(?i)(crea un servidor) (web|http)(?: (en el puerto) (\\d+))?\\s*$'
+    captures:
+      1:
+        name: 'entity.name.function.alfred'
+      2:
+        name: 'entity.name.type.alfred'
+
+      3:
+        name: 'entity.name.function.alfred'
+      4:
+        name: 'constant.numeric.alfred'
+  }
+
 ]

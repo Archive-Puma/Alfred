@@ -3,34 +3,56 @@
   'Inicio del programa':
     prefix: 'Alfred'
     body:   'Alfred'
-  # Instruction: Print
-  'Muestra un mensaje por consola':
-    prefix: 'Escribe'
-    body:   'Escribe ${1:mensaje}'
-  # Instruction: Goto
-  'Salta al momento':
-    prefix: 'Vete a'
-    body:   'Vete a ${1:momento}'
-  'Salta al momento ':
-    prefix: 'Salta a'
-    body:   'Salta a ${1:momento}'
-  # Instruction: Define Label
-  'Define un momento':
-    prefix: 'Define el momento'
-    body:   'Define el momento ${1:momento}'
-  # Instruction: Define Variable
-  'Define una variable':
-    prefix: 'Define'
-    body:   'Define ${1:variable} como ${2:valor  }'
-  # Instrution: Show
-  'Muestra una variable':
-    prefix: 'Muestra'
-    body:   'Muestra ${1:variable}'
-  # Instrution: Show Value
-  'Muestra el valor de una variable':
-    prefix: 'Muestra el valor de'
-    body:   'Muestra el valor de ${1:variable}'
-  # Instruction: Exit
+  # Instruction: Base.Exit
   'Detiene el programa':
     prefix: 'Adios Alfred'
-    body: 'Adios Alfred'
+    body: 'Adiós Alfred'
+
+  # Instruction: Standard.Define
+  'Define una variable':
+    prefix: 'Define la variable'
+    body:   'Define la variable ${1:variable} como ${2:valor}'
+
+  # Instruction: IO.Write
+  'Muestra un mensaje por consola':
+    prefix: 'Escribe'
+    body:   'Escribe "${1:mensaje}"'
+  # Instrution: IO.Show.Variable
+  'Muestra una variable':
+    prefix: 'Muestra la variable'
+    body:   'Muestra la variable ${1:variable}'
+  # Instrution: IO.Show.Type
+  'Muestra el tipo de una variable':
+    prefix: 'Muestra el tipo de la variable'
+    body:   'Muestra el tipo de la variable ${1:variable}'
+
+  # Instruction: Maths.Addition
+  'Súmale una constante a una variable':
+    prefix: 'Sumale'
+    body:   'Súmale ${1:constante} a ${2:variable}'
+  # Instruction: Maths.Subtraction
+  'Réstale una constante a una variable':
+    prefix: 'Restale'
+    body:   'Réstale ${1:constante} a ${2:variable}'
+  # Instruction: Maths.Multiplication
+  'Multiplica una variable por una constante':
+    prefix: 'Multiplica'
+    body:   'Multiplica ${1:variable} por ${2:constante}'
+  # Instruction: Maths.Division
+  'Divide una variable por una constante':
+    prefix: 'Divide'
+    body:   'Divide ${1:variable} entre ${2:constante}'
+
+  # Instruction: Control.Moments.Define
+  'Define un momento':
+    prefix: 'Define este momento como'
+    body:   'Define este momento como ${1:momento}'
+  # Instruction: Control.Moments.Jump
+  'Vete al momento':
+    prefix: 'Vete al momento'
+    body:   'Vete al momento ${1:momento}'
+
+  # Instruction: Network.HTTP
+  'Crea un servidor HTTP':
+    prefix: 'Crea un servidor HTTP'
+    body:   'Crea un servidor HTTP en el puerto ${1:8080}'
