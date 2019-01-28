@@ -51,7 +51,7 @@ patterns: [
 
   {
     comment: 'Instrucción: IO.Write'
-    match: '^\\s*(?i)(escribe) (".+")\\s*$'
+    match: '^\\s*(?i)(escribe) (".*")\\s*$'
     captures:
       1:
         name: 'entity.name.function.alfred'
