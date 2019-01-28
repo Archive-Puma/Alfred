@@ -1,0 +1,7 @@
+Alfred
+(Podemos levantar servidores HTTP del directorio actual)
+Crea un servidor HTTP
+(Por defecto se levanta en el puerto 8080, pero podemos especificarlo)
+Crea un servidor web en el puerto 8000
+(No terminamos el programa con Adiós Alfred)
+(porque si no, se nos cerrarían los servidores)

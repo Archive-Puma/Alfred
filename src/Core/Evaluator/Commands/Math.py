@@ -68,7 +68,7 @@ class Division:
 
         if not variables['number'] is 0:
             value = value / variables['number']
-            if vartype is int:
+            if vartype is int and value % variables['number'] == 0:
                 value = int(value)
 
         result['variable'] = {

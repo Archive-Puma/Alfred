@@ -15,7 +15,7 @@
 	</strong>
 </p>
 <p align="center">
-  <a href="https://circleci.com/gh/CosasDePuma/Alfred/tree/haskell">
+  <a href="https://circleci.com/gh/CosasDePuma/Alfred/tree/python3">
     <img
       alt="Build"
       src="https://img.shields.io/circleci/project/github/CosasDePuma/Alfred/python3.svg?style=flat-square&logo=circleci">
@@ -117,7 +117,7 @@ Alfred (Python3)
 | |__ config.yml
 < Distribution >
 |__ dist
-| |__ main
+| |__ alfred-v0.5.5.elf
 < Source >
 |__ src
 | |__ Core
@@ -158,5 +158,10 @@ Alfred (Python3)
 | |__ main.py
 < Alfred Examples >
 |_ examples
-  |_ prueba.alf
+  |_ 00.Pruebas.alf
+  |_ 01.HolaBatman.alf
+  |_ 02.Variables.alf
+  |_ 03.Momentos.alf
+	|_ 04.Matemáticas.alf
+  |_ 05.ServidoresHTTP.alf
 ```

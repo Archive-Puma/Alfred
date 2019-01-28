@@ -15,7 +15,7 @@ class Main:
 
     def run(self):
         code,jumps = self.__preprocessor.get()
-        
+
         self.__parser.parse(code)
         ast,jumps = self.__parser.get()
 
@@ -31,5 +31,4 @@ if __name__ == '__main__':
         while True:
             pass
     except KeyboardInterrupt:
-        # main.interrupt()
-        pass
+        main.interrupt()
