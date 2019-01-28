@@ -29,19 +29,19 @@
   # Instruction: Maths.Addition
   'Súmale una constante a una variable':
     prefix: 'Sumale'
-    body:   'Súmale ${1:constante} a ${2:variable}'
+    body:   'Súmale ${1:0} a ${2:variable}'
   # Instruction: Maths.Subtraction
   'Réstale una constante a una variable':
     prefix: 'Restale'
-    body:   'Réstale ${1:constante} a ${2:variable}'
+    body:   'Réstale ${1:0} a ${2:variable}'
   # Instruction: Maths.Multiplication
   'Multiplica una variable por una constante':
     prefix: 'Multiplica'
-    body:   'Multiplica ${1:variable} por ${2:constante}'
+    body:   'Multiplica ${1:variable} por ${2:0}'
   # Instruction: Maths.Division
   'Divide una variable por una constante':
     prefix: 'Divide'
-    body:   'Divide ${1:variable} entre ${2:constante}'
+    body:   'Divide ${1:variable} entre ${2:0}'
 
   # Instruction: Control.Moments.Define
   'Define un momento':
