@@ -124,8 +124,8 @@ patterns: [
   }
 
   {
-    comment: 'Instrucción: Network.HTTP'
-    match: '^\\s*(?i)(crea un servidor) (web|http)(?: (en el puerto) (\\d+))?\\s*$'
+    comment: 'Instrucción: Network.ECHO/HTTP/Discard'
+    match: '^\\s*(?i)(crea un servidor) (echo|discard|http|web)(?: (en el puerto) (\\d+))?\\s*$'
     captures:
       1:
         name: 'entity.name.function.alfred'
