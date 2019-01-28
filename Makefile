@@ -24,9 +24,9 @@ all:
 configure:
 	$(info Running configuration...)
 	$(if $(shell which $(CONF-INST)),$(info - $(CONF-INST) found!),$(shell pip3 install $(CONF-INST)))
-	
+
 purge:
-	rm -rf $(DIST)
+	rm -rf $(DIST)/main
 
 build:
 	$(BUILD-CMD)

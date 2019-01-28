@@ -117,7 +117,7 @@ Alfred (Python3)
 | |__ config.yml
 < Distribution >
 |__ dist
-| |__ alfred-v0.5.5.elf
+| |__ alfred-v0.5.6.elf
 < Source >
 |__ src
 | |__ Core
@@ -135,6 +135,8 @@ Alfred (Python3)
 | | | | | |__ Show.py
 | | | | |__ Network
 | | | | | |__ __init__.py
+| | | | | |__ ECHO.py
+| | | | | |__ Discard.py
 | | | | | |__ HTTP.py
 | | | | |__ __init__.py
 | | | | |__ Base.py

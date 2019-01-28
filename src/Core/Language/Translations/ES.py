@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 Language = {
     'Invoke': 'alfred',
     'Syntax': {
@@ -5,7 +7,9 @@ Language = {
             'adi[oó]s alfred': 'Base.Exit'
         },
         'c': {
-            'crea un servidor (web|http)(?: en el puerto (?P<port>\d+))?': 'Network.HTTP.Server'
+            'crea un servidor echo(?: en el puerto (?P<port>\d+))?': 'Network.ECHO.Server',
+            'crea un servidor discard(?: en el puerto (?P<port>\d+))?': 'Network.Discard.Server',
+            'crea un servidor (?:web|http)(?: en el puerto (?P<port>\d+))?': 'Network.HTTP.Server'
         },
         'd': {
             'define la variable (?P<name>.+) como (?P<value>.+)': 'Standard.Define',

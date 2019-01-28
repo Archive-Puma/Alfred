@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from _thread import start_new_thread
 
 from ..Language.Binds import Functions

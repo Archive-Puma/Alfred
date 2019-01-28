@@ -1,4 +1,4 @@
-# -*- enconding: utf-8 -*-
+# -*- coding: utf-8 -*-
 
 from Core.Parser                import Parser
 from Core.Evaluator             import Evaluator

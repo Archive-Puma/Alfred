@@ -1,7 +1,7 @@
 from http.server    import SimpleHTTPRequestHandler
 from socketserver   import TCPServer
 
-def create(host,port,handler,variables,env):
+def create(host,port,handler,variables):
         if 'port' in variables.keys():
             port = variables['port']
         httpd = TCPServer((host,port), handler)
@@ -12,12 +12,12 @@ def create(host,port,handler,variables,env):
 class Server:
     def __init__(self):
         self.__hostname = 'localhost'
-        self.__port     = 8080
+        self.__port     = 8001
         self.__handler  = SimpleHTTPRequestHandler
 
         self.__result   = dict()
 
-    def run (self,variables,env):
+    def run (self,variables,env=None):
         self.__result['thread'] = {
             'function': create,
             'kwargs':
@@ -25,7 +25,7 @@ class Server:
                 self.__hostname,
                 self.__port,
                 self.__handler,
-                variables,env
+                variables
             )
         }
         return self.__result

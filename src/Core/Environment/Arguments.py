@@ -2,7 +2,7 @@
 
 import argparse
 
-VERSION = '0.5.5'
+VERSION = '0.5.6'
 
 class Arguments:
     def __init__(self):
@@ -17,7 +17,7 @@ class Arguments:
         self.__parser.add_argument(
             'FILE',
             type=argparse.FileType('r'))
-    
+
     def parse(self):
         args = self.__parser.parse_args()
         if args.FILE:

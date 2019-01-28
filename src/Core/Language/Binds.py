@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 
 from ..Evaluator.Commands.IO        import (
     Show,Write)
@@ -10,7 +11,7 @@ from ..Evaluator.Commands.Control   import (
 from ..Evaluator.Commands.Standard  import (
     Define)
 from ..Evaluator.Commands.Network import (
-    HTTP
+    ECHO,HTTP,Discard
 )
 
 Functions = {
@@ -39,6 +40,12 @@ Functions = {
         }
     },
     'Network': {
+        'ECHO': {
+            'Server': ECHO.Server()
+        },
+        'Discard': {
+            'Server': Discard.Server()
+        },
         'HTTP': {
             'Server': HTTP.Server()
         }

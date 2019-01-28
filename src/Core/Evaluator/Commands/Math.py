@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 class Addition:
     def __init__(self):
         pass

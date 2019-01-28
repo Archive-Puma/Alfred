@@ -1,4 +1,4 @@
-# -*- enconding: utf-8 -*-
+# -*- coding: utf-8 -*-
 
 import re
 
@@ -56,7 +56,7 @@ class Parser:
                 for loc in code[1:]:
                     self.__regex(loc)
             else:
-                raise Exception("[EXCEPCION CUTRE] Los programas deben empezar con la instrucción \"Alfred\"")
+                raise Exception("[EXCEPCION CUTRE] Los programas deben empezar con la instruccion \"Alfred\"")
         else:
             raise Exception("[ERROR UN POCO CUTRE] El código no ha sido preprocesado")
 

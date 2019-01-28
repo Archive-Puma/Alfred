@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 class Define:
     def __init__(self):
         pass
