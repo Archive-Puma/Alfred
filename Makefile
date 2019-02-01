@@ -3,7 +3,6 @@ OPTS=--onefile --noconfirm --clean --log-level=WARN
 
 MAIN=main
 
-SRC=src
 DIST=dist
 BUILD=build
 
@@ -12,7 +11,7 @@ ifeq ($(VIRTUAL_ENV),)
 	CONF-INST=virtualenv
 else
 	CONF-INST=pyinstaller
-	BUILD-CMD=$(info Building the program...) $(CC) $(OPTS) $(SRC)/$(MAIN).py
+	BUILD-CMD=$(info Building the program...) $(CC) $(OPTS) $(MAIN).py
 endif
 
 all:
@@ -32,5 +31,5 @@ build:
 	$(BUILD-CMD)
 
 clean:
-	rm -f $(MAIN).spec `find $(SRC) -name '*.pyc'`
-	rm -rf $(BUILD) `find $(SRC) -name '__pycache__'`
+	rm -f $(MAIN).spec `find -name '*.pyc'`
+	rm -rf $(BUILD) `find -name '__pycache__'`

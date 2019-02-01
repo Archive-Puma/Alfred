@@ -1,0 +1,6 @@
+# Deps
+ply
+#llvmlite
+
+# DevDeps
+pyinstaller

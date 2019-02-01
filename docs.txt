@@ -1,0 +1,16 @@
+# PLY
+
+! - https://www.dabeaz.com/ply/ply.html
+! - https://github.com/maldoinc/mamba
+
+_ - https://www.dabeaz.com/ply/PLYTalk.pdf
+
+# RPLY
+
+! - https://github.com/joshsharp/python-braid/blob/master/parser.py
+! - https://github.com/ZachOrr/L4850/blob/master/l4850.py
+! - https://www.youtube.com/watch?v=ApgUrtCrmV8
+
+_ - http://joshsharp.com.au/blog/rpython-rply-interpreter-1.html
+_ - https://blog.usejournal.com/writing-your-own-programming-language-and-compiler-with-python-a468970ae6df
+_ - https://github.com/search?p=2&q=%22from+rply%22+language%3APython+extension%3Apy&type=Code

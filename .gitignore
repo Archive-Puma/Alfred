@@ -1,4 +1,5 @@
-.vscode
-build-env
-pruebas.py
-requirements.txt
+*.out
+venv/*
+*tab.py
+.vscode/
+__pychache__/*.pyc
