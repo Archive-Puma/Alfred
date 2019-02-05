@@ -1,9 +1,8 @@
-Define x como 10 / 3.
-Escribe "La variable x vale " + x.
-Escribe x + 10.
-
-Si x,
- Escribe "HOLA".
-Fin.
-
-Adiós Alfred.
+define x = 10
+si x entonces
+    escribe x
+si no
+    escribe "Adios"
+fin
+mientras x,
+    escribe "LooP"

@@ -25,7 +25,7 @@ class Environment():
 
 def p_program(p):
     ''' program : statements '''
-    print(p[1])
+    p[0] = p[1]
 
 def p_statements(p):
     '''
@@ -71,14 +71,26 @@ def p_statement_if(p):
 
 def p_statement_while(p):
     ''' statement : WHILE expression ',' statement '''
-    p[0] = ast.While(p[2],ast.InstructionList(p[4]))
+    p[0] = ast.While(p[2],ast.InstructionList([p[4]]))
 
 # --------------------------------------------------------------------------------
 #   FUNCTIONS  FUNCTIONS  FUNCTIONS  FUNCTIONS  FUNCTIONS  FUNCTIONS  FUNCTIONS
 # --------------------------------------------------------------------------------
 
+def p_arguments(p):
+    '''
+    arguments   : arguments ',' expression
+                | expression
+                | empty
+    '''
+    if len(p) == 2:
+        p[0] = ast.InstructionList([p[1]])
+    elif len(p) == 4:
+        p[1].child.append(p[3])
+        p[0] = p[1]
+
 def p_function_print(p):
-    ''' statement : PRINT expression '''
+    ''' statement : PRINT arguments '''
     p[0] = ast.Print(p[2])
 
 # --------------------------------------------------------------------------------
@@ -87,19 +99,22 @@ def p_function_print(p):
 
 def p_expression_let(p):
     ''' expression : DEFINE NAME '=' expression '''
-    p[0] = ast.Variable(ast.Name(p[2]),p[4])
+    p[0] = ast.Define(ast.Name(p[2]),p[4])
 
+def p_expression_id(p):
+    ''' expression : NAME '''
+    p[0] = ast.Name(p[1])
 
-def p_expression_variable_type(p):
+def p_expression_value(p):
     '''
     expression  : INTEGER
                 | STRING
     '''
     p[0] = ast.Primitive(p[1])
-
+    
 def p_empty(p):
     ''' empty : '''
-    pass
+    p[0] = ast.Pass()
 
 
 def p_error(p):

@@ -10,7 +10,12 @@ def main():
             parser.parse(repl)
     else:
         with open(sys.argv[1],'r') as f:
-            parser.parse(f.read())
+            res = parser.parse(f.read())
+            for node in res:
+                node.eval()
 
 if __name__ == '__main__':
-    main()
+    try:
+        main()
+    except KeyboardInterrupt:
+        print()
