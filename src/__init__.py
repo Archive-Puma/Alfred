@@ -1,0 +1,1 @@
+from .alfred import main

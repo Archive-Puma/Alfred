@@ -1,0 +1,6 @@
+Define x = 10 ** 2
+Mientras x == 100,
+    si x,
+        escribe "Hola"
+        Define x = 10
+    fin

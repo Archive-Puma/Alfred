@@ -1,5 +1,7 @@
+# Files
 *.out
-venv/*
+*.pyc
 *tab.py
-.vscode/
-__pychache__/*.pyc
+# Folders
+venv
+.vscode
