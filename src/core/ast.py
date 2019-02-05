@@ -1,5 +1,6 @@
 from operator   import (
-    add,sub,mul,truediv,pow,mod,eq
+    add,sub,mul,truediv,pow,mod,
+    eq,gt,lt
 )
 from .symbols   import symbols
 
@@ -109,22 +110,29 @@ class Print(Base):
 
 class BinaryOp(Base):
     __operators = {
-        'mas': add,
-        'menos': sub,
-        'por': mul,
-        'entre': truediv,
-        'elevado': pow,
-        'modulo': mod,
-        'igual': eq,
+        # Binary Operations (Maths)
+        'mas':      add,
+        'menos':    sub,
+        'por':      mul,
+        'entre':    truediv,
+        'elevado':  pow,
+        'modulo':   mod,
+
+        '+':        add,
+        '-':        sub,
+        '*':        mul,
+        '/':        truediv,
+        '**':       pow,
+        '^':        pow,
+        '%':        mod,
+        # Binary Operations (Bool)
+        'igual':    eq,
+        'mayor':    gt,
+        'menor':    lt,
         
-        '+': add,
-        '-': sub,
-        '*': mul,
-        '/': truediv,
-        '**': pow,
-        '^': pow,
-        '%': mod,
-        '==': eq
+        '==':       eq,
+        '>':        gt,
+        '<':        lt,
     }
 
     def __init__(self,op,left,right):
@@ -133,7 +141,7 @@ class BinaryOp(Base):
         self.right = right
 
     def __repr__(self):
-        return "<BinaryOp op={0} objects=({1},{2})>".format(
+        return "<BinaryOp op='{0}' objects=({1},{2})>".format(
             self.op, self.left, self.right
         )
 

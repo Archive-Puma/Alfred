@@ -12,6 +12,8 @@ from .lexer     import tokens
 
 def p_program(p):
     ''' program : statements '''
+    for l in p[1]:
+        print(l)
     p[0] = p[1]
 
 def p_statements(p):
@@ -42,11 +44,11 @@ def p_statement(p):
 
 def p_statement_if_else_if(p):
     ''' if_statement : IF expression ',' statements IF NOT ',' if_statement '''
-    p[0] = If(p[2],p[4],p[7])
+    p[0] = If(p[2],p[4],p[8])
 
 def p_statement_if_else(p):
     ''' if_statement : IF expression ',' statements IF NOT ',' statements END '''
-    p[0] = If(p[2],p[4],p[7])
+    p[0] = If(p[2],p[4],p[8])
 
 def p_statement_if(p):
     ''' if_statement : IF expression ',' statements END '''
@@ -111,7 +113,10 @@ def p_binaryop(p):
                 | expression DIV expression
                 | expression MOD expression
                 | expression EXP TO expression
+
                 | expression SAME TO expression
+                | expression GREATER THAN expression
+                | expression LESS THAN expression
 
                 | expression PLUS expression
                 | expression MINUS expression
@@ -119,7 +124,10 @@ def p_binaryop(p):
                 | expression BYD expression
                 | expression POW expression
                 | expression MODU expression
+
                 | expression EQUALS expression
+                | expression GT expression
+                | expression LT expression
     '''
     if len(p) == 4:
         p[0] = BinaryOp(p[2], p[1], p[3])
