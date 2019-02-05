@@ -2,7 +2,7 @@ from ply import lex
 
 IGNORECASE = 2
 
-literals = [ '+', '-', '/', '*', '.', ',', '=' ]
+literals = [ ',' ]
 
 reserved = {
     # Instructions
@@ -13,7 +13,7 @@ reserved = {
     'como': 'AS',
     'mas': 'ADD',
     'menos': 'SUB',
-    'por': 'BY',
+    'por': 'MUL',
     'entre': 'DIV',
     # Blocks
     'si': 'IF',
@@ -28,12 +28,24 @@ reserved = {
 tokens = [
     'INTEGER',
     'STRING',
-    'NAME'
+    'NAME',
+
+    'PLUS',
+    'MINUS',
+    'BYM',
+    'BYD',
+    'EQUALS'
 ] + list(reserved.values())
 
 
 t_ignore_SPACES     = r'\s+'
 t_ignore_COMMENT    = r'\(.*\)'
+
+t_PLUS = r'\+'
+t_MINUS = r'-'
+t_BYM = r'\*'
+t_BYD = r'/'
+t_EQUALS = r'='
 
 def t_NAME(t):
     r'[a-zA-Z_]\w*'

@@ -1,8 +1,7 @@
-define x = 10
+define x = 10 + 1 - 10
 si x entonces
-    escribe x
+    escribe x / 10
+    escribe "Adios" * 5
 si no
     escribe "Adios"
 fin
-mientras x,
-    escribe "LooP"

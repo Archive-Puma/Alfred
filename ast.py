@@ -11,6 +11,7 @@ class Symbols():
 
 symbols = Symbols()
 
+import operator
 
 # --------------------------------------------------------------------------------
 #  INHERITANCE  INHERITANCE  INHERITANCE  INHERITANCE  INHERITANCE  INHERITANCE
@@ -112,6 +113,36 @@ class Print(Base):
     def eval(self):
         print(*self.items.eval())
 
+# --------------------------------------------------------------------------------
+#   BINOP  BINOP  BINOP  BINOP  BINOP  BINOP  BINOP  BINOP  BINOP  BINOP  BINOP
+# --------------------------------------------------------------------------------
+
+class BinaryOp(Base):
+    __operators = {
+        'mas': operator.add,
+        'menos': operator.sub,
+        'por': operator.mul,
+        'entre': operator.truediv,
+        
+        '+': operator.add,
+        '-': operator.sub,
+        '*': operator.mul,
+        '/': operator.truediv
+    }
+
+    def __init__(self,op,left,right):
+        self.op = op
+        self.left = left
+        self.right = right
+
+    def __repr__(self):
+        return "<BinaryOp op={0} objects=({1},{2})>".format(
+            self.op, self.left, self.right
+        )
+
+    def eval(self):
+        op = self.__operators[self.op]
+        return op(self.left.eval(), self.right.eval())
 
 # --------------------------------------------------------------------------------
 #  DEFINITIONS  DEFINITIONS  DEFINITIONS  DEFINITIONS  DEFINITIONS  DEFINITIONS

@@ -98,7 +98,7 @@ def p_function_print(p):
 # --------------------------------------------------------------------------------
 
 def p_expression_let(p):
-    ''' expression : DEFINE NAME '=' expression '''
+    ''' expression : DEFINE NAME EQUALS expression '''
     p[0] = ast.Define(ast.Name(p[2]),p[4])
 
 def p_expression_id(p):
@@ -111,6 +111,28 @@ def p_expression_value(p):
                 | STRING
     '''
     p[0] = ast.Primitive(p[1])
+
+# --------------------------------------------------------------------------------
+#   BINOP  BINOP  BINOP  BINOP  BINOP  BINOP  BINOP  BINOP  BINOP  BINOP  BINOP
+# --------------------------------------------------------------------------------
+
+def p_binaryop(p):
+    '''
+    expression  : expression ADD expression
+                | expression SUB expression
+                | expression MUL expression
+                | expression DIV expression
+
+                | expression PLUS expression
+                | expression MINUS expression
+                | expression BYM expression
+                | expression BYD expression
+    '''
+    p[0] = ast.BinaryOp(p[2], p[1], p[3])
+
+# --------------------------------------------------------------------------------
+#   EMPTY  EMPTY  EMPTY  EMPTY  EMPTY  EMPTY  EMPTY  EMPTY  EMPTY  EMPTY  EMPTY
+# --------------------------------------------------------------------------------
     
 def p_empty(p):
     ''' empty : '''
@@ -131,7 +153,8 @@ def p_error(p):
                       p))
 
 precedence = (
-    ('left', 'ADD','SUB','BY','DIV'),
+    ('left', 'ADD','SUB','MUL','DIV'),
+    ('left', 'PLUS','MINUS','BYM','BYD')
 )
 parser = yacc.yacc()
 env = Environment()
