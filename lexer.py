@@ -1,47 +1,36 @@
 from ply import lex
 
+IGNORECASE = 2
+
+literals = [ '+', '-', '/', '*', '.', ',', '=' ]
+
 reserved = {
     # Instructions
-    'Define': 'DEFINE',
-    'Escribe': 'PRINT',
-    'Adios': 'EXIT',
-    'Adiós': 'EXIT_',
+    'define': 'DEFINE',
+    'escribe': 'PRINT',
+    'adios': 'EXIT',
     # Modifiers
     'como': 'AS',
     'mas': 'ADD',
     'menos': 'SUB',
     'por': 'BY',
+    'entre': 'DIV',
     # Blocks
-    'Si': 'IF',
-    'Mientras': 'WHILE',
+    'si': 'IF',
+    'mientras': 'WHILE',
+    'no': 'NOT',
     'entonces': 'THEN',
     'haz': 'DO',
-    'Fin': 'END',
-
-    'Alfred': 'ALFRED'
+    'fin': 'END',
+    'y': 'AND'
 }
 
 tokens = [
-    'EQUALS',
-    'PLUS',
-    'MINUS',
-    'TIMES',
-    'DIV',
-    'DOT',
-    'COMMA',
-
     'INTEGER',
     'STRING',
     'NAME'
 ] + list(reserved.values())
 
-t_EQUALS    = r'='
-t_PLUS      = r'\+'
-t_MINUS     = r'\-'
-t_TIMES     = r'\*'
-t_DOT       = r'\.'
-t_COMMA     = r','
-t_DIV       = r'/'
 
 t_ignore_SPACES     = r'\s+'
 t_ignore_COMMENT    = r'\(.*\)'
@@ -58,7 +47,7 @@ def t_INTEGER(t):
     return t
 
 def t_STRING(t):
-    r'".*"'
+    r'"[^"]*"'
     t.value = t.value[1:-1]
     return t
 
@@ -68,4 +57,5 @@ def t_error(t):
     t.lexer.skip(1)
 
 lexer = lex.lex(
-    debug=0)
+    debug=0,
+    reflags=IGNORECASE)
