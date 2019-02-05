@@ -11,15 +11,16 @@ from .lexer     import tokens
 # --------------------------------------------------------------------------------
 
 def p_program(p):
-    ''' program : statements '''
-    for l in p[1]:
+    ''' program : ALFRED ',' statements '''
+    for l in p[3]:
         print(l)
-    p[0] = p[1]
+    print()
+    p[0] = p[3]
 
 def p_statements(p):
     '''
-    statements  : statement
-                | statements statement
+    statements  : full_statement
+                | statements full_statement
                 | empty
     '''
     if len(p) == 1:
@@ -30,6 +31,12 @@ def p_statements(p):
         p[1].child.append(p[2])
         p[0] = p[1]
 
+def p_fullstatement(p):
+    '''
+    full_statement  : statement '.'
+                    | statement
+    '''
+    p[0] = p[1]
 
 def p_statement(p):
     '''
@@ -62,6 +69,10 @@ def p_statement_while(p):
     ''' statement : WHILE expression ',' statement '''
     p[0] = While(p[2],InstructionList([p[4]]))
 
+def p_statement_dowhile(p):
+    ''' statement : DO ':' statements ','  WHILE expression '''
+    p[0] = DoWhile(p[6],InstructionList(p[3]))
+
 # --------------------------------------------------------------------------------
 #   FUNCTIONS  FUNCTIONS  FUNCTIONS  FUNCTIONS  FUNCTIONS  FUNCTIONS  FUNCTIONS
 # --------------------------------------------------------------------------------
@@ -86,9 +97,13 @@ def p_function_print(p):
 #  DEFINITIONS  DEFINITIONS  DEFINITIONS  DEFINITIONS  DEFINITIONS  DEFINITIONS
 # --------------------------------------------------------------------------------
 
-def p_expression_let(p):
+def p_expression_define(p):
     ''' expression : DEFINE NAME EQ expression '''
     p[0] = Define(Name(p[2]),p[4])
+
+def p_expression_let(p):
+    ''' expression : NAME EQ expression '''
+    p[0] = Modify(Name(p[1]),p[3])
 
 def p_expression_id(p):
     ''' expression : NAME '''
@@ -98,25 +113,25 @@ def p_expression_value(p):
     '''
     expression  : INTEGER
                 | STRING
+                | boolean
     '''
-    p[0] = Primitive(p[1])
+    if isinstance(p[1],Base):
+        p[0] = p[1]
+    else:
+        p[0] = Primitive(p[1])
 
 # --------------------------------------------------------------------------------
 #   BINOP  BINOP  BINOP  BINOP  BINOP  BINOP  BINOP  BINOP  BINOP  BINOP  BINOP
 # --------------------------------------------------------------------------------
 
-def p_binaryop(p):
+def p_binaryop_maths(p):
     '''
     expression  : expression ADD expression
                 | expression SUB expression
                 | expression MUL expression
                 | expression DIV expression
-                | expression MOD expression
                 | expression EXP TO expression
-
-                | expression SAME TO expression
-                | expression GREATER THAN expression
-                | expression LESS THAN expression
+                | expression MOD expression
 
                 | expression PLUS expression
                 | expression MINUS expression
@@ -124,6 +139,17 @@ def p_binaryop(p):
                 | expression BYD expression
                 | expression POW expression
                 | expression MODU expression
+    '''
+    if len(p) == 4:
+        p[0] = BinaryOp(p[2], p[1], p[3])
+    elif len(p) == 5:
+        p[0] = BinaryOp(p[2], p[1], p[4])
+
+def p_binaryop_bool(p):
+    '''
+    boolean     : expression SAME TO expression
+                | expression GREATER THAN expression
+                | expression LESS THAN expression
 
                 | expression EQUALS expression
                 | expression GT expression

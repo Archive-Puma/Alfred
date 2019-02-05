@@ -1,3 +1,5 @@
-Define x = 10 mientras x > 0, 
-Si x, escribe "TE QUIERO, CRIS", define x = x - 1
-    Listo
+Alfred,
+    define x = 5.
+    escribe
+        "El valor inicial de x es " + x.
+    

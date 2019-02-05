@@ -7,6 +7,6 @@ class Symbols():
         self.variables[name] = value
     
     def getvar(self,name):
-        return self.variables[name]
+        return self.variables.get(name,None)
 
 symbols = Symbols()

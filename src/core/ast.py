@@ -36,6 +36,7 @@ class InstructionList():
                 ret.append(res)
         return ret
 
+
 class Pass(Base):
     def __repr__(self):
         return "<Pass>"
@@ -72,7 +73,7 @@ class If(Base):
 #   LOOPS  LOOPS  LOOPS  LOOPS  LOOPS  LOOPS  LOOPS  LOOPS  LOOPS  LOOPS  LOOPS
 # --------------------------------------------------------------------------------
 
-class While(Base):
+class Loop(Base):
     def __init__(
         self,
         condition: Base,
@@ -80,12 +81,26 @@ class While(Base):
         self.condition = condition
         self.body = body
 
+
+class While(Loop):
     def __repr__(self):
         return "<While condition={0} body={1}".format(
             self.condition, self.body
         )
 
     def eval(self):
+        while self.condition.eval():
+            self.body.eval()
+
+
+class DoWhile(Loop):
+    def __repr__(self):
+        return "<DoWhile condition={0} body={1}".format(
+            self.condition, self.body
+        )
+    
+    def eval(self):
+        self.body.eval()
         while self.condition.eval():
             self.body.eval()
 
@@ -146,7 +161,14 @@ class BinaryOp(Base):
         )
 
     def eval(self):
-        op = self.__operators[self.op]
+        op      = self.__operators[self.op]
+        left    = self.left.eval()
+        right   = self.right.eval()
+
+        if op is add:
+            if type(left) is str or type(right) is str:
+                return(str(self.left.eval()) + str(self.right.eval()))
+
         return op(self.left.eval(), self.right.eval())
 
 # --------------------------------------------------------------------------------
@@ -173,11 +195,13 @@ class Name(Base):
         else:
             symbols.setvar(self.name,value)
 
-class Define(Base):
+class Assignment(Base):
     def __init__(self,name: Name,value):
         self.name = name
         self.value = value
 
+
+class Define(Assignment):
     def __repr__(self):
         return "<Define name={0}, value={1}>".format(
             self.name, self.value
@@ -188,6 +212,22 @@ class Define(Base):
             pass            # TODO: Functions
         else:
             self.name.assign(self.value.eval())
+
+
+class Modify(Assignment):
+    def __repr__(self):
+        return "<Modify name={0}, value={1}>".format(
+            self.name, self.value
+        )
+
+    def eval(self):
+        if self.name.isfunc:
+            raise AttributeError("NO SE PUEDEN MODIFICAR FUNCIONES") # FIXME: Functions
+        else:
+            if self.name.eval() is None:
+                raise NameError("LA VARIABLE NO HA SIDO INICIALIZADA") # FIXME: Variables
+            self.name.assign(self.value.eval())
+
 
 class Primitive(Base):
     def __init__(self,value):

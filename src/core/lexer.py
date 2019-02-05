@@ -6,13 +6,15 @@ IGNORECASE = 0b10
 #     LITERALS  LITERALS  LITERALS  LITERALS  LITERALS  LITERALS  LITERALS
 # --------------------------------------------------------------------------------
 
-literals = [ ',' ]
+literals = [ '.', ',', ':' ]
 
 # --------------------------------------------------------------------------------
 #      RESERVED  RESERVED  RESERVED  RESERVED  RESERVED  RESERVED  RESERVED
 # --------------------------------------------------------------------------------
 
 reserved = {
+    # Invoke
+    'alfred':   'ALFRED',
     # Instructions
     'define':   'DEFINE',
     'escribe':  'PRINT',
@@ -30,6 +32,7 @@ reserved = {
     'menor':    'LESS',
     # Blocks
     'si':       'IF',
+    'haz':      'DO',
     'mientras': 'WHILE',
     'listo':    'END',
     # Auxiliary Words
