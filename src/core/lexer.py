@@ -14,33 +14,40 @@ literals = [ '.', ',', ':' ]
 
 reserved = {
     # Invoke
-    'alfred':   'ALFRED',
+    'alfred':       'ALFRED',
     # Instructions
-    'define':   'DEFINE',
-    'escribe':  'PRINT',
-    'adios':    'EXIT',
+    'define':       'DEFINE',
+    'escribe':      'PRINT',
+    'adios':        'EXIT',
     # Binary Operations (Maths)
-    'mas':      'ADD',
-    'menos':    'SUB',
-    'por':      'MUL',
-    'entre':    'DIV',
-    'elevado':  'EXP',
-    'modulo':   'MOD',
+    'mas':          'ADD',
+    'menos':        'SUB',
+    'por':          'MUL',
+    'entre':        'DIV',
+    'elevado':      'EXP',
+    'modulo':       'MOD',
+    'decrementa':   'DEC',
+    'incrementa':   'INC',
     # Binary Operations (Bool)
-    'igual':    'SAME',
-    'mayor':    'GREATER',
-    'menor':    'LESS',
+    'igual':        'SAME',
+    'mayor':        'GREATER',
+    'menor':        'LESS',
     # Blocks
-    'si':       'IF',
-    'haz':      'DO',
-    'mientras': 'WHILE',
-    'listo':    'END',
+    'si':           'IF',
+    'haz':          'DO',
+    'mientras':     'WHILE',
+    'listo':        'END',
     # Auxiliary Words
-    'a':        'TO',
-    'y':        'AND',
-    'no':       'NOT',
-    'que':      'THAN',
-    'como':     'AS',
+    'a':            'TO',
+    'e':            'AND_',
+    'y':            'AND',
+    'es':           'IS',
+    'sea':          'BE',
+    'no':           'NOT',
+    'la':           'THE',
+    'que':          'THAN',
+    'como':         'AS',
+    'funcion':      'FUNCTION',
 }
 
 # --------------------------------------------------------------------------------
@@ -54,18 +61,20 @@ tokens = [
     'INTEGER',
     'STRING',
     # Binary Operations (Maths)
-    'PLUS',     # +
-    'MINUS',    # -
-    'BYM',      # *
-    'BYD',      # /
-    'POW',      # ^ **
-    'MODU',     # %
+    'PLUS',         # +
+    'MINUS',        # -
+    'BYM',          # *
+    'BYD',          # /
+    'POW',          # ^ **
+    'MODU',         # %
+    'PLUSPLUS',     # ++
+    'MINUSMINUS',   # --
     # Binary Operations (Bool)
-    'EQUALS',   # ==
-    'GT',       # >
-    'LT',       # <
+    'EQUALS',       # ==
+    'GT',           # >
+    'LT',           # <
     # Assignation
-    'EQ',       # =
+    'EQ',           # =
 ] + list(reserved.values())
 
 # --------------------------------------------------------------------------------
@@ -86,6 +95,8 @@ t_BYM               = r'\*'
 t_BYD               = r'/'
 t_POW               = r'\^|\*\*'
 t_MODU              = r'%'
+t_PLUSPLUS          = r'\+\+'
+t_MINUSMINUS        = r'--'
 
 # Binary Operations (Bool)
 t_EQUALS            = r'=='
@@ -121,5 +132,5 @@ def t_error(t):
 # --------------------------------------------------------------------------------
 
 lexer = lex.lex(
-    debug=0,
+    debug=False,
     reflags=IGNORECASE)

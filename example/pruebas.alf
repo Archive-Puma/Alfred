@@ -1,5 +1,5 @@
 Alfred,
-    define x = 5.
-    escribe
-        "El valor inicial de x es " + x.
+    define x igual a 0.
+    Mientras x no sea mayor que 10,
+        Escribe x e incrementa x.
     

@@ -1,6 +1,7 @@
 from operator   import (
     add,sub,mul,truediv,pow,mod,
-    eq,gt,lt
+    eq,gt,lt,
+    pos,neg,not_,inv,
 )
 from .symbols   import symbols
 
@@ -122,6 +123,26 @@ class Print(Base):
 # --------------------------------------------------------------------------------
 #   BINOP  BINOP  BINOP  BINOP  BINOP  BINOP  BINOP  BINOP  BINOP  BINOP  BINOP
 # --------------------------------------------------------------------------------
+
+class UnaryOp(Base):
+    __operations = {
+        '+': pos,
+        '-': neg,
+        '~': inv,
+        'no': not_,
+    }
+
+    def __repr__(self):
+        return "<UnaryOp: operation='{0}' expr={1}>".format(
+            self.operation, self.expr
+        )
+
+    def __init__(self, operation, expr: Base):
+        self.operation = operation
+        self.expr = expr
+
+    def eval(self):
+        return self.__operations[self.operation](self.expr.eval())
 
 class BinaryOp(Base):
     __operators = {

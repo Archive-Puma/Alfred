@@ -12,9 +12,11 @@ from .lexer     import tokens
 
 def p_program(p):
     ''' program : ALFRED ',' statements '''
-    for l in p[3]:
-        print(l)
-    print()
+    # ?===? DEBUG ?===?
+    #  for l in p[3]:
+    #      print(l)
+    #  print()
+    # ?===============?
     p[0] = p[3]
 
 def p_statements(p):
@@ -66,6 +68,14 @@ def p_statement_if(p):
 # --------------------------------------------------------------------------------
 
 def p_statement_while(p):
+    '''
+    statement   : WHILE expression ',' statements AND statement
+                | WHILE expression ',' statements AND_ statement
+    '''
+    p[4].child.append(p[6])
+    p[0] = While(p[2],InstructionList([p[4]]))
+
+def p_statement_onewhile(p):
     ''' statement : WHILE expression ',' statement '''
     p[0] = While(p[2],InstructionList([p[4]]))
 
@@ -98,12 +108,24 @@ def p_function_print(p):
 # --------------------------------------------------------------------------------
 
 def p_expression_define(p):
-    ''' expression : DEFINE NAME EQ expression '''
-    p[0] = Define(Name(p[2]),p[4])
+    '''
+    expression  : DEFINE NAME SAME TO expression
+                | DEFINE NAME EQ expression
+    '''
+    if len(p) == 5:
+        p[0] = Define(Name(p[2]),p[4])
+    elif len(p) == 6:
+        p[0] = Define(Name(p[2]),p[5])
 
 def p_expression_let(p):
-    ''' expression : NAME EQ expression '''
-    p[0] = Modify(Name(p[1]),p[3])
+    '''
+    expression  : NAME SAME TO expression
+                | NAME EQ expression
+    '''
+    if len(p) == 4:
+        p[0] = Modify(Name(p[1]),p[3])
+    elif len(p) == 5:
+        p[0] = Modify(Name(p[1]),p[4])
 
 def p_expression_id(p):
     ''' expression : NAME '''
@@ -140,16 +162,17 @@ def p_binaryop_maths(p):
                 | expression POW expression
                 | expression MODU expression
     '''
+    op = p[2].lower()
     if len(p) == 4:
-        p[0] = BinaryOp(p[2], p[1], p[3])
+        p[0] = BinaryOp(op, p[1], p[3])
     elif len(p) == 5:
-        p[0] = BinaryOp(p[2], p[1], p[4])
+        p[0] = BinaryOp(op, p[1], p[4])
 
-def p_binaryop_bool(p):
+def p_binrayop_bool(p):
     '''
-    boolean     : expression SAME TO expression
-                | expression GREATER THAN expression
-                | expression LESS THAN expression
+    boolean     : expression comparator expression
+                | expression NOT IS comparator expression
+                | expression NOT BE comparator expression
 
                 | expression EQUALS expression
                 | expression GT expression
@@ -157,8 +180,35 @@ def p_binaryop_bool(p):
     '''
     if len(p) == 4:
         p[0] = BinaryOp(p[2], p[1], p[3])
-    elif len(p) == 5:
-        p[0] = BinaryOp(p[2], p[1], p[4])
+    elif len(p) == 6:
+        p[0] = UnaryOp(p[2].lower(),BinaryOp(p[4], p[1], p[5]))
+
+def p_comparator(p):
+    '''
+    comparator  : SAME TO
+                | GREATER THAN
+                | LESS THAN
+    '''
+    p[0] = p[1].lower()
+
+def p_increment_decrement_symbol(p):
+    '''
+    expression  : NAME PLUSPLUS
+                | NAME MINUSMINUS
+    '''
+    if p[2] == '++':
+        p[0] = Modify(Name(p[1]),BinaryOp('+',Name(p[1]),Primitive(1)))
+    elif p[2] == '--':
+        p[0] = Modify(Name(p[1]),BinaryOp('-',Name(p[1]),Primitive(1)))
+    
+
+def p_increment(p):
+    ''' expression : INC NAME '''
+    p[0] = Modify(Name(p[2]),BinaryOp('+',Name(p[2]),Primitive(1)))
+
+def p_decrement(p):
+    ''' expression : DEC NAME '''
+    p[0] = Modify(Name(p[2]),BinaryOp('-',Name(p[2]),Primitive(1)))
 
 # --------------------------------------------------------------------------------
 #   EMPTY  EMPTY  EMPTY  EMPTY  EMPTY  EMPTY  EMPTY  EMPTY  EMPTY  EMPTY  EMPTY
