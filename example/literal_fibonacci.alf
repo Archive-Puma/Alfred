@@ -1,0 +1,12 @@
+Alfred,
+    define máximo igual a 100 (multidefine: define _,_ y _)
+    define actual igual a 0
+    define acumulado igual a 1
+    define siguiente igual a 0.
+
+    Mientras actual sea menor que máximo,
+        escribe actual
+        siguiente igual a actual mas acumulado (prioridad)
+        actual = acumulado
+        y acumulado = siguiente.
+Adiós.
