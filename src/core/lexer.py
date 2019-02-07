@@ -18,7 +18,7 @@ reserved = {
     # Instructions
     'define':       'DEFINE',
     'escribe':      'PRINT',
-    'adios':        'EXIT',
+    'adiós':        'EXIT',
     # Binary Operations (Maths)
     'mas':          'ADD',
     'menos':        'SUB',
@@ -47,7 +47,7 @@ reserved = {
     'la':           'THE',
     'que':          'THAN',
     'como':         'AS',
-    'funcion':      'FUNCTION',
+    'función':      'FUNCTION',
 }
 
 # --------------------------------------------------------------------------------
@@ -105,7 +105,10 @@ t_LT                = r'<'
 
 # ID
 def t_NAME(t):
-    r'[a-zA-Z_]\w*'
+    r'[a-zA-ZáéíóúÁÉÍÓÚ_]\w*'
+    value = t.value.lower().replace(
+        'á','a').replace('é','e').replace(
+            'í','i').replace('ó','o').replace('ú','u')
     t.type = reserved.get(t.value.lower(),'NAME')
     return t
 

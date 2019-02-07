@@ -175,8 +175,7 @@ def p_binaryop_maths(p):
 def p_binrayop_bool(p):
     '''
     boolean     : expression comparator expression
-                | expression NOT IS comparator expression
-                | expression NOT BE comparator expression
+                | expression NOT comparator expression
 
                 | expression EQUALS expression
                 | expression GT expression
@@ -184,8 +183,8 @@ def p_binrayop_bool(p):
     '''
     if len(p) == 4:
         p[0] = BinaryOp(p[2], p[1], p[3])
-    elif len(p) == 6:
-        p[0] = UnaryOp(p[2].lower(),BinaryOp(p[4], p[1], p[5]))
+    elif len(p) == 5:
+        p[0] = UnaryOp(p[2].lower(),BinaryOp(p[3], p[1], p[4]))
 
 def p_comparator(p):
     '''
@@ -194,6 +193,15 @@ def p_comparator(p):
                 | LESS THAN
     '''
     p[0] = p[1].lower()
+
+def p_comparator_be(p):
+    '''
+    comparator  : IS comparator
+                | BE comparator
+    '''
+    p[0] = p[2]
+
+
 
 def p_increment_decrement_symbol(p):
     '''
