@@ -99,8 +99,12 @@ def p_arguments(p):
         p[1].child.append(p[3])
         p[0] = p[1]
 
+def p_function_exit(p):
+    ''' statement : EXIT '''
+    p[0] = Exit()
+
 def p_function_print(p):
-    ''' statement : PRINT arguments '''
+    ''' statement : PRINT expression '''
     p[0] = Print(p[2])
 
 # --------------------------------------------------------------------------------

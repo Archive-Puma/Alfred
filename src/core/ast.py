@@ -1,3 +1,4 @@
+from sys        import exit
 from operator   import (
     add,sub,mul,truediv,pow,mod,
     eq,gt,lt,
@@ -110,15 +111,22 @@ class DoWhile(Loop):
 #   FUNCTIONS  FUNCTIONS  FUNCTIONS  FUNCTIONS  FUNCTIONS  FUNCTIONS  FUNCTIONS
 # --------------------------------------------------------------------------------
 
+class Exit(Base):
+    def __repr__(self):
+        return "<Exit>"
+    
+    def eval(self):
+        exit(0)
+
 class Print(Base):
-    def __init__(self,items: InstructionList):
-        self.items = items
+    def __init__(self,item: InstructionList):
+        self.item = item
     
     def __repr__(self):
-        return "<Print {0}>".format(self.items)
+        return "<Print {0}>".format(self.item)
 
     def eval(self):
-        print(*self.items.eval())
+        print(self.item.eval())
 
 # --------------------------------------------------------------------------------
 #   BINOP  BINOP  BINOP  BINOP  BINOP  BINOP  BINOP  BINOP  BINOP  BINOP  BINOP
