@@ -245,8 +245,15 @@ def p_error(p):
                       p))
 
 precedence = (
-    ('left', 'ADD','SUB','MUL','DIV'),
-    ('left', 'PLUS','MINUS','BYM','BYD')
+    ('left',
+        'ADD','SUB',                # Literal
+        'PLUS','MINUS'),            # Symbols
+    ('left',
+        'MUL','DIV','MOD',          # Literal
+        'BYM','BYD','MODU'),        # Symbols
+    ('left',
+        'EXP',                      # Literal
+        'POW'),                     # Symbols
 )
 
 parser = yacc(
