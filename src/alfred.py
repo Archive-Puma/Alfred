@@ -6,7 +6,7 @@ def main():
     if len(sys.argv) == 1:
         while True:
             repl = input(">>> ")
-            parser.parse(repl)
+            parser.parse('Alfred,' + repl).eval()
     else:
         with open(sys.argv[1],'r') as f:
             res = parser.parse(f.read())
