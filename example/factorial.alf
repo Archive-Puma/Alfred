@@ -1,0 +1,14 @@
+Alfred,
+    Para calcular_factorial,
+        define resultado = 1
+        define auxiliar = numero.
+
+        Mientras auxiliar > 0,
+            resultado = resultado * auxiliar
+            y decrementa auxiliar
+        y devuelve resultado.
+
+    Define numero = 10.
+
+    Escribe "El factorial de " + numero + " es: " + calcular_factorial.
+Adiós Alfred.

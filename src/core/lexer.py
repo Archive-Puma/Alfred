@@ -47,7 +47,8 @@ reserved = {
     'la':           'THE',
     'que':          'THAN',
     'como':         'AS',
-    'función':      'FUNCTION',
+    'para':         'FOR',
+    'devuelve':     'RETURN',
 }
 
 # --------------------------------------------------------------------------------

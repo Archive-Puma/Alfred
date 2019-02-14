@@ -14,7 +14,7 @@ def p_program(p):
     ''' program : ALFRED ',' statements '''
     # ?===? DEBUG ?===?
     #  for l in p[3]:
-    #      print(l)
+    #    print(l)
     #  print()
     # ?===============?
     p[0] = p[3]
@@ -87,18 +87,6 @@ def p_statement_dowhile(p):
 #   FUNCTIONS  FUNCTIONS  FUNCTIONS  FUNCTIONS  FUNCTIONS  FUNCTIONS  FUNCTIONS
 # --------------------------------------------------------------------------------
 
-def p_arguments(p):
-    '''
-    arguments   : arguments ',' expression
-                | expression
-                | empty
-    '''
-    if len(p) == 2:
-        p[0] = InstructionList([p[1]])
-    elif len(p) == 4:
-        p[1].child.append(p[3])
-        p[0] = p[1]
-
 def p_function_exit(p):
     ''' statement : EXIT ALFRED '''
     p[0] = Exit()
@@ -111,28 +99,46 @@ def p_function_print(p):
 #  DEFINITIONS  DEFINITIONS  DEFINITIONS  DEFINITIONS  DEFINITIONS  DEFINITIONS
 # --------------------------------------------------------------------------------
 
-def p_expression_define(p):
+def p_define_function(p):
     '''
-    expression  : DEFINE NAME SAME TO expression
-                | DEFINE NAME EQ expression
+    expression  : FOR id ',' return
+                | FOR id ',' statements AND return
+                | FOR id ',' statements AND_ return
     '''
     if len(p) == 5:
-        p[0] = Define(Name(p[2]),p[4])
+        p[0] = Function(p[2],p[4])
+    elif len(p) == 7:
+        p[0] = Function(p[2],p[6],p[4])
+
+def p_return(p):
+    '''
+    return  : RETURN id
+            | RETURN expression
+    '''
+    p[0] = p[2]
+
+def p_expression_define(p):
+    '''
+    statement   : DEFINE id SAME TO expression
+                | DEFINE id EQ expression
+    '''
+    if len(p) == 5:
+        p[0] = Define(p[2],p[4])
     elif len(p) == 6:
-        p[0] = Define(Name(p[2]),p[5])
+        p[0] = Define(p[2],p[5])
 
 def p_expression_let(p):
     '''
-    expression  : NAME SAME TO expression
-                | NAME EQ expression
+    expression  : id SAME TO expression
+                | id EQ expression
     '''
     if len(p) == 4:
-        p[0] = Modify(Name(p[1]),p[3])
+        p[0] = Modify(p[1],p[3])
     elif len(p) == 5:
-        p[0] = Modify(Name(p[1]),p[4])
+        p[0] = Modify(p[1],p[4])
 
 def p_expression_id(p):
-    ''' expression : NAME '''
+    ''' id : NAME '''
     p[0] = Name(p[1])
 
 def p_expression_value(p):
@@ -140,6 +146,7 @@ def p_expression_value(p):
     expression  : INTEGER
                 | STRING
                 | boolean
+                | id
     '''
     if isinstance(p[1],Base):
         p[0] = p[1]
@@ -253,10 +260,12 @@ precedence = (
     ('left',
         'EXP',                      # Literal
         'POW'),                     # Symbols
+    ('left',
+        'FOR'),
 )
 
 parser = yacc(
     debug=False,
     write_tables=True,
-    errorlog=NullLogger()
+    #errorlog=NullLogger()
 )

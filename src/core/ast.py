@@ -207,28 +207,46 @@ class BinaryOp(Base):
 class Name(Base):
     def __init__(self,name):
         self.name = name
-        self.isfunc = False
 
     def __repr__(self):
         return "<Name {0}>".format(self.name)
 
     def eval(self):
-        if self.isfunc:
-            pass            # TODO: Functions
+        value = symbols.getvar(self.name)
+        if type(value) is tuple:
+            ret,body = value
+            if body:
+                for node in body:
+                    node.eval()
+            return ret.eval()
         else:
-            return symbols.getvar(self.name)
+            return value
         
     def assign(self,value):
-        if self.isfunc:
-            pass            # TODO: Functions
-        else:
-            symbols.setvar(self.name,value)
+        symbols.setvar(self.name,value)
 
 class Assignment(Base):
     def __init__(self,name: Name,value):
         self.name = name
         self.value = value
 
+
+class Function(Base):
+    def __init__(
+        self,
+        name:Base,
+        ret:Base,
+        body:InstructionList=None):
+        self.name = name
+        self.ret = ret
+        self.body = body
+
+    def __repr__(self):
+        return "<Function name={0} return={1} body={2}>".format(
+            self.name,self.ret,self.body)
+
+    def eval(self):
+        self.name.assign((self.ret,self.body))
 
 class Define(Assignment):
     def __repr__(self):
@@ -237,10 +255,7 @@ class Define(Assignment):
         )
 
     def eval(self):
-        if self.name.isfunc:
-            pass            # TODO: Functions
-        else:
-            self.name.assign(self.value.eval())
+        self.name.assign(self.value.eval())
 
 
 class Modify(Assignment):
@@ -250,12 +265,9 @@ class Modify(Assignment):
         )
 
     def eval(self):
-        if self.name.isfunc:
-            raise AttributeError("NO SE PUEDEN MODIFICAR FUNCIONES") # FIXME: Functions
-        else:
-            if self.name.eval() is None:
-                raise NameError("LA VARIABLE NO HA SIDO INICIALIZADA") # FIXME: Variables
-            self.name.assign(self.value.eval())
+        if self.name.eval() is None:
+            raise NameError("LA VARIABLE NO HA SIDO INICIALIZADA") # FIXME: Variables
+        self.name.assign(self.value.eval())
 
 
 class Primitive(Base):
