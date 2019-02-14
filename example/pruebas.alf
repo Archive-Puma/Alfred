@@ -1,5 +1,2 @@
 Alfred,
-    define x igual a 0.
-    Mientras x no sea mayor que 10,
-        Escribe x e incrementa x.
-    
+    Escribe 10 + 2 * 2 ^ 9 % 2

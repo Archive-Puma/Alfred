@@ -100,7 +100,7 @@ def p_arguments(p):
         p[0] = p[1]
 
 def p_function_exit(p):
-    ''' statement : EXIT '''
+    ''' statement : EXIT ALFRED '''
     p[0] = Exit()
 
 def p_function_print(p):
@@ -200,7 +200,6 @@ def p_comparator_be(p):
                 | BE comparator
     '''
     p[0] = p[2]
-
 
 
 def p_increment_decrement_symbol(p):
