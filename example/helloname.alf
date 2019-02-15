@@ -1,0 +1,5 @@
+Alfred,
+    Escribe "Introduce tu nombre:".
+    Define nombre igual a la entrada.
+    Escribe "¡Buenos días, " + nombre + "!".
+Adiós Alfred.

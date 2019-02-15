@@ -1,0 +1,19 @@
+Alfred,
+    Escribe "  == BIENVENIDO A GUESS THE NUMBER ==  ".
+    Escribe "He pensando en un número entre 1 y 100. Intenta adivinarlo."
+    Escribe ""
+
+    Define respuesta igual a 67.
+
+    Haz:
+        Escribe "Dime un número:".
+        Define x igual a la entrada.
+
+        Si x es igual a respuesta,
+            escribe "¡CONSEGUIDO!"
+        si no, si x es menor que respuesta,
+            escribe "El número que estoy pensado es mayor"
+        si no,
+            escribe "El número que estoy pensando es menor".
+        listo, mientras x no es igual a respuesta.
+Adiós Alfred.

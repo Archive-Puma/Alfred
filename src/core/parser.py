@@ -95,6 +95,10 @@ def p_function_print(p):
     ''' statement : PRINT expression '''
     p[0] = Print(p[2])
 
+def p_function_input(p):
+    ''' expression  : THE INPUT '''
+    p[0] = Input()
+
 # --------------------------------------------------------------------------------
 #  DEFINITIONS  DEFINITIONS  DEFINITIONS  DEFINITIONS  DEFINITIONS  DEFINITIONS
 # --------------------------------------------------------------------------------

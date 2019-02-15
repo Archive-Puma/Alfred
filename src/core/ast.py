@@ -128,6 +128,16 @@ class Print(Base):
     def eval(self):
         print(self.item.eval())
 
+class Input(Base):    
+    def __repr__(self):
+        return "<Input>"
+
+    def eval(self):
+        value = input()
+        if value.isnumeric():
+            value = int(value)
+        return value
+
 # --------------------------------------------------------------------------------
 #   BINOP  BINOP  BINOP  BINOP  BINOP  BINOP  BINOP  BINOP  BINOP  BINOP  BINOP
 # --------------------------------------------------------------------------------
