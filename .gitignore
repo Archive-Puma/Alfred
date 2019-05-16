@@ -1,4 +1,0 @@
-lambda/**/.nyc_output
-lambda/**/coverage.lcov
-lambda/**/node_modules/*
-!lambda/**/node_modules/ask-sdk*
