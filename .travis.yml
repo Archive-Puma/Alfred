@@ -1,0 +1,17 @@
+language:
+  node_js
+node_js:
+  - "node"  # Latest NodeJS release
+  - "lts/*" # Latest LTS NodeJS release
+cache: npm  # Cache the dependencies
+before_install:
+  - npm install --global npm@latest     # Latest NPM package
+  - npm install --global codecov@latest # Latest Codecov pachake
+  - cd $TRAVIS_BUILD_DIR/lambda/us-east-1_ask-custom-alexa-default
+install:
+  - npm install
+script:
+  - npm test
+  - npm run coverage
+  - npm run codecov-report
+  - codecov # codecov.io
