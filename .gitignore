@@ -1,7 +1,0 @@
-# Files
-*.out
-*.pyc
-*tab.py
-# Folders
-venv
-.vscode
