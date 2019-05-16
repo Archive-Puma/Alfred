@@ -1,0 +1,6 @@
+venv
+build
+*.pyc
+*.spec
+src/__pycache__
+lib/__pycache__
