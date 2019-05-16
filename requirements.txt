@@ -1,0 +1,5 @@
+# Dependencies
+ply
+
+# Dev Dependencies
+PyInstaller
