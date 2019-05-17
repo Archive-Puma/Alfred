@@ -1,17 +1,17 @@
-:memo: TODO
+# :memo: TODO
 ---
 
 Estructura:
-- [ ] Asignar variables
-- [ ] Evaluar variables
+- [x] Asignar variables
+- [x] Evaluar variables
 - [ ] Funciones (¿Módulos en una carpeta especial?)
 - [x] Comentarios
-
+- [ ] Añadir acentos (UTF-8)
 Instrucciones:
 - [x] Di (println)
 - [x] Escribe (print)
 - [x] Pregunta (input)
-- [ ] Guarda
+- [x] Guarda
 
 Control:
 - [ ] If
