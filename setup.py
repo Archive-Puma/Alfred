@@ -1,12 +1,12 @@
 from setuptools import setup, find_packages
 
-with open("README.md", "r"), open("VERSION", "r") as r,v:
+with open("README.md", "r") as r, open("VERSION", "r") as v:
     long_description = r.read()
     version = v.readline().strip()
 
 setup(
     name="alfred",
-    version=version(),
+    version=version,
     author="Kike Fontan (@CosasDePuma)",
     author_email="kikefontanlorenzo@gmail.com",
     description="Just another programming language",
