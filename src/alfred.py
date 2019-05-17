@@ -2,7 +2,7 @@ import os.path as ospath
 from sys import path as pypath
 
 from os import EX_OSFILE
-from sys import (argv,stderr)
+from sys import (argv,exit,stderr)
 
 pypath.insert(0, ospath.join(ospath.dirname(ospath.abspath(__file__)), '..', 'lib'))
 
