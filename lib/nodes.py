@@ -1,4 +1,8 @@
 from symbols import symbols,_tmpvar
+from operator import (
+    add,sub,mul,truediv
+)
+
 
 class Node():
     def eval(self):
@@ -18,6 +22,45 @@ class InstructionList(Node):
             if res is not None:
                 ret.append(result)
         return ret
+
+
+class BinaryOp(Node):
+    __operator = {
+        'mas': add,
+        'menos': sub,
+        'por': mul,
+        'entre': truediv,
+
+        '+': add,
+        '-': sub,
+        '*': mul,
+        '/': truediv
+    }
+    def __init__(self,operation,lhs,rhs):
+        self.operation = operation
+        self.lhs = lhs
+        self.rhs = rhs
+    def __repr__(self):
+        return "<BinaryOp {} ({},{})>".format(self.operation, self.lhs, self.rhs)
+    def eval(self):
+        result = None
+        lhs = self.lhs.eval()
+        rhs = self.rhs.eval()
+        operation = self.__operator[self.operation]
+
+        if operation is add:
+            if isinstance(lhs,str) or isinstance(rhs,str):
+                result = "{}{}".format(lhs,rhs)
+        else:
+            result = operation(lhs,rhs)
+        return result
+
+
+
+
+
+
+
 
 class Primitive(Node):
     def __init__(self,value):
@@ -47,6 +90,18 @@ class Assignment(Node):
         value = self.value.eval()
         self.name.assign(value.eval())
 
+
+
+
+
+
+
+
+
+
+
+
+
 class Stdin(Node):
     def __init__(self,text):
         self.text = text
@@ -55,7 +110,7 @@ class Stdin(Node):
     def eval(self):
         value = self.text.eval()
         if not isinstance(value, str):
-            raise TypeError("[x] Sólo se puede preguntar texto.")
+            raise TypeError("[🐛] Sólo se puede preguntar texto.")
         response = input(value)
         symbols.set(_tmpvar,Primitive(response))
 

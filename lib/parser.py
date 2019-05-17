@@ -5,8 +5,16 @@ from sys import exit,stderr
 from nodes import *
 from lexer import tokens
 
+
+
 def Parser():
     start = "program"
+
+    precedence = (
+        ('left', '+','-','ADD','SUB'),
+        ('left', '*','/','BY','BTWN'),
+    )
+
 
     def p_program(p):
         ''' program : ALFRED statements '''
@@ -64,6 +72,20 @@ def Parser():
                        | INTEGER
         '''
         p[0] = Primitive(p[1])
+
+    def p_binaryop(p):
+        ''' expression : expression '+' expression
+                       | expression '-' expression
+                       | expression '*' expression
+                       | expression '/' expression
+
+                       | expression ADD expression
+                       | expression SUB expression
+                       | expression BY expression
+                       | expression BTWN expression
+        '''
+        operation = p[2].lower()
+        p[0] = BinaryOp(operation,p[1],p[3])
 
     def p_arg1(p):
         ''' arg : expression

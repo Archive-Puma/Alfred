@@ -8,6 +8,7 @@
 ###### Updates
 - [x] New error icon [🐛]
 - [x] REPL (Interactive Mode)
+- [x] Binary Operations added (+,-,\*,/)
 
 
 ### 0.0.1.dev1

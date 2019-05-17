@@ -4,13 +4,19 @@ from os import EX_DATAERR
 
 IGNORECASE = 0b10
 
+literals = [ '+', '-', '*', '/' ]
 reserved = {
     "alfred":   "ALFRED",
     "di":       "PRINTLN",
     "en":       "IN",
     "escribe":  "PRINT",
     "guardalo": "STORE",
-    "pregunta": "INPUT"
+    "pregunta": "INPUT",
+
+    "mas": "ADD",
+    "menos": "SUB",
+    "por": "BY",
+    "entre": "BTWN"
 }
 tokens = [
     "ID",
