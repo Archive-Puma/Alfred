@@ -1,8 +1,9 @@
-from nodes import *
-from lexer import tokens
 from ply.yacc import yacc
 from os import EX_SOFTWARE
 from sys import exit,stderr
+
+from nodes import *
+from lexer import tokens
 
 def Parser():
     start = "program"
@@ -27,10 +28,15 @@ def Parser():
         p[0] = p[1]
 
     def p_method(p):
-        ''' method : stdin
+        ''' method : store
+                   | stdin
                    | stdout
         '''
         p[0] = p[1]
+
+    def p_store(p):
+        ''' store : STORE IN id '''
+        p[0] = Assignment(p[3])
 
     def p_stdin(p):
         ''' stdin : INPUT arg
@@ -44,6 +50,14 @@ def Parser():
     def p_stdout_nl(p):
         ''' stdout : PRINTLN expression '''
         p[0] = Stdout(p[2])
+
+    def p_identifier(p):
+        ''' expression : id '''
+        p[0] = p[1]
+
+    def p_id(p):
+        ''' id : ID '''
+        p[0] = Identifier(p[1])
 
     def p_primitive(p):
         ''' expression : STRING

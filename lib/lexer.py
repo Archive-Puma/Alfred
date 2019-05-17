@@ -5,7 +5,9 @@ IGNORECASE = 0b10
 reserved = {
     "alfred":   "ALFRED",
     "di":       "PRINTLN",
+    "en":       "IN",
     "escribe":  "PRINT",
+    "guardalo": "STORE",
     "pregunta": "INPUT"
 }
 tokens = [
