@@ -15,6 +15,7 @@ tokens = [
 def Lexer():
     t_ignore = ".,"
 
+    t_ignore_COMMENT = r'\(([^\)])*\)'
     t_ignore_WHITESPACE = r'\s+'
 
     def t_ID(t):
