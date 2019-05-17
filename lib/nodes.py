@@ -26,9 +26,10 @@ class Primitive(Node):
         return self.value
 
 class Stdout(Node):
-    def __init__(self,item):
+    def __init__(self,item,end='\n'):
+        self.end = end
         self.item = item
     def __repr__(self):
         return "<Print {}>".format(self.item)
     def eval(self):
-        print(self.item.eval())
+        print(self.item.eval(),end=self.end)
