@@ -1,7 +1,7 @@
 Alfred.
 (La instrucción "Escribe"
-presenta el texto sin un salto de línea)
+muestra el texto sin un salto de línea)
 Escribe "Un \"cachito\" de texto ".
-(La instrucción "Muestra"
-presenta el texto con un salto de línea)
-Muestra "y otra porción.".
+(La instrucción "Di"
+muestra el texto con un salto de línea)
+Di "y otra porción.".
