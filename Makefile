@@ -11,8 +11,8 @@ BINARY=$(DIST)/$(EXE)-$(VERSION)
 
 CC=pyinstaller
 CCXFLAGS=--onefile --clean
-CCDFLAGS=--add-data $(LIB)/lexer.py:. --add-data $(LIB)/nodes.py:.
 CCCFLAGS=--name $(EXE)-$(VERSION) --paths $(LIB) --distpath $(DIST) --workpath $(BUILD)
+CCDFLAGS=--add-data $(LIB)/lexer.py:. --add-data $(LIB)/nodes.py:. --add-data $(LIB)/symbols.py:.
 
 .PHONY: all
 all: $(BINARY)
@@ -28,10 +28,14 @@ install: setup.py
 uninstall: setup.py
 	pip $@ --yes $(EXE)
 
-.PHONY: test
-test: $(BINARY)
-	./$< $(EXAMPLE)/holamundo.alf
-	./$< $(EXAMPLE)/escribe.alf
+.PHONY: test-bin test-cli
+test-bin: $(BINARY) $(EXAMPLE)/*
+	for filetest in $^; do \
+		echo "Example: $${filetest}"; ./$< $${filetest}; echo; done
+
+test-cli: $(EXAMPLE)/*
+	for filetest in $^; do \
+		echo "Example: $${filetest}"; $(EXE) $${filetest}; echo; done
 
 .PHONY: clean drop purge mrproper
 clean:
