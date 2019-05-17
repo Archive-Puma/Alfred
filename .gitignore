@@ -1,0 +1,7 @@
+venv
+build
+*.pyc
+*.spec
+*.egg*
+src/__pycache__
+lib/__pycache__

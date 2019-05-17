@@ -1,5 +1,6 @@
 # Dependencies
-ply
+ply>=3.11
 
 # Dev Dependencies
-PyInstaller
+setuptools>=41.0.1
+PyInstaller>=3.4

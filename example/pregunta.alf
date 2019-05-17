@@ -1,0 +1,12 @@
+Alfred,
+
+(Alfred puede preguntar para recibir datos
+ por la entrada estándar.
+ La respuesta se guarda en una variable temporal
+ y has de pedirle que te la guarde en otro lado)
+Pregunta "¿Cuál es tu nombre?: " y guardalo en nombre.
+Escribe "Encantado de conocerte ", escribe nombre y di ".".
+
+(También puede preguntar sin decir nada)
+Escribe "¿Te apetecen magdalenas? ".
+Pregunta y di "¡Pues ya me las he comido todas!".
