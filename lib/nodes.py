@@ -25,11 +25,23 @@ class Primitive(Node):
     def eval(self):
         return self.value
 
+class Stdin(Node):
+    def __init__(self,text):
+        self.text = text
+    def __repr__(self):
+        return "<Input {}>".format(self.text)
+    def eval(self):
+        print(self.text)
+        value = self.text.eval()
+        if not isinstance(value, str):
+            raise TypeError("[x] Sólo se puede preguntar texto.")
+        input(value)
+
 class Stdout(Node):
     def __init__(self,item,end='\n'):
         self.end = end
         self.item = item
     def __repr__(self):
-        return "<Print {}>".format(self.item)
+        return "<Print {} ({})>".format(self.item, self.end)
     def eval(self):
         print(self.item.eval(),end=self.end)

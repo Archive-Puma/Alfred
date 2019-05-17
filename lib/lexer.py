@@ -3,13 +3,15 @@ from ply.lex import lex
 IGNORECASE = 0b10
 
 reserved = {
-    "alfred": "ALFRED",
-    "escribe": "PRINT",
-    "muestra": "PRINTLN"
+    "alfred":   "ALFRED",
+    "di":       "PRINT",
+    "muestra":  "PRINTLN",
+    "pregunta": "INPUT"
 }
 tokens = [
     "ID",
-    "STRING"
+    "STRING",
+    "INTEGER"
 ] + list(reserved.values())
 
 def Lexer():
@@ -29,6 +31,12 @@ def Lexer():
         t.value = t.value[1:-1]
         t.value = t.value.replace("\\\"", "\"")
         t.type = reserved.get(t.value,"STRING")
+        return t
+
+    def t_INTEGER(t):
+        r'[+-]?[0-9]+'
+        t.value = int(t.value)
+        t.type = reserved.get(t.value,"INTEGER")
         return t
 
     def t_error(t):

@@ -27,8 +27,15 @@ def Parser():
         p[0] = p[1]
 
     def p_method(p):
-        ''' method : stdout '''
+        ''' method : stdin
+                   | stdout
+        '''
         p[0] = p[1]
+
+    def p_stdin(p):
+        ''' stdin : INPUT arg
+        '''
+        p[0] = Stdin(p[2])
 
     def p_stdout(p):
         ''' stdout : PRINT expression '''
@@ -39,8 +46,16 @@ def Parser():
         p[0] = Stdout(p[2])
 
     def p_primitive(p):
-        ''' expression : STRING '''
+        ''' expression : STRING
+                       | INTEGER
+        '''
         p[0] = Primitive(p[1])
+
+    def p_arg1(p):
+        ''' arg : expression
+                | empty
+        '''
+        p[0] = p[1] if p[1] else Primitive("")
 
     def p_empty(p):
         ''' empty : '''
