@@ -4,8 +4,8 @@ IGNORECASE = 0b10
 
 reserved = {
     "alfred":   "ALFRED",
-    "di":       "PRINT",
-    "muestra":  "PRINTLN",
+    "di":       "PRINTLN",
+    "escribe":  "PRINT",
     "pregunta": "INPUT"
 }
 tokens = [
@@ -15,7 +15,7 @@ tokens = [
 ] + list(reserved.values())
 
 def Lexer():
-    t_ignore = ".,"
+    t_ignore = ".,y"
 
     t_ignore_COMMENT = r'\(([^\)])*\)'
     t_ignore_WHITESPACE = r'\s+'

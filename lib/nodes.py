@@ -31,7 +31,6 @@ class Stdin(Node):
     def __repr__(self):
         return "<Input {}>".format(self.text)
     def eval(self):
-        print(self.text)
         value = self.text.eval()
         if not isinstance(value, str):
             raise TypeError("[x] Sólo se puede preguntar texto.")
