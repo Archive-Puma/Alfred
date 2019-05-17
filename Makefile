@@ -3,18 +3,21 @@ EXE=alfred
 SRC=src
 LIB=lib
 DIST=dist
-TEST=test
 BUILD=build
+EXAMPLE=example
+
+VERSION=$(shell cat VERSION)
+BINARY=$(DIST)/$(EXE)-$(VERSION)
 
 CC=pyinstaller
 CCXFLAGS=--onefile --clean
 CCDFLAGS=--add-data $(LIB)/lexer.py:. --add-data $(LIB)/nodes.py:.
-CCCFLAGS=--name $(EXE) --paths $(LIB) --distpath $(DIST) --workpath $(BUILD)
+CCCFLAGS=--name $(EXE)-$(VERSION) --paths $(LIB) --distpath $(DIST) --workpath $(BUILD)
 
 .PHONY: all
-all: $(DIST)/$(EXE)
+all: $(BINARY)
 
-$(DIST)/$(EXE): $(SRC)/$(EXE).py
+$(BINARY): $(SRC)/$(EXE).py
 	$(CC) $(CCCFLAGS) $(CCDFLAGS) $(CCXFLAGS) $<
 
 .PHONY: install
@@ -26,9 +29,9 @@ uninstall: setup.py
 	pip $@ --yes $(EXE)
 
 .PHONY: test
-test: $(DIST)/$(EXE)
-	./$< $(TEST)/holamundo.alf
-	./$< $(TEST)/escribe.alf
+test: $(BINARY)
+	./$< $(EXAMPLE)/holamundo.alf
+	./$< $(EXAMPLE)/escribe.alf
 
 .PHONY: clean drop purge mrproper
 clean:
