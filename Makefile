@@ -27,7 +27,8 @@ uninstall: setup.py
 
 .PHONY: test
 test: $(DIST)/$(EXE)
-	./$< $(TEST)/helloworld.alf
+	./$< $(TEST)/holamundo.alf
+	./$< $(TEST)/escribe.alf
 
 .PHONY: clean drop purge mrproper
 clean:
