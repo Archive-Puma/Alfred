@@ -1,4 +1,6 @@
+from sys import exit
 from ply.lex import lex
+from os import EX_DATAERR
 
 IGNORECASE = 0b10
 
@@ -42,9 +44,10 @@ def Lexer():
         return t
 
     def t_error(t):
-        print("[Error] Caracter inválido ({},~{}): {}".format(
+        print("[🐛] Caracter inválido ({},~{}): {}".format(
             lexer.lineno, lexer.lexpos, t.value[0]))
         t.lexer.skip(1)
+        exit(EX_DATAERR)
 
 
     return lex(

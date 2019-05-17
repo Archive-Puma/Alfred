@@ -77,10 +77,10 @@ def Parser():
 
     def p_error(p):
         if p:
-            print("[X] (Línea: {}) Syntaxis inválida: {}".format(
+            print("[🐛] (Línea: {}) Syntaxis inválida: {}".format(
                 p.lineno, p.value), file=stderr)
         else:
-            print("[X] Fallo desconocido en la sintaxis.", file=stderr)
+            print("[🐛] Fallo desconocido en la sintaxis.", file=stderr)
         exit(EX_SOFTWARE)
 
     return yacc(
