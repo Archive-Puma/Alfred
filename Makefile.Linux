@@ -3,19 +3,17 @@ CCXFLAGS=--onefile --clean
 CCCFLAGS=--name $(EXE)-$(VERSION) --paths $(LIB) --distpath $(DIST) --workpath $(BUILD)
 CCDFLAGS=--add-data $(LIB)/lexer.py:. --add-data $(LIB)/nodes.py:. --add-data $(LIB)/symbols.py:.
 
-.PHONY: all
-all: $(BINARY)
-
-$(BINARY): $(SRC)/$(EXE).py
+.PHONY: build
+build: $(SRC)/$(EXE).py
 	$(CC) $(CCCFLAGS) $(CCDFLAGS) $(CCXFLAGS) $<
 
 .PHONY: install
 install: setup.py
-	python3 $< $@
+	python $< $@
 
 .PHONY: uninstall
 uninstall:
-	pip3 $@ --yes $(EXE)-lang
+	pip $@ --yes $(EXE)-lang
 
 .PHONY: test-bin test-cli
 test-bin: $(BINARY) $(EXAMPLE)/*
@@ -25,6 +23,28 @@ test-bin: $(BINARY) $(EXAMPLE)/*
 test-cli: $(EXAMPLE)/*
 	for filetest in $^; do \
 		echo "Example: $${filetest}"; $(EXE) $${filetest}; echo; done
+
+.PHONY: check
+check:
+	test -d $(SRC)
+	test -d $(LIB)
+	test -d $(DOCS)
+	test -d $(DIST) || mkdir $(DIST)
+	test -d $(BUILD) || mkdir $(BUILD)
+	test -f VERSION
+	test -f setup.py
+	test -f requirements.txt
+	test -f requirements-dev.txt
+	test -f $(SRC)/$(EXE).py
+	test -f $(SRC)/__init__.py
+	test -f $(LIB)/__init__.py
+	test -f $(LIB)/lexer.py
+	test -f $(LIB)/parser.py
+	test -f $(LIB)/nodes.py
+	test -f $(LIB)/symbols.py
+	test -f $(LIB)/defines.py
+	test -f $(LIB)/repl.py
+
 
 .PHONY: clean drop purge mrproper
 clean:
