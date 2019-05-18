@@ -1,6 +1,16 @@
 # :chart_with_upwards_trend: CHANGELOG
 ---
 
+
+### 0.0.1.dev2
+##### May 17th, 2019
+
+###### Updates
+- [x] New error icon [🐛]
+- [x] REPL (Interactive Mode)
+- [x] Binary Operations added (+,-,\*,/)
+
+
 ### 0.0.1.dev1
 ##### May 17th, 2019
 

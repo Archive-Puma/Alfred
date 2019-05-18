@@ -1,4 +1,7 @@
 from symbols import symbols,_tmpvar
+from operator import (
+    add,sub,mul,truediv
+)
 
 class Node():
     def eval(self):
@@ -11,6 +14,8 @@ class InstructionList(Node):
         return "<InstructionList {}>".format(self.child)
     def __iter__(self):
         return iter(self.child)
+    def __len__(self):
+        return len(self.child)
     def eval():
         ret = list()
         for instruction in self.child:
@@ -18,6 +23,45 @@ class InstructionList(Node):
             if res is not None:
                 ret.append(result)
         return ret
+
+
+class BinaryOp(Node):
+    __operator = {
+        'mas': add,
+        'menos': sub,
+        'por': mul,
+        'entre': truediv,
+
+        '+': add,
+        '-': sub,
+        '*': mul,
+        '/': truediv
+    }
+    def __init__(self,operation,lhs,rhs):
+        self.operation = operation
+        self.lhs = lhs
+        self.rhs = rhs
+    def __repr__(self):
+        return "<BinaryOp {} ({},{})>".format(self.operation, self.lhs, self.rhs)
+    def eval(self):
+        result = None
+        lhs = self.lhs.eval() if isinstance(self.lhs, Node) else self.lhs
+        rhs = self.lhs.eval() if isinstance(self.lhs, Node) else self.lhs
+        operation = self.__operator[self.operation]
+
+        if operation is add:
+            if isinstance(lhs,str) or isinstance(rhs,str):
+                result = "{}{}".format(lhs,rhs)
+        else:
+            result = operation(lhs,rhs)
+        return result
+
+
+
+
+
+
+
 
 class Primitive(Node):
     def __init__(self,value):
@@ -33,7 +77,10 @@ class Identifier(Node):
     def __repr__(self):
         return "<Identifier {} ({})>".format(self.name, self.eval())
     def eval(self):
-        return symbols.get(self.name)
+        value = symbols.get(self.name)
+        if not isinstance(value,Node):
+            value = Primitive(None)
+        return value.eval()
     def assign(self, value):
         symbols.set(self.name,value)
 
@@ -45,7 +92,7 @@ class Assignment(Node):
         return "<Assignment {} ({})>".format(self.name, self.value)
     def eval(self):
         value = self.value.eval()
-        self.name.assign(value.eval())
+        self.name.assign(value)
 
 class Stdin(Node):
     def __init__(self,text):
@@ -55,7 +102,7 @@ class Stdin(Node):
     def eval(self):
         value = self.text.eval()
         if not isinstance(value, str):
-            raise TypeError("[x] Sólo se puede preguntar texto.")
+            raise TypeError("[🐛] Sólo se puede preguntar texto.")
         response = input(value)
         symbols.set(_tmpvar,Primitive(response))
 

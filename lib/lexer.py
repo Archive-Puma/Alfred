@@ -1,14 +1,22 @@
+from sys import exit
 from ply.lex import lex
+from defines import EXIT_ERRDATA
 
 IGNORECASE = 0b10
 
+literals = [ '+', '-', '*', '/' ]
 reserved = {
     "alfred":   "ALFRED",
     "di":       "PRINTLN",
     "en":       "IN",
     "escribe":  "PRINT",
     "guardalo": "STORE",
-    "pregunta": "INPUT"
+    "pregunta": "INPUT",
+
+    "mas": "ADD",
+    "menos": "SUB",
+    "por": "BY",
+    "entre": "BTWN"
 }
 tokens = [
     "ID",
@@ -42,9 +50,8 @@ def Lexer():
         return t
 
     def t_error(t):
-        print("[Error] Caracter inválido ({},~{}): {}".format(
+        raise TypeError("[🐛] Caracter inválido ({},~{}): {}".format(
             lexer.lineno, lexer.lexpos, t.value[0]))
-        t.lexer.skip(1)
 
 
     return lex(

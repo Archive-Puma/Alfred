@@ -22,11 +22,11 @@ $(BINARY): $(SRC)/$(EXE).py
 
 .PHONY: install
 install: setup.py
-	python $< $@
+	python3 $< $@
 
 .PHONY: uninstall
 uninstall: setup.py
-	pip $@ --yes $(EXE)
+	pip3 $@ --yes $(EXE)
 
 .PHONY: test-bin test-cli
 test-bin: $(BINARY) $(EXAMPLE)/*

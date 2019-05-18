@@ -1,12 +1,17 @@
 from ply.yacc import yacc
-from os import EX_SOFTWARE
-from sys import exit,stderr
 
 from nodes import *
 from lexer import tokens
 
+
 def Parser():
     start = "program"
+
+    precedence = (
+        ('left', '+','-','ADD','SUB'),
+        ('left', '*','/','BY','BTWN'),
+    )
+
 
     def p_program(p):
         ''' program : ALFRED statements '''
@@ -65,6 +70,20 @@ def Parser():
         '''
         p[0] = Primitive(p[1])
 
+    def p_binaryop(p):
+        ''' expression : expression '+' expression
+                       | expression '-' expression
+                       | expression '*' expression
+                       | expression '/' expression
+
+                       | expression ADD expression
+                       | expression SUB expression
+                       | expression BY expression
+                       | expression BTWN expression
+        '''
+        operation = p[2].lower()
+        p[0] = BinaryOp(operation,p[1],p[3])
+
     def p_arg1(p):
         ''' arg : expression
                 | empty
@@ -77,11 +96,10 @@ def Parser():
 
     def p_error(p):
         if p:
-            print("[X] (Línea: {}) Syntaxis inválida: {}".format(
-                p.lineno, p.value), file=stderr)
+            raise SyntaxError("[🐛] (Línea: {}) Syntaxis inválida: {}".format(
+                p.lineno, p.value))
         else:
-            print("[X] Fallo desconocido en la sintaxis.", file=stderr)
-        exit(EX_SOFTWARE)
+            raise SyntaxError("[🐛] Fallo desconocido en la sintaxis.")
 
     return yacc(
         debug=False,
