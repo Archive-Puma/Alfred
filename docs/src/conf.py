@@ -6,15 +6,18 @@
 
 import os.path as ospath
 from sys import path as pypath
-pypath.insert(0, ospath.join(ospath.dirname(ospath.abspath(__file__)),'..','..','src'))
-pypath.insert(1, ospath.join(ospath.dirname(ospath.abspath(__file__)),'..','..','lib'))
+currentdir = ospath.dirname(ospath.abspath(__file__))
+pypath.insert(0, ospath.join(currentdir,'..','..','src'))
+pypath.insert(1, ospath.join(currentdir,'..','..','lib'))
 
 # -- Project information -----------------------------------------------------
 
 project = 'Alfred'
 copyright = '2019, Kike Fontán (@CosasDePuma)'
 author = 'Kike Fontán (@CosasDePuma)'
-release = '0.0.1.dev2'
+
+with open(ospath.join(currentdir,'..','..','VERSION'),'r') as v:
+    release = v.readline().strip()
 
 master_doc="index"
 

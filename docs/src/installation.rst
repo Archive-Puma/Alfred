@@ -5,12 +5,13 @@ Instalación
 ===========
 
 Alfred ha sido diseñado apoyándose en el lenguaje de programación **Python3**.
-Es posible que en algunos Sistemas Operativos salten errores de dependencias incumplidas si Python no está instalado en el sistema.
+Es posible que en algunos Sistemas Operativos salten errores de dependencias
+incumplidas si Python no está instalado en el sistema.
 
-Además, como Alfred aún está en fase de desarrollo, los archivos standalone y los módulos ejecutables no tienen ninguna garantía de
-funcionar correctamente en cualquier sistema. En caso de encontrar una incompatibilidad, por favor, repórtala directamente en la `sección de errores del repositorio de GitHub`_.
-
-.. _sección de errores del repositorio de GitHub: https://github.com/cosasdepuma/Alfred/issues
+Además, como Alfred aún está en fase de desarrollo, los archivos standalone y
+los módulos ejecutables no tienen ninguna garantía de funcionar correctamente
+en cualquier sistema. En caso de encontrar una incompatibilidad, puedes
+reportarla directamente en la `sección de errores del repositorio de GitHub`_.
 
 Linux
 =====
@@ -71,3 +72,4 @@ interactivo o ejecutando tus programas:
 .. Links
 .. _repositorio de GitHub: https://github.com/cosasdepuma/Alfred
 .. _descargar el archivo: https://github.com/cosasdepuma/Alfred/releases
+.. _sección de errores del repositorio de GitHub: https://github.com/cosasdepuma/Alfred/issues
