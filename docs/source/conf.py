@@ -14,9 +14,9 @@ pypath.insert(1, ospath.join(ospath.dirname(ospath.abspath(__file__)),'..','..',
 project = 'Alfred'
 copyright = '2019, Kike Fontán (@CosasDePuma)'
 author = 'Kike Fontán (@CosasDePuma)'
-
-# The full version, including alpha/beta/rc tags
 release = '0.0.1.dev2'
+
+master_doc="index"
 
 # -- General configuration ---------------------------------------------------
 
