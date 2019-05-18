@@ -1,10 +1,7 @@
 from ply.yacc import yacc
-from os import EX_SOFTWARE
-from sys import exit,stderr
 
 from nodes import *
 from lexer import tokens
-
 
 
 def Parser():
@@ -99,11 +96,10 @@ def Parser():
 
     def p_error(p):
         if p:
-            print("[🐛] (Línea: {}) Syntaxis inválida: {}".format(
-                p.lineno, p.value), file=stderr)
+            raise SyntaxError("[🐛] (Línea: {}) Syntaxis inválida: {}".format(
+                p.lineno, p.value))
         else:
-            print("[🐛] Fallo desconocido en la sintaxis.", file=stderr)
-        exit(EX_SOFTWARE)
+            raise SyntaxError("[🐛] Fallo desconocido en la sintaxis.")
 
     return yacc(
         debug=False,

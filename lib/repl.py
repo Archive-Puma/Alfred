@@ -8,7 +8,10 @@ class Repl(object):
             repl = input("{} :: {} ".format(
                 str(self.ipointer).zfill(4), self.prompt))
             if repl:
-                result = self.parse("Alfred, {}".format(repl))
-                for node in result:
-                    node.eval()
-                self.ipointer += 1
+                try:
+                    result = self.parse("Alfred, {}".format(repl))
+                    for node in result:
+                        node.eval()
+                    self.ipointer += len(result)
+                except Exception as err:
+                    print(str(err))
