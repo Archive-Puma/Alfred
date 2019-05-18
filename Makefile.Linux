@@ -1,0 +1,59 @@
+CC=pyinstaller
+CCXFLAGS=--onefile --clean
+CCCFLAGS=--name $(EXE)-$(VERSION) --paths $(LIB) --distpath $(DIST) --workpath $(BUILD)
+CCDFLAGS=--add-data $(LIB)/lexer.py:. --add-data $(LIB)/nodes.py:. --add-data $(LIB)/symbols.py:.
+
+.PHONY: build
+build: $(SRC)/$(EXE).py
+	$(CC) $(CCCFLAGS) $(CCDFLAGS) $(CCXFLAGS) $<
+
+.PHONY: install
+install: setup.py
+	python $< $@
+
+.PHONY: uninstall
+uninstall:
+	pip $@ --yes $(EXE)-lang
+
+.PHONY: test-bin test-cli
+test-bin: $(BINARY) $(EXAMPLE)/*
+	for filetest in $^; do \
+		echo "Example: $${filetest}"; ./$< $${filetest}; echo; done
+
+test-cli: $(EXAMPLE)/*
+	for filetest in $^; do \
+		echo "Example: $${filetest}"; $(EXE) $${filetest}; echo; done
+
+.PHONY: check
+check:
+	test -d $(SRC)
+	test -d $(LIB)
+	test -d $(DOCS)
+	test -d $(DIST) || mkdir $(DIST)
+	test -d $(BUILD) || mkdir $(BUILD)
+	test -f VERSION
+	test -f setup.py
+	test -f requirements.txt
+	test -f requirements-dev.txt
+	test -f $(SRC)/$(EXE).py
+	test -f $(SRC)/__init__.py
+	test -f $(LIB)/__init__.py
+	test -f $(LIB)/lexer.py
+	test -f $(LIB)/parser.py
+	test -f $(LIB)/nodes.py
+	test -f $(LIB)/symbols.py
+	test -f $(LIB)/defines.py
+	test -f $(LIB)/repl.py
+
+
+.PHONY: clean drop purge mrproper
+clean:
+	find . -type f -name "*.pyc" -delete
+	find . -type f -name "*.egg" -delete
+	find . -type f -name "*.spec" -delete
+	find . -path "./$(BUILD)/*" -exec rm -rf {} +
+	find . -type d -name "*.egg-info" -exec rm -rf {} +
+	find . -type d -name "__pycache__" ! -path "./venv/*" -exec rm -rf {} +
+purge: clean
+	find . -path "./$(DIST)/*" -exec rm -rf {} +
+mrproper: purge

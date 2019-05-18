@@ -1,2 +1,8 @@
+# Build & Dist
 PyInstaller>=3.4
 setuptools>=41.0.1
+# Test
+#pytest>=4.5.0
+# Docs
+sphinx>=2.0.1
+sphinx-rtd-theme>=0.4.3

@@ -14,7 +14,6 @@ def main():
                 with open(argv[1],'r') as f:
                     try:
                         nodes = parser.parse(f.read())
-                        print(nodes)
                         for node in nodes:
                             node.eval()
                     except TypeError as err:

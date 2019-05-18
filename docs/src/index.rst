@@ -9,3 +9,4 @@ Aquí te dejo una lista con los contenidos que podrás encontrar en esa guía:
    :caption: Contents:
 
    installation
+   contribute

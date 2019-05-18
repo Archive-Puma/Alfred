@@ -1,3 +1,5 @@
+import readline
+
 class Repl(object):
     def __init__(self, parser):
         self.prompt = "🎩 »"
