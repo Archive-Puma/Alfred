@@ -3,7 +3,6 @@ from operator import (
     add,sub,mul,truediv
 )
 
-
 class Node():
     def eval(self):
         raise NotImplementedError()
@@ -15,6 +14,8 @@ class InstructionList(Node):
         return "<InstructionList {}>".format(self.child)
     def __iter__(self):
         return iter(self.child)
+    def __len__(self):
+        return len(self.child)
     def eval():
         ret = list()
         for instruction in self.child:
@@ -44,8 +45,8 @@ class BinaryOp(Node):
         return "<BinaryOp {} ({},{})>".format(self.operation, self.lhs, self.rhs)
     def eval(self):
         result = None
-        lhs = self.lhs.eval()
-        rhs = self.rhs.eval()
+        lhs = self.lhs.eval() if isinstance(self.lhs, Node) else self.lhs
+        rhs = self.lhs.eval() if isinstance(self.lhs, Node) else self.lhs
         operation = self.__operator[self.operation]
 
         if operation is add:
@@ -76,7 +77,10 @@ class Identifier(Node):
     def __repr__(self):
         return "<Identifier {} ({})>".format(self.name, self.eval())
     def eval(self):
-        return symbols.get(self.name)
+        value = symbols.get(self.name)
+        if not isinstance(value,Node):
+            value = Primitive(None)
+        return value.eval()
     def assign(self, value):
         symbols.set(self.name,value)
 
@@ -88,19 +92,7 @@ class Assignment(Node):
         return "<Assignment {} ({})>".format(self.name, self.value)
     def eval(self):
         value = self.value.eval()
-        self.name.assign(value.eval())
-
-
-
-
-
-
-
-
-
-
-
-
+        self.name.assign(value)
 
 class Stdin(Node):
     def __init__(self,text):
