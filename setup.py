@@ -5,7 +5,7 @@ with open("README.md", "r") as r, open("VERSION", "r") as v:
     version = v.readline().strip()
 
 setup(
-    name="alfred",
+    name="alfred-lang",
     version=version,
     author="Kike Fontan (@CosasDePuma)",
     author_email="kikefontanlorenzo@gmail.com",
