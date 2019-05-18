@@ -1,20 +1,11 @@
-.. Alfred documentation master file, created by
-   sphinx-quickstart on Sat May 18 02:52:18 2019.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+¡Bienvenido a la documentación de Alfred!
+=========================================
+Me alegra que hayas decidido aprender a programar en este maravilloso nuevo lenguaje de programación.
 
-Welcome to Alfred's documentation!
-==================================
+Aquí te dejo una lista con los contenidos que podrás encontrar en esa guía:
 
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
 
-
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+   installation
