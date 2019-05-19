@@ -108,6 +108,8 @@ class BinaryOp(Node):
 
         if operation is add and (isinstance(lhs,str) or isinstance(rhs,str)):
                 result = "{}{}".format(lhs,rhs)
+        elif operation is truediv and rhs == 0:
+                raise ZeroDivisionError("[🐛] No se puede dividir entre cero.")
         else:
             result = operation(lhs,rhs)
         return result
