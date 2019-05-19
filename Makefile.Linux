@@ -1,7 +1,7 @@
 CC=pyinstaller
 CCXFLAGS=--onefile --clean
-CCCFLAGS=--name $(EXE)-$(VERSION) --paths $(LIB) --distpath $(DIST) --workpath $(BUILD)
-CCDFLAGS=--add-data $(LIB)/lexer.py:. --add-data $(LIB)/nodes.py:. --add-data $(LIB)/symbols.py:.
+CCCFLAGS=--name $(BINARY) --paths $(LIB) --distpath $(DIST) --workpath $(BUILD)
+CCDFLAGS=--add-data "$(LIB)/lexer.py:." --add-data "$(LIB)/nodes.py:." --add-data "$(LIB)/symbols.py:."
 
 .PHONY: build
 build: $(SRC)/$(EXE).py
@@ -16,9 +16,10 @@ uninstall:
 	pip $@ --yes $(EXE)-lang
 
 .PHONY: test-bin test-cli
-test-bin: $(BINARY) $(EXAMPLE)/*
+test-bin: $(EXAMPLE)/*
+
 	for filetest in $^; do \
-		echo "Example: $${filetest}"; ./$< $${filetest}; echo; done
+		echo "Example: $${filetest}"; ./$(DIST)/$(BINARY) $${filetest}; echo; done
 
 test-cli: $(EXAMPLE)/*
 	for filetest in $^; do \

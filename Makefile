@@ -26,4 +26,4 @@ else
 endif
 
 include Makefile.Docs
-BINARY=$(DIST)/$(EXE)-$(VERSION)-$(ARCHITECTURE)
+BINARY=$(EXE)-$(VERSION)-$(ARCHITECTURE)
