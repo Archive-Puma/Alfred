@@ -33,7 +33,19 @@ class InstructionList(Node):
 
 # -- Conditionals --------------------------------------------------------------
 
-
+class Conditional(Node):
+    def __init__(self, condition, truestmt, falsestmt=None):
+        self.condition = condition
+        self.truestmt = truestmt
+        self.falsestmt = falsestmt
+    def __repr__(self):
+        return "<Condition {} True={} False={}>".format(
+            self.condition, self.truestmt, self.falsestmt)
+    def eval(self):
+        if self.condition.eval():
+            self.truestmt.eval()
+        else:
+            self.falsestmt.eval()
 
 # -- Variables -----------------------------------------------------------------
 
