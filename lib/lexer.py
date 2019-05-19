@@ -14,6 +14,7 @@ reserved = {
     "escribe":  "PRINT",
     "guardalo": "STORE",
     "pregunta": "INPUT",
+    "y":        "AND",
 
     "mas":      "ADD",
     "menos":    "SUB",
@@ -28,7 +29,7 @@ tokens = [
 ] + list(reserved.values())
 
 def Lexer():
-    t_ignore = ".,y"
+    t_ignore = ".,"
 
     t_ignore_COMMENT = r'\(([^\)])*\)'
     t_ignore_WHITESPACE = r'\s+'
