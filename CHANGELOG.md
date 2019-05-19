@@ -6,6 +6,10 @@
 ##### May 17th, 2019
 
 ###### Updates
+- [x] Variable added
+- [x] Custom Makefile
+- [x] More specific version (uname -rs)
+- [x] Docs added!
 - [x] New error icon [🐛]
 - [x] REPL (Interactive Mode)
 - [x] Binary Operations added (+,-,\*,/)

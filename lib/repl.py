@@ -1,4 +1,7 @@
-import readline
+try:
+    import readline
+except ModuleNotFoundError:
+    pass
 
 class Repl(object):
     def __init__(self, parser):

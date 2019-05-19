@@ -46,22 +46,14 @@ class BinaryOp(Node):
     def eval(self):
         result = None
         lhs = self.lhs.eval() if isinstance(self.lhs, Node) else self.lhs
-        rhs = self.lhs.eval() if isinstance(self.lhs, Node) else self.lhs
+        rhs = self.rhs.eval() if isinstance(self.rhs, Node) else self.rhs
         operation = self.__operator[self.operation]
 
-        if operation is add:
-            if isinstance(lhs,str) or isinstance(rhs,str):
+        if operation is add and (isinstance(lhs,str) or isinstance(rhs,str)):
                 result = "{}{}".format(lhs,rhs)
         else:
             result = operation(lhs,rhs)
         return result
-
-
-
-
-
-
-
 
 class Primitive(Node):
     def __init__(self,value):
@@ -78,9 +70,9 @@ class Identifier(Node):
         return "<Identifier {} ({})>".format(self.name, self.eval())
     def eval(self):
         value = symbols.get(self.name)
-        if not isinstance(value,Node):
-            value = Primitive(None)
-        return value.eval()
+        if value:
+            value = value.eval()
+        return value
     def assign(self, value):
         symbols.set(self.name,value)
 
@@ -91,8 +83,7 @@ class Assignment(Node):
     def __repr__(self):
         return "<Assignment {} ({})>".format(self.name, self.value)
     def eval(self):
-        value = self.value.eval()
-        self.name.assign(value)
+        self.name.assign(self.value)
 
 class Stdin(Node):
     def __init__(self,text):

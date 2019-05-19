@@ -4,19 +4,22 @@ from defines import EXIT_ERRDATA
 
 IGNORECASE = 0b10
 
-literals = [ '+', '-', '*', '/' ]
+literals = [ '+', '-', '*', '/', '=' ]
 reserved = {
+    "a":        "TO",
     "alfred":   "ALFRED",
     "di":       "PRINTLN",
     "en":       "IN",
+    "es":       "IS",
     "escribe":  "PRINT",
     "guardalo": "STORE",
     "pregunta": "INPUT",
 
-    "mas": "ADD",
-    "menos": "SUB",
-    "por": "BY",
-    "entre": "BTWN"
+    "mas":      "ADD",
+    "menos":    "SUB",
+    "por":      "BY",
+    "entre":    "BTWN",
+    "igual":    "EQUAL"
 }
 tokens = [
     "ID",

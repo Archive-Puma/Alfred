@@ -16,7 +16,7 @@ def main():
                         nodes = parser.parse(f.read())
                         for node in nodes:
                             node.eval()
-                    except TypeError as err:
+                    except Exception as err:
                         print(str(err), file=stderr)
                         exit(EXIT_FAILURE)
             except FileNotFoundError:

@@ -1,0 +1,3 @@
+(Existen tres formas diferentes de declarar variables)
+Alfred, M es igual a 5, N es 10 y P = M / N.
+Di "El resultado de M (" + M + ") entre N (" + N + ") es: " + P.

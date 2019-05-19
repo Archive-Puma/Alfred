@@ -1,20 +1,21 @@
 # :memo: TODO
 ---
 
-Estructura:
+####### Estructura:
 - [x] Asignar variables
 - [x] Evaluar variables
 - [ ] Funciones (¿Módulos en una carpeta especial?)
 - [x] Comentarios
 - [ ] Añadir acentos (UTF-8)
+- [ ] Buscar sustituto de readline en Windows
 
-Instrucciones:
+####### Instrucciones:
 - [x] Di (println)
 - [x] Escribe (print)
 - [x] Pregunta (input)
 - [x] Guarda
 
-Control:
+####### Control:
 - [ ] If
 - [ ] If .. Else
 - [ ] If .. Else If
@@ -22,8 +23,10 @@ Control:
 - [ ] While
 - [ ] For
 
-Tests:
+####### Tests:
 - [ ] Tox?
 - [ ] PyTest
 - [ ] PyTest-Cov
-- [ ] Sphinx Setup.py Docs
+
+####### Otros:
+- [x] Sphinx Setup.py Docs
