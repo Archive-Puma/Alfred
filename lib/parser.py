@@ -6,12 +6,10 @@ from lexer import tokens
 
 def Parser():
     start = "program"
-
     precedence = (
         ('left', '+','-','ADD','SUB'),
         ('left', '*','/','BY','BTWN'),
     )
-
 
     def p_program(p):
         ''' program : ALFRED statements '''
@@ -36,8 +34,17 @@ def Parser():
         ''' method : store
                    | stdin
                    | stdout
+                   | assignment
         '''
         p[0] = p[1]
+
+    def p_assignment(p):
+        ''' assignment : id '=' expression
+            assignment : id IS expression
+            assignment : id EQUAL TO expression
+            assignment : id IS EQUAL TO expression
+        '''
+        p[0] = Assignment(p[1],p[len(p)-1])
 
     def p_store(p):
         ''' store : STORE IN id '''
@@ -96,7 +103,7 @@ def Parser():
 
     def p_error(p):
         if p:
-            raise SyntaxError("[🐛] (Línea: {}) Syntaxis inválida: {}".format(
+            raise SyntaxError("[🐛] (Línea: {}) Sintaxis inválida: {}".format(
                 p.lineno, p.value))
         else:
             raise SyntaxError("[🐛] Fallo desconocido en la sintaxis.")
