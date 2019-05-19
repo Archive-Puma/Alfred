@@ -7,6 +7,7 @@ from repl import Repl
 from parser import parser
 from defines import (EXIT_SUCCESS,EXIT_FAILURE,EXIT_ERRFILE)
 
+
 def main():
     try:
         if len(argv) == 2:
@@ -16,7 +17,7 @@ def main():
                         nodes = parser.parse(f.read())
                         for node in nodes:
                             node.eval()
-                    except Exception as err:
+                    except TypeError as err:
                         print(str(err), file=stderr)
                         exit(EXIT_FAILURE)
             except FileNotFoundError:

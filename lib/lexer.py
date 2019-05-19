@@ -16,7 +16,6 @@ reserved = {
     "escribe":  "PRINT",
     "guardalo": "STORE",
     "pregunta": "INPUT",
-    "y":        "AND",
 
     "mas":      "ADD",
     "menos":    "SUB",
@@ -36,7 +35,7 @@ def Lexer():
 
 # -- Ignored Tokens ------------------------------------------------------------
 
-    t_ignore_PUNTMARKS = ".,"
+    t_ignore = ".,y"
 
     t_ignore_COMMENT = r'\(([^\)])*\)'
     t_ignore_WHITESPACE = r'\s+'

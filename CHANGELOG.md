@@ -19,7 +19,6 @@
 ##### May 17th, 2019
 
 ###### Updates
-- [x] Added variables
 - [x] Temporal variable created!
 - [x] Now you can ask and store the answer (Pregunta y guardalo)
 - [x] Code comments using *( comentario )*
