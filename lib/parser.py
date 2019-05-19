@@ -41,7 +41,6 @@ def Parser():
     def p_assignment(p):
         ''' assignment : id '=' expression
             assignment : id IS expression
-            assignment : id EQUAL TO expression
             assignment : id IS EQUAL TO expression
         '''
         p[0] = Assignment(p[1],p[len(p)-1])
