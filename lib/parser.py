@@ -2,29 +2,31 @@
 
 from ply.yacc import yacc
 
-from nodes import *
 from lexer import tokens
+from nodes import (InstructionList, Identifier, Primitive, Assignment,
+                   Stdin, Stdout, BinaryOp)
+
 
 # -- Parser Definition ---------------------------------------------------------
 
 def Parser():
     start = "program"
     precedence = (
-        ('left', '+','-','ADD','SUB'),
-        ('left', '*','/','BY','BTWN'),
+        ('left', '+', '-', 'ADD', 'SUB'),
+        ('left', '*', '/', 'BY', 'BTWN'),
     )
 
-# -- Structure -----------------------------------------------------------------
+    # -- Structure -----------------------------------------------------------------
 
     def p_program(p):
-        ''' program : ALFRED statements '''
+        """ program : ALFRED statements """
         p[0] = p[2]
 
     def p_statements(p):
-        ''' statements : statements statement
+        """ statements : statements statement
                        | statement
                        | empty
-        '''
+        """
         if len(p) == 2:
             p[0] = InstructionList([p[1]])
         elif len(p) == 3:
@@ -32,96 +34,95 @@ def Parser():
             p[0] = p[1]
 
     def p_statement(p):
-        ''' statement : method
-                      | conditional '''
+        """ statement : method """
         p[0] = p[1]
 
-# -- Conditionals --------------------------------------------------------------
-
-
-# -- Variables -----------------------------------------------------------------
+    # -- Variables -----------------------------------------------------------------
 
     def p_identifier(p):
-        ''' expression : id '''
+        """ expression : id """
         p[0] = p[1]
 
     def p_id(p):
-        ''' id : ID '''
+        """ id : ID """
         p[0] = Identifier(p[1])
 
     def p_primitive(p):
-        ''' expression : STRING
+        """ expression : STRING
                        | INTEGER
-        '''
+        """
         p[0] = Primitive(p[1])
 
     def p_assignment(p):
-        ''' assignment : id '=' expression
-            assignment : id IS expression
-            assignment : id IS EQUAL TO expression
-        '''
-        p[0] = Assignment(p[1],p[len(p)-1])
+        """ assignment : id '=' expression
+           assignment : id IS expression
+           assignment : id IS EQUAL TO expression
+        """
+        p[0] = Assignment(p[1], p[len(p) - 1])
 
-# -- Binary Operations ---------------------------------------------------------
+    # -- Binary Operations ---------------------------------------------------------
 
-def p_binaryop(p):
-    ''' expression : expression '+' expression
-                   | expression '-' expression
-                   | expression '*' expression
-                   | expression '/' expression
+    def p_binaryop(p):
+        """ expression : expression '+' expression
+                      | expression '-' expression
+                      | expression '*' expression
+                      | expression '/' expression
 
-                   | expression ADD expression
-                   | expression SUB expression
-                   | expression BY expression
-                   | expression BTWN expression
-    '''
-    operation = p[2].lower()
-    p[0] = BinaryOp(operation,p[1],p[3])
+                      | expression ADD expression
+                      | expression SUB expression
+                      | expression BY expression
+                      | expression BTWN expression
+        """
+        operation = p[2].lower()
+        p[0] = BinaryOp(operation, p[1], p[3])
 
-# -- Methods -------------------------------------------------------------------
+    # -- Methods -------------------------------------------------------------------
+
 
     def p_method(p):
-        ''' method : store
+        """ method : store
                    | stdin
                    | stdout
                    | assignment
-        '''
+        """
         p[0] = p[1]
+
 
     def p_store(p):
-        ''' store : STORE IN id '''
+        """ store : STORE IN id """
         p[0] = Assignment(p[3])
 
+
     def p_stdin(p):
-        ''' stdin : INPUT arg
-        '''
+        """ stdin : INPUT arg """
         p[0] = Stdin(p[2])
 
+
     def p_stdout(p):
-        ''' stdout : PRINT expression '''
-        p[0] = Stdout(p[2],'')
+        """ stdout : PRINT expression """
+        p[0] = Stdout(p[2], '')
+
 
     def p_stdout_nl(p):
-        ''' stdout : PRINTLN expression '''
+        """ stdout : PRINTLN expression """
         p[0] = Stdout(p[2])
 
-# -- Others --------------------------------------------------------------------
+    # -- Others --------------------------------------------------------------------
+
 
     def p_onearg(p):
-        ''' arg : expression
+        """ arg : expression
                 | empty
-        '''
+        """
         p[0] = p[1] if p[1] else Primitive("")
 
-    def p_and(p):
-        ''' and : AND '''
-        p[0] = p[1]
 
     def p_empty(p):
-        ''' empty : '''
+        """ empty : """
         pass
 
-# -- Error Handler -------------------------------------------------------------
+    # -- Error Handler -------------------------------------------------------------
+
 
     def p_error(p):
         if p:
@@ -130,7 +131,8 @@ def p_binaryop(p):
         else:
             raise SyntaxError("[🐛] Fallo desconocido en la sintaxis.")
 
-# -- Parser Declaration --------------------------------------------------------
+    # -- Parser Declaration --------------------------------------------------------
+
 
     return yacc(
         debug=False,
