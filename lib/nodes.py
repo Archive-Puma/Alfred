@@ -1,11 +1,18 @@
-from symbols import symbols,_tmpvar
+# -- Imports -------------------------------------------------------------------
+
+from symbols import symbols
+from defines import TMPVAR
 from operator import (
     add,sub,mul,truediv
 )
 
+# -- Node Declaration ----------------------------------------------------------
+
 class Node():
     def eval(self):
         raise NotImplementedError()
+
+# -- Structure -----------------------------------------------------------------
 
 class InstructionList(Node):
     def __init__(self, child=list()):
@@ -24,36 +31,11 @@ class InstructionList(Node):
                 ret.append(result)
         return ret
 
+# -- Conditionals --------------------------------------------------------------
 
-class BinaryOp(Node):
-    __operator = {
-        'mas': add,
-        'menos': sub,
-        'por': mul,
-        'entre': truediv,
 
-        '+': add,
-        '-': sub,
-        '*': mul,
-        '/': truediv
-    }
-    def __init__(self,operation,lhs,rhs):
-        self.operation = operation
-        self.lhs = lhs
-        self.rhs = rhs
-    def __repr__(self):
-        return "<BinaryOp {} ({},{})>".format(self.operation, self.lhs, self.rhs)
-    def eval(self):
-        result = None
-        lhs = self.lhs.eval() if isinstance(self.lhs, Node) else self.lhs
-        rhs = self.rhs.eval() if isinstance(self.rhs, Node) else self.rhs
-        operation = self.__operator[self.operation]
 
-        if operation is add and (isinstance(lhs,str) or isinstance(rhs,str)):
-                result = "{}{}".format(lhs,rhs)
-        else:
-            result = operation(lhs,rhs)
-        return result
+# -- Variables -----------------------------------------------------------------
 
 class Primitive(Node):
     def __init__(self,value):
@@ -77,13 +59,48 @@ class Identifier(Node):
         symbols.set(self.name,value)
 
 class Assignment(Node):
-    def __init__(self,name,value=Identifier(_tmpvar)):
+    def __init__(self,name,value=Identifier(TMPVAR)):
         self.name = name
         self.value = value
     def __repr__(self):
         return "<Assignment {} ({})>".format(self.name, self.value)
     def eval(self):
         self.name.assign(self.value)
+
+# -- Binary Operations ---------------------------------------------------------
+
+class BinaryOp(Node):
+    __operator = {
+        'mas': add,
+        'menos': sub,
+        'por': mul,
+        'entre': truediv,
+
+        '+': add,
+        '-': sub,
+        '*': mul,
+        '/': truediv
+    }
+    def __init__(self,operation,lhs,rhs):
+        self.operation = operation
+        self.lhs = lhs
+        self.rhs = rhs
+    def __repr__(self):
+        return "<BinaryOp {} ({},{})>".format(
+            self.operation, self.lhs, self.rhs)
+    def eval(self):
+        result = None
+        lhs = self.lhs.eval() if isinstance(self.lhs, Node) else self.lhs
+        rhs = self.rhs.eval() if isinstance(self.rhs, Node) else self.rhs
+        operation = self.__operator[self.operation]
+
+        if operation is add and (isinstance(lhs,str) or isinstance(rhs,str)):
+                result = "{}{}".format(lhs,rhs)
+        else:
+            result = operation(lhs,rhs)
+        return result
+
+# -- Methods -------------------------------------------------------------------
 
 class Stdin(Node):
     def __init__(self,text):
@@ -95,7 +112,7 @@ class Stdin(Node):
         if not isinstance(value, str):
             raise TypeError("[🐛] Sólo se puede preguntar texto.")
         response = input(value)
-        symbols.set(_tmpvar,Primitive(response))
+        symbols.set(TMPVAR,Primitive(response))
 
 class Stdout(Node):
     def __init__(self,text,end='\n'):

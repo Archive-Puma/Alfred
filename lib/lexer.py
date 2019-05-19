@@ -1,8 +1,10 @@
+# -- Imports -------------------------------------------------------------------
+
 from sys import exit
 from ply.lex import lex
-from defines import EXIT_ERRDATA
+from defines import EXIT_ERRDATA, IGNORECASE
 
-IGNORECASE = 0b10
+# -- Tokens --------------------------------------------------------------------
 
 literals = [ '+', '-', '*', '/', '=' ]
 reserved = {
@@ -28,11 +30,18 @@ tokens = [
     "INTEGER"
 ] + list(reserved.values())
 
+# -- Lexer Definition ----------------------------------------------------------
+
 def Lexer():
-    t_ignore = ".,"
+
+# -- Ignored Tokens ------------------------------------------------------------
+
+    t_ignore_PUNTMARKS = ".,"
 
     t_ignore_COMMENT = r'\(([^\)])*\)'
     t_ignore_WHITESPACE = r'\s+'
+
+# -- Special Tokens ------------------------------------------------------------
 
     def t_ID(t):
         r'[a-zA-Z][a-zA-Z0-9_]*'
@@ -53,10 +62,13 @@ def Lexer():
         t.type = reserved.get(t.value,"INTEGER")
         return t
 
+# -- Error Handler -------------------------------------------------------------
+
     def t_error(t):
         raise TypeError("[🐛] Caracter inválido ({},~{}): {}".format(
             lexer.lineno, lexer.lexpos, t.value[0]))
 
+# -- Lexer Declaration ---------------------------------------------------------
 
     return lex(
         optimize=0,

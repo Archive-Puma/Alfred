@@ -1,3 +1,5 @@
+# -- Symbols Declaration -------------------------------------------------------
+
 class Symbols():
     def __init__(self):
         self.identifiers = dict()
@@ -6,5 +8,6 @@ class Symbols():
     def get(self, id):
         return self.identifiers.get(id,None)
 
-_tmpvar = "$-tmp-$"
+# -- Symbols Definition --------------------------------------------------------
+
 symbols = Symbols()

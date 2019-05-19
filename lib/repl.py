@@ -1,7 +1,11 @@
+# -- Imports -------------------------------------------------------------------
+
 try:
     import readline
 except ModuleNotFoundError:
     pass
+
+# -- REPL Declaration ----------------------------------------------------------
 
 class Repl(object):
     def __init__(self, parser):
