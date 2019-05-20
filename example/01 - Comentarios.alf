@@ -1,0 +1,9 @@
+(Esto es un comentario en una sola línea)
+
+(Esto es un
+comentario
+multilínea)
+
+(Aunque el archivo no incluya código, es obligatorio que aparezca la palabra
+reservada "Alfred")
+Alfred. (Los comentarios tambíen pueden ir entre el código)

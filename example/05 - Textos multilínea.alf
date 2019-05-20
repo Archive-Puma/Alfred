@@ -4,11 +4,13 @@ un mensaje
 multilínea.".
 (¡Los textos multilínea también lo son para Alfred!)
 
-(Si quieres escribir texto en varias líneas pero que
-sea procesado como una sola tienes varias opciones)
+(Si quieres escribir un texto en varias líneas pero que
+sea procesado como una sola, tienes varias opciones)
 
+(Concatenar mediante sumas)
 Di "Este mensaje va a " +
 "ser procesado como una sola línea.".
 
+(Concatenar instrucciones)
 Escribe "Este mensaje también va a ser procesado "
 y di "como una sola línea."
