@@ -139,3 +139,11 @@ class Stdout(Node):
             return "<Println {}>".format(self.text)
     def eval(self):
         print(self.text.eval(),end=self.end)
+
+# -- Others --------------------------------------------------------------------
+
+class Empty(Node):
+    def __repr__(self):
+        return "<Empty>"
+    def eval(self):
+        pass

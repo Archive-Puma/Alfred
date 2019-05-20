@@ -4,7 +4,7 @@ from ply.yacc import yacc
 
 from lexer import tokens
 from nodes import (InstructionList, Identifier, Primitive, Assignment,
-                   Stdin, Stdout, BinaryOp)
+                   Stdin, Stdout, BinaryOp, Empty)
 
 
 # -- Parser Definition ---------------------------------------------------------
@@ -28,6 +28,8 @@ def Parser():
                        | empty
         """
         if len(p) == 2:
+            if not p[1]:
+                p[1] = Empty()
             p[0] = InstructionList([p[1]])
         elif len(p) == 3:
             p[1].child.append(p[2])
@@ -119,7 +121,7 @@ def Parser():
 
     def p_empty(p):
         """ empty : """
-        pass
+        Empty()
 
     # -- Error Handler -------------------------------------------------------------
 
