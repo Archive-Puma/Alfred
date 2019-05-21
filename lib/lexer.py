@@ -10,6 +10,7 @@ literals = [ '+', '-', '*', '/', '=', '>', '<' ]
 reserved = {
     "alfred":   "ALFRED",
     # Methods
+    "adios":    "EXIT",
     "di":       "PRINTLN",
     "escribe":  "PRINT",
     "pregunta": "INPUT",
@@ -30,7 +31,6 @@ reserved = {
     "igual":    "EQUAL",
     "menor":    "LOWER",
     "mayor":    "GREATER",
-
     # Auxiliary
     "a":        "TO",
     "que":      "THAN"

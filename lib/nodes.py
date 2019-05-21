@@ -1,6 +1,6 @@
 # -- Imports -------------------------------------------------------------------
 
-from defines import TMPVAR
+from defines import TMPVAR,EXIT_SUCCESS
 from symbols import symbols
 from operator import (
     add,sub,mul,truediv,
@@ -175,6 +175,12 @@ class Assignment(Node):
         self.name.assign(self.value.eval())
 
 # -- Methods -------------------------------------------------------------------
+
+class Exit(Node):
+    def __repr__(self):
+        return "<Exit>"
+    def eval(self):
+        exit(EXIT_SUCCESS)
 
 class Stdin(Node):
     def __init__(self,text):

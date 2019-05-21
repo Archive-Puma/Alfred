@@ -4,7 +4,7 @@ from ply.yacc import yacc
 
 from lexer import tokens
 from nodes import (InstructionList, Identifier, Primitive, Assignment,
-                   Stdin, Stdout, BinaryOp, Conditional, While, Empty)
+                   Stdin, Stdout, BinaryOp, Conditional, While, Exit, Empty)
 
 
 # -- Parser Definition ---------------------------------------------------------
@@ -50,7 +50,10 @@ def Parser():
         """ conditional : IF expression onlystatements ELSE onlystatements END
                         | IF expression onlystatements END
         """
-        p[0] = Conditional(p[2],p[3],p[len(p) - 2])
+        if len(p) == 5:
+            p[0] = Conditional(p[2],p[3])
+        elif len(p) == 7:
+            p[0] = Conditional(p[2],p[3],p[5])
 
 # -- Loops ---------------------------------------------------------------------
 
@@ -121,13 +124,17 @@ def Parser():
 # -- Methods -------------------------------------------------------------------
 
     def p_method(p):
-        """ method : store
+        """ method : exit
+                   | store
                    | stdin
                    | stdout
                    | assignment
         """
         p[0] = p[1]
 
+    def p_exit(p):
+        """ exit : EXIT """
+        p[0] = Exit()
 
     def p_store(p):
         """ store : STORE IN id """

@@ -4,6 +4,7 @@
 ##### May 21th, 2019
 
 ###### Updates
+- [x] Exit Instruction (*Adios*)
 - [x] PyPI Repository (pip install alfred-lang)
 - [x] New Make Directive: publish
 - [x] Conditionals
@@ -23,7 +24,7 @@
 - [x] Docs added!
 - [x] New error icon [🐛]
 - [x] REPL (Interactive Mode)
-- [x] Binary Operations added (+,-,\*,/)
+- [x] Binary Operations added (+, -, \*, /)
 
 
 ### 0.0.1.dev1
@@ -31,6 +32,6 @@
 
 ###### Updates
 - [x] Temporal variable created!
-- [x] Now you can ask and store the answer (Pregunta y guardalo)
-- [x] Code comments using *( comentario )*
-- [x] Ignored some dialog auxiliary chars: *[ . , y ]*
+- [x] Now you can ask and store the answer (*Pregunta*, *guardalo*)
+- [x] Code comments using (*( comentario )*)
+- [x] Ignored some dialog auxiliary chars: (. , y)
