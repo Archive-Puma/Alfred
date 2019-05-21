@@ -1,9 +1,10 @@
 # -- Imports -------------------------------------------------------------------
 
-from symbols import symbols
 from defines import TMPVAR
+from symbols import symbols
 from operator import (
-    add,sub,mul,truediv
+    add,sub,mul,truediv,
+    eq, gt, lt
 )
 
 # -- Node Declaration ----------------------------------------------------------
@@ -34,7 +35,7 @@ class InstructionList(Node):
 # -- Conditionals --------------------------------------------------------------
 
 class Conditional(Node):
-    def __init__(self, condition, truestmt, falsestmt=None):
+    def __init__(self, condition, truestmt, falsestmt=InstructionList()):
         self.condition = condition
         self.truestmt = truestmt
         self.falsestmt = falsestmt
@@ -43,9 +44,53 @@ class Conditional(Node):
             self.condition, self.truestmt, self.falsestmt)
     def eval(self):
         if self.condition.eval():
-            self.truestmt.eval()
+            for node in self.truestmt:
+                node.eval()
         else:
-            self.falsestmt.eval()
+            for node in self.falsestmt:
+                node.eval()
+
+# -- Binary Operations ---------------------------------------------------------
+
+class BinaryOp(Node):
+    __operator = {
+        'mas':      add,
+        'menos':    sub,
+        'por':      mul,
+        'entre':    truediv,
+        'es':       eq,
+        'igual':    eq,
+        'menor':    lt,
+        'mayor':    gt,
+
+        '+':        add,
+        '-':        sub,
+        '*':        mul,
+        '/':        truediv,
+        '=':        eq,
+        '<':        lt,
+        '>':        gt
+    }
+    def __init__(self,operation,lhs,rhs):
+        self.operation = operation
+        self.lhs = lhs
+        self.rhs = rhs
+    def __repr__(self):
+        return "<BinaryOp {} ({},{})>".format(
+            self.operation, self.lhs, self.rhs)
+    def eval(self):
+        result = None
+        lhs = self.lhs.eval() if isinstance(self.lhs, Node) else self.lhs
+        rhs = self.rhs.eval() if isinstance(self.rhs, Node) else self.rhs
+        operation = self.__operator[self.operation]
+
+        if operation is add and (isinstance(lhs,str) or isinstance(rhs,str)):
+                result = "{}{}".format(lhs,rhs)
+        elif operation is truediv and rhs == 0:
+                raise ZeroDivisionError("[🐛] No se puede dividir entre cero.")
+        else:
+            result = operation(lhs,rhs)
+        return result
 
 # -- Variables -----------------------------------------------------------------
 
@@ -78,41 +123,6 @@ class Assignment(Node):
         return "<Assignment {} ({})>".format(self.name, self.value)
     def eval(self):
         self.name.assign(self.value)
-
-# -- Binary Operations ---------------------------------------------------------
-
-class BinaryOp(Node):
-    __operator = {
-        'mas': add,
-        'menos': sub,
-        'por': mul,
-        'entre': truediv,
-
-        '+': add,
-        '-': sub,
-        '*': mul,
-        '/': truediv
-    }
-    def __init__(self,operation,lhs,rhs):
-        self.operation = operation
-        self.lhs = lhs
-        self.rhs = rhs
-    def __repr__(self):
-        return "<BinaryOp {} ({},{})>".format(
-            self.operation, self.lhs, self.rhs)
-    def eval(self):
-        result = None
-        lhs = self.lhs.eval() if isinstance(self.lhs, Node) else self.lhs
-        rhs = self.rhs.eval() if isinstance(self.rhs, Node) else self.rhs
-        operation = self.__operator[self.operation]
-
-        if operation is add and (isinstance(lhs,str) or isinstance(rhs,str)):
-                result = "{}{}".format(lhs,rhs)
-        elif operation is truediv and rhs == 0:
-                raise ZeroDivisionError("[🐛] No se puede dividir entre cero.")
-        else:
-            result = operation(lhs,rhs)
-        return result
 
 # -- Methods -------------------------------------------------------------------
 

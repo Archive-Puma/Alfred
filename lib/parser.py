@@ -4,7 +4,7 @@ from ply.yacc import yacc
 
 from lexer import tokens
 from nodes import (InstructionList, Identifier, Primitive, Assignment,
-                   Stdin, Stdout, BinaryOp, Empty)
+                   Stdin, Stdout, BinaryOp, Conditional, Empty)
 
 
 # -- Parser Definition ---------------------------------------------------------
@@ -36,8 +36,16 @@ def Parser():
             p[0] = p[1]
 
     def p_statement(p):
-        """ statement : method """
+        """ statement : method
+                      | conditional
+        """
         p[0] = p[1]
+
+    def p_conditional(p):
+        """ conditional : IF expression THEN statements ELSE statements END
+                        | IF expression THEN statements END
+        """
+        p[0] = Conditional(p[2],p[4]) if len(p) == 6 else Conditional(p[2],p[4],p[6])
 
     # -- Variables -----------------------------------------------------------------
 
@@ -57,26 +65,46 @@ def Parser():
 
     def p_assignment(p):
         """ assignment : id '=' expression
-           assignment : id IS expression
-           assignment : id IS EQUAL TO expression
+            assignment : id IS expression
+            assignment : id IS EQUAL TO expression
         """
         p[0] = Assignment(p[1], p[len(p) - 1])
 
     # -- Binary Operations ---------------------------------------------------------
 
-    def p_binaryop(p):
+    def p_binaryop_math(p):
         """ expression : expression '+' expression
-                      | expression '-' expression
-                      | expression '*' expression
-                      | expression '/' expression
+                       | expression '-' expression
+                       | expression '*' expression
+                       | expression '/' expression
 
-                      | expression ADD expression
-                      | expression SUB expression
-                      | expression BY expression
-                      | expression BTWN expression
+                       | expression ADD expression
+                       | expression SUB expression
+                       | expression BY expression
+                       | expression BTWN expression
         """
         operation = p[2].lower()
         p[0] = BinaryOp(operation, p[1], p[3])
+
+    def p_binaryop_bool(p):
+        """ expression : expression '=' expression
+                       | expression '>' expression
+                       | expression '<' expression
+
+                       | expression IS expression
+                       | expression EQUAL TO expression
+                       | expression LOWER THAN expression
+                       | expression GREATER THAN expression
+                       | expression IS EQUAL TO expression
+                       | expression IS LOWER THAN expression
+                       | expression IS GREATER THAN expression
+        """
+        if len(p) == 4:
+            p[0] = BinaryOp(p[2],p[1],p[3])
+        elif len(p) == 5:
+            p[0] = BinaryOp(p[2],p[1],p[4])
+        elif len(p) == 6:
+            p[0] = BinaryOp(p[3],p[1],p[5])
 
     # -- Methods -------------------------------------------------------------------
 
@@ -117,7 +145,6 @@ def Parser():
                 | empty
         """
         p[0] = p[1] if p[1] else Primitive("")
-
 
     def p_empty(p):
         """ empty : """
