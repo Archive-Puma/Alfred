@@ -1,8 +1,12 @@
 from setuptools import setup, find_packages
 
-with open("README.md", "r") as r, open("VERSION", "r") as v:
-    long_description = r.read()
-    version = v.readline().strip()
+try:
+    with open("README.md", "r") as r, open("VERSION", "r") as v:
+        long_description = r.read()
+        version = v.readline().strip()
+except FileNotFoundError:
+    long_description = ''
+    version = '0.0.1.dev5'
 
 setup(
     name="alfred-lang",
@@ -15,6 +19,7 @@ setup(
     url="https://github.com/CosasDePuma/Alfred",
     packages=find_packages(),
     entry_points={"console_scripts": "alfred=src.alfred:main"},
+    data_files=[('', ['VERSION','README.md'])],
     license="MIT",
     install_requires=[
         "ply>=3.11"

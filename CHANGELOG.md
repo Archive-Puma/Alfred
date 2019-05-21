@@ -1,6 +1,17 @@
 # :chart_with_upwards_trend: CHANGELOG
 ---
+### 0.0.1.dev6
+##### May 21th, 2019
 
+###### Updates
+- [x] PyPI Repository (pip install alfred-lang)
+- [x] New Make Directive: publish
+- [x] Conditionals
+- [x] While Loop
+- [x] Binary Operations (=, <, >)
+
+###### Issues
+- [ ] Skipped v0.0.1.dev3 - v0.0.1.dev5: PyPi Errors
 
 ### 0.0.1.dev2
 ##### May 17th, 2019

@@ -15,7 +15,6 @@ def main():
                 with open(argv[1],'r') as f:
                     try:
                         nodes = parser.parse(f.read())
-                        # print(nodes)
                         nodes.eval()
                     except Exception as err:
                         print(str(err), file=stderr)
