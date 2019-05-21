@@ -120,7 +120,6 @@ def Parser():
 
 # -- Methods -------------------------------------------------------------------
 
-
     def p_method(p):
         """ method : store
                    | stdin
