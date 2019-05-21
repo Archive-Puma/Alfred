@@ -192,7 +192,7 @@ class Stdin(Node):
         if not isinstance(value, str):
             raise TypeError("[🐛] Sólo se puede preguntar texto.")
         response = input(value)
-        symbols.set(TMPVAR,Primitive(response))
+        symbols.set(TMPVAR,response)
 
 class Stdout(Node):
     def __init__(self,text,end='\n'):
