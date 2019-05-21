@@ -11,7 +11,7 @@
 - [ ] Números decimales
 - [ ] Vectores
 - [ ] Valores booleanos
-- [ ] Comparaciones booleanas
+- [x] Comparaciones booleanas
 - [ ] Arreglar Operaciones Binarias concatenadas
 - [ ] Excepción: unsupported operand type(s) for -: 'str' and 'int'
 
@@ -22,11 +22,11 @@
 - [x] Guarda
 
 ####### Control:
-- [ ] If
-- [ ] If .. Else
-- [ ] If .. Else If
-- [ ] If .. Else If .. Else
-- [ ] While
+- [x] If
+- [x] If .. Else
+- [x] If .. Else If
+- [x] If .. Else If .. Else
+- [x] While
 - [ ] For
 
 ####### Tests:
