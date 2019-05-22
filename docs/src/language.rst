@@ -70,6 +70,56 @@ paréntesis es impar, Alfred generará una excepción similar a esta:
 
   [🐛] Caracter inválido (1,~184): (
 
+Variables
+=========
+
+Lo que hace realmente versátiles a los lenguajes de programación es la
+posibilidad de definir y trabajar con **variables**. Alfred no es una excepción
+en este aspecto.
+
+Para definir variables, existen varios métodos:
+
+.. code-block:: none
+
+  Alfred.
+  (Define la variable X con el valor 10)
+  X = 10.
+  X es 10.
+  X es igual a 10.
+
+Todos ellos son funcionan de la misma manera, dándole el valor deseado a la
+variable X.
+
+Alfred reconoce automáticamente los diferentes tipos de variables y se encarga
+de trabajar con ellos de la manera más adecuada. Actualmente se soportan estos
+tipos de variables:
+
+.. code-block:: none
+
+  Alfred.
+  (Tipo: Número Entero - No tiene decimales)
+  Edad = 22.
+  (Tipo: Texto - Ha de ir doblemente entrecomillado)
+  Apellido = "Wayne".
+
+Los nombres de variables desprecian el uso de mayúsulas y minúsculas, por lo que
+``Àpellido``, ``APELLIDO``, ``apellido`` y ``ApeLLiDo`` tendrán el mismo valor.
+Por otro lado, el nombre de las variables han de comenzar por una letra y sólo
+está permitido el uso de letras, números y el símbolo ``_``.
+
+Otra característica de las variables en Alfred, es que todas son mutables y
+globales, pero esto es posible que cambie con la llegada de futuras versiones.
+
+.. WARNING::
+
+  Hay ciertas palabras, llamadas **palabras reservadas**, que no pueden ser
+  usadas como identificadores para variables. Esas palabras son las siguientes,
+  en cualquier combinación de mayúsculas y minúsculas:
+
+  ``a``, ``alfred``, ``adios``, ``di``, ``en``, ``entre``, ``es``, ``escribe``,
+  ``guardalo``, ``igual``, ``listo``, ``mas``, ``menos``, ``menor``, ``mayor``,
+  ``mientras``, ``por``, ``pregunta``, ``que``, ``si``, ``sino``, ``y``
+
 Instrucciones
 =============
 
@@ -176,3 +226,18 @@ almacenar la información perteneciente a la **variable temporal**.
 
     ¿Como te llamas? Bruce
     Encantado de conocerte, Bruce
+
+
+
+
+
+
+Adios
+-----
+
+La instrucción ``Adiós`` es usada para detener de manera satisfactoria el flujo
+del programa. Por ello, esta acción retornará **0** como código de salida.
+
+.. code-block:: none
+
+  Alfred. Adios.
