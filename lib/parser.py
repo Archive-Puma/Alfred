@@ -87,8 +87,14 @@ def Parser():
 
 # -- Binary Operations ---------------------------------------------------------
 
+    def p_binaryop(p):
+        """ expression : binopmath
+                       | binopbool
+        """
+        p[0] = p[1]
+
     def p_binaryop_math(p):
-        """ expression : expression '+' expression
+        """ binopmath  : expression '+' expression
                        | expression '-' expression
                        | expression '*' expression
                        | expression '/' expression
@@ -102,17 +108,17 @@ def Parser():
         p[0] = BinaryOp(operation, p[1], p[3])
 
     def p_binaryop_bool(p):
-        """ expression : expression '=' expression
-                       | expression '>' expression
-                       | expression '<' expression
+        """ binopbool : expression '=' expression
+                      | expression '>' expression
+                      | expression '<' expression
 
-                       | expression IS expression
-                       | expression EQUAL TO expression
-                       | expression LOWER THAN expression
-                       | expression GREATER THAN expression
-                       | expression IS EQUAL TO expression
-                       | expression IS LOWER THAN expression
-                       | expression IS GREATER THAN expression
+                      | expression IS expression
+                      | expression EQUAL TO expression
+                      | expression LOWER THAN expression
+                      | expression GREATER THAN expression
+                      | expression IS EQUAL TO expression
+                      | expression IS LOWER THAN expression
+                      | expression IS GREATER THAN expression
         """
         if len(p) == 4:
             p[0] = BinaryOp(p[2],p[1],p[3])
