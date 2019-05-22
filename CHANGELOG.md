@@ -1,5 +1,15 @@
 # :chart_with_upwards_trend: CHANGELOG
 ---
+
+### 0.0.1.dev7
+##### May 22th, 2019
+
+###### Updates
+- [x]
+
+###### Issues
+- [x] Fixing Language Code-Blocks in Docs
+
 ### 0.0.1.dev6
 ##### May 21th, 2019
 
