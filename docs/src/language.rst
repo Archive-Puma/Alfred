@@ -18,14 +18,14 @@ ser única en todo el código fuente.
 Cualquier otra instrucción que preceda a dicha palabra reservada generará un
 error de sintaxis parecido a este:
 
-.. code-block::
+.. code-block:: plain
 
   [🐛] (Línea: 1) Sintaxis inválida: ...
 
 De este modo, si se desea generar un programa ``.alf`` vacío, el contenido será
 similar a este:
 
-.. code-block::
+.. code-block:: plain
 
   Alfred.
 
@@ -39,7 +39,7 @@ ocasiones es recomendable, por no decir necesario, el uso de anotaciones.
 Para ello, se disponen de los símbolos ``(`` y ``)``, los cuales encapsularán
 cualquier contenido que será ignorado a la hora de procesar el código.
 
-.. code-block::
+.. code-block:: plain
 
   (Los comentarios pueden ir precediendo a la palabra reservada Alfred)
 
@@ -54,7 +54,7 @@ cualquier contenido que será ignorado a la hora de procesar el código.
   Hay que tener cuidado al comentar código. La ausencia de un paréntesis puede
   convertir tus instrucciones en simples anotaciones.
 
-.. code-block::
+.. code-block:: plain
 
   Alfred.
   Di "Esto no es un comentario".
@@ -66,7 +66,7 @@ cualquier contenido que será ignorado a la hora de procesar el código.
 La ausencia de un paréntesis, es decir, si la cantidad total de pares de
 paréntesis es impar, Alfred generará una excepción similar a esta:
 
-.. code-block::
+.. code-block:: plain
 
   [🐛] Caracter inválido (1,~184): (
 
@@ -81,12 +81,12 @@ que se le pase será propiamente tratado para que se pueda mostrar por la salida
 estándar del sistema. Además, un nuevo salto de línea será añadido tras evaluar
 la instrucción.
 
-.. code-block::
+.. code-block:: plain
 
   Alfred. Di "Encantado de conocerte, Batman".
 
 **Resultado**:
-  .. code-block::
+  .. code-block:: plain
 
     Encantado de conocerte, Batman
 
@@ -103,7 +103,7 @@ la instrucción.
   si deseas tabular algo (\t), has de hacerlo      de esta manera".
 
 **Resultado**:
-  .. code-block::
+  .. code-block:: plain
 
     \n no funciona como un salto de línea,
     pero este mensaje va a ser multilínea. Además,
@@ -118,12 +118,12 @@ añade una salto de línea al evaluar la instrucción.
 
 Esto es muy útil a la hora de concatenar textos.
 
-.. code-block::
+.. code-block:: plain
 
   Alfred. Escribe "Hola ", escribe "Mundo" y di "!".
 
 **Resultado**:
-  .. code-block::
+  .. code-block:: plain
 
     Hola Mundo!
 
@@ -135,11 +135,11 @@ sistema. Esta instrucción hace uso de un parámetro **opcional**, el cual
 corresponde al texto que va a ser mostrado antes de realizar la interacción con
 el teclado.
 
-.. code-block::
+.. code-block:: plain
 
   Alfred. Pregunta.
 
-.. code-block::
+.. code-block:: plain
 
   Alfred,
   escribe "¿Cómo te llamas? " y pregunta.
@@ -166,7 +166,7 @@ característica de Alfred.
 ``Guardalo en`` toma como parámetro el nombre de la variable en la que se quiera
 almacenar la información perteneciente a la **variable temporal**.
 
-.. code-block::
+.. code-block:: plain
 
   Alfred. Pregunta "¿Cómo te llamas? ", guardalo en nombre,
   escribe "Encantado de conocerte, " y di nombre.
