@@ -8,6 +8,12 @@
 - [x] Comentarios
 - [ ] Añadir acentos (UTF-8)
 - [ ] Buscar sustituto de readline en Windows
+- [ ] Números decimales
+- [ ] Vectores
+- [ ] Valores booleanos
+- [x] Comparaciones booleanas
+- [ ] Arreglar Operaciones Binarias concatenadas
+- [ ] Excepción: unsupported operand type(s) for -: 'str' and 'int'
 
 ####### Instrucciones:
 - [x] Di (println)
@@ -16,11 +22,11 @@
 - [x] Guarda
 
 ####### Control:
-- [ ] If
-- [ ] If .. Else
-- [ ] If .. Else If
-- [ ] If .. Else If .. Else
-- [ ] While
+- [x] If
+- [x] If .. Else
+- [x] If .. Else If
+- [x] If .. Else If .. Else
+- [x] While
 - [ ] For
 
 ####### Tests:

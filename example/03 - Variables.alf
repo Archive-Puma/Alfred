@@ -1,0 +1,12 @@
+(Como cualquier lenguaje de programación,
+Alfred tiene la habilidad de crear y reconocer variables)
+
+(Podemos guardar diferentes tipos de variables
+mediante el símbolo '=' o con las expresiones
+reservadas 'es' o 'es igual a')
+
+(Hay palabras que no pueden ser usadas como variables.
+Dichas palabras se denominan palabras reservadas)
+
+Alfred, MiNombre es "Kike" (Tipo: Texto) y MiEdad es igual a 22 (Tipo: Número).
+Escribe MiNombre, escribe " tiene ", escribe MiEdad y di " años".

@@ -2,31 +2,43 @@
 
 from sys import exit
 from ply.lex import lex
-from defines import EXIT_ERRDATA, IGNORECASE
+from defines import EXIT_ERRDATA,IGNORECASE
 
 # -- Tokens --------------------------------------------------------------------
 
-literals = [ '+', '-', '*', '/', '=' ]
+literals = [ '+', '-', '*', '/', '=', '>', '<' ]
 reserved = {
-    "a":        "TO",
     "alfred":   "ALFRED",
+    # Methods
+    "adios":    "EXIT",
     "di":       "PRINTLN",
-    "en":       "IN",
-    "es":       "IS",
     "escribe":  "PRINT",
-    "guardalo": "STORE",
     "pregunta": "INPUT",
-
+    "guardalo": "STORE",
+    "en":       "IN",
+    # Conditionals
+    "si":       "IF",
+    "sino":     "ELSE",
+    "listo":    "END",
+    "mientras": "WHILE",
+    # Binary Operations
     "mas":      "ADD",
     "menos":    "SUB",
     "por":      "BY",
     "entre":    "BTWN",
-    "igual":    "EQUAL"
+
+    "es":       "IS",
+    "igual":    "EQUAL",
+    "menor":    "LOWER",
+    "mayor":    "GREATER",
+    # Auxiliary
+    "a":        "TO",
+    "que":      "THAN"
 }
 tokens = [
     "ID",
     "STRING",
-    "INTEGER"
+    "INTEGER",
 ] + list(reserved.values())
 
 # -- Lexer Definition ----------------------------------------------------------

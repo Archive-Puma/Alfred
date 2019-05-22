@@ -21,12 +21,23 @@ sistema:
 Para disponer de un entorno controlado que no interfiera con el resto de tu
 sistema, hay disponibles herramientas como `virtualenv`_ que puedes usar:
 
-.. code-block:: bash
+.. code-block:: powershell
+  :caption: Windows
 
   pip install virtualenv
 
   virtualenv venv
-  source venv/bin/activate    # Linux
+  .\venv\Scripts\activate
+  # ... comandos a ejecutar ...
+  deactivate
+
+.. code-block:: bash
+  :caption: Linux
+
+  pip install virtualenv
+
+  virtualenv venv
+  source venv/bin/activate
   # ... comandos a ejecutar ...
   deactivate
 
@@ -80,7 +91,8 @@ comando:
   make install
 
 Esto sobreescrirá cualquier versión anterior que hayas instalado desde el
-repositorio de ``PyPi``. De la misma manera, se puede desinstalar con:
+repositorio de ``PyPI``. De la misma manera, se puede desinstalar usando el
+comando:
 
 .. code-block:: bash
 

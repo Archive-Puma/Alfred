@@ -15,6 +15,11 @@ install: setup.py
 uninstall:
 	pip $@ --yes $(EXE)-lang
 
+.PHONY: publish
+publish: setup.py mrproper
+	python $< sdist
+	twine upload $(DIST)/*.tar.gz
+
 .PHONY: test-bin test-cli
 test-bin: $(EXAMPLE)/*
 
