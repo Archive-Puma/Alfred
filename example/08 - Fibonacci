@@ -1,0 +1,9 @@
+Alfred, Fibonacci es igual a 1000.
+Actual = 0. Siguiente = 1.
+
+Mientras actual menor que Fibonacci,
+  escribe actual + " ",
+  auxiliar es siguiente,
+  siguiente es actual + siguiente,
+  actual es auxiliar.
+Listo.
