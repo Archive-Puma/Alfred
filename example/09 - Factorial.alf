@@ -1,0 +1,9 @@
+Alfred, Numero es 5.
+Factorial es 1 y Actual es 2.
+
+Mientras Actual menor que Numero + 1,
+  Factorial = Factorial * Actual.
+  Actual = Actual + 1.
+Listo.
+
+Di "El factorial de " + Numero + " es " + Factorial.
