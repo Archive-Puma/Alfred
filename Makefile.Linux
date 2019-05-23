@@ -1,7 +1,7 @@
 CC=pyinstaller
 CCXFLAGS=--onefile --clean
-CCCFLAGS=--name $(BINARY) --paths $(LIB) --distpath $(DIST) --workpath $(BUILD)
-CCDFLAGS=--add-data "$(LIB)/lexer.py:." --add-data "$(LIB)/nodes.py:." --add-data "$(LIB)/symbols.py:."
+CCCFLAGS=--name $(BINARY) --distpath $(DIST) --workpath $(BUILD)
+CCDFLAGS=--paths $(LIB) --add-data "VERSION:."
 
 .PHONY: build
 build: $(SRC)/$(EXE).py
