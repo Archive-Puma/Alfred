@@ -65,12 +65,18 @@ def Parser():
 # -- Variables -----------------------------------------------------------------
 
     def p_identifier(p):
-        """ expression : id """
+        """ expression : fullid """
         p[0] = p[1]
 
-    def p_id(p):
-        """ id : ID """
+    def p_fullidentifier(p):
+        """ fullid : id """
         p[0] = Identifier(p[1])
+
+    def p_id(p):
+        """ id : id ID
+               | ID
+        """
+        p[0] = p[1] if len(p) == 2 else str(p[1] + " " + p[2])
 
     def p_primitive(p):
         """ expression : STRING
@@ -79,9 +85,9 @@ def Parser():
         p[0] = Primitive(p[1])
 
     def p_assignment(p):
-        """ assignment : id '=' expression
-            assignment : id IS expression
-            assignment : id IS EQUAL TO expression
+        """ assignment : fullid '=' expression
+            assignment : fullid IS expression
+            assignment : fullid IS EQUAL TO expression
         """
         p[0] = Assignment(p[1], p[len(p) - 1])
 
@@ -143,7 +149,7 @@ def Parser():
         p[0] = Exit()
 
     def p_store(p):
-        """ store : STORE IN id """
+        """ store : STORE IN fullid """
         p[0] = Assignment(p[3])
 
 
