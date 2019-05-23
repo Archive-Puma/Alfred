@@ -1,18 +1,28 @@
+# -- Imports (Python) ----------------------------------------------------------
+
 import os.path as ospath
 from sys import path as pypath
-from sys import (argv,exit,stderr)
-pypath.insert(0, ospath.join(ospath.dirname(ospath.abspath(__file__)), '..', 'lib'))
+from sys import (exit,stderr)
+
+# -- Python Path Modification  -------------------------------------------------
+
+pypath.insert(0, # Fixing global imports in Linux
+    ospath.join(ospath.dirname(ospath.abspath(__file__)), '..', 'lib'))
+
+# -- Imports (Alfred) ----------------------------------------------------------
 
 from repl import Repl
+from args import argv
 from parser import parser
 from defines import (EXIT_SUCCESS,EXIT_FAILURE,EXIT_ERRFILE)
 
+# -- Methods -------------------------------------------------------------------
 
 def main():
     try:
-        if len(argv) == 2:
+        if argv.archivo:
             try:
-                with open(argv[1],'r') as f:
+                with open(argv.archivo,'r') as f:
                     try:
                         nodes = parser.parse(f.read())
                         nodes.eval()
@@ -20,13 +30,18 @@ def main():
                         print(str(err), file=stderr)
                         exit(EXIT_FAILURE)
             except FileNotFoundError:
-                print("[🐛] La ruta especificada no es un archivo válido.", file=stderr)
+                print("[🐛] La ruta especificada no es un archivo válido.",
+                    file=stderr)
                 exit(EXIT_ERRFILE)
-        else:
+        elif argv.interactive:
             repl = Repl(parser)
             repl.interactive()
-    except KeyboardInterrupt:
+        else:
+            argv.__parser__(["-h"])
+    except (KeyboardInterrupt, EOFError):
         print()
+
+# -- Entrypoint ----------------------------------------------------------------
 
 if __name__ == '__main__':
     main()
