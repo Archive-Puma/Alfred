@@ -2,7 +2,7 @@
 
 from ply.yacc import yacc
 
-from lexer import tokens
+from lexicon import tokens
 from nodes import (InstructionList, Identifier, Primitive, Assignment,
                    Stdin, Stdout, BinaryOp, Conditional, While, Exit, Empty)
 

@@ -1,20 +1,3 @@
-CC=pyinstaller
-CCXFLAGS=--onefile --clean
-CCCFLAGS=--name $(BINARY) --distpath $(DIST) --workpath $(BUILD)
-CCDFLAGS=--paths $(LIB) --add-data "VERSION:."
-
-.PHONY: build
-build: $(SRC)/$(EXE).py
-	$(CC) $(CCCFLAGS) $(CCDFLAGS) $(CCXFLAGS) $<
-
-.PHONY: install
-install: setup.py
-	python $< $@
-
-.PHONY: uninstall
-uninstall:
-	pip $@ --yes $(EXE)-lang
-
 .PHONY: publish
 publish: setup.py mrproper
 	python $< sdist
@@ -44,8 +27,9 @@ check:
 	test -f $(SRC)/$(EXE).py
 	test -f $(SRC)/__init__.py
 	test -f $(LIB)/__init__.py
-	test -f $(LIB)/lexer.py
-	test -f $(LIB)/parser.py
+	test -f $(LIB)/lexicon.py
+	test -f $(LIB)/morphology.py
+  test -f $(LIB)/arguments.py
 	test -f $(LIB)/nodes.py
 	test -f $(LIB)/symbols.py
 	test -f $(LIB)/defines.py

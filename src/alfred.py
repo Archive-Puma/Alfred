@@ -12,8 +12,8 @@ pypath.insert(0, # Fixing global imports in Linux
 # -- Imports (Alfred) ----------------------------------------------------------
 
 from repl import Repl
-from args import argv
-from parser import parser
+from arguments import argv
+from morphology import parser
 from defines import (EXIT_SUCCESS,EXIT_FAILURE,EXIT_ERRFILE)
 
 # -- Methods -------------------------------------------------------------------
