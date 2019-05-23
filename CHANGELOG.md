@@ -5,10 +5,11 @@
 ##### May 22th, 2019
 
 ###### Updates
-- [x]
+- [x] Argument Parser
 
-###### Issues
-- [x] Fixing Language Code-Blocks in Docs
+###### Fixed Issues
+- [x] Language Code-Blocks in Docs
+- [x] EOFError in REPL
 
 ### 0.0.1.dev6
 ##### May 21th, 2019
@@ -22,7 +23,7 @@
 - [x] While Loop
 - [x] Binary Operations (=, <, >)
 
-###### Issues
+###### Fixed Issues
 - [x] Fixing TmpVar error
 - [ ] Skipped v0.0.1.dev3 - v0.0.1.dev5: PyPi Errors
 

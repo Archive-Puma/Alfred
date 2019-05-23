@@ -82,9 +82,11 @@ class BinaryOp(Node):
         lhs = self.lhs.eval() if isinstance(self.lhs, Node) else self.lhs
         rhs = self.rhs.eval() if isinstance(self.rhs, Node) else self.rhs
         operation = self.__operator[self.operation]
-
-        if operation is add and (isinstance(lhs,str) or isinstance(rhs,str)):
-                result = "{}{}".format(lhs,rhs)
+        if isinstance(lhs,str) or isinstance(rhs,str): # FIXME: "str" - "str" -> Error
+            if operation is add or operation is mul:
+                result = operation(lhs,rhs)
+            else:
+                raise TypeError("[🐛] No se puede operar con textos.")
         elif operation is truediv and rhs == 0:
                 raise ZeroDivisionError("[🐛] No se puede dividir entre cero.")
         else:

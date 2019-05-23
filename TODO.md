@@ -13,13 +13,18 @@
 - [ ] Valores booleanos
 - [x] Comparaciones booleanas
 - [ ] Arreglar Operaciones Binarias concatenadas
-- [ ] Excepción: unsupported operand type(s) for -: 'str' and 'int'
+- [x] Excepción: unsupported operand type(s) for -: 'str' and 'int'
+- [x] Argumentos CLI
+- [ ] Logging
+- [ ] Sys.Stdin (-) como entrada
+- [ ] Concatenar con '..' (Crear stmt FINDELINEA que ignore .,y sin espacios?)
 
 ####### Instrucciones:
 - [x] Di (println)
 - [x] Escribe (print)
 - [x] Pregunta (input)
-- [x] Guarda
+- [x] Guardalo en
+- [x] Adios (exit)
 
 ####### Control:
 - [x] If
