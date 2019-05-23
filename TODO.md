@@ -1,6 +1,10 @@
 # :memo: TODO
 ---
 
+####### Bugs:
+- [ ] Al poner Adios en REPL, salta el error: name 'exit' is not defined
+- [ ] Iconos de sombrero y gusano no siempre aparecen
+
 ####### Estructura:
 - [x] Asignar variables
 - [x] Evaluar variables
@@ -16,6 +20,7 @@
 - [x] Excepción: unsupported operand type(s) for -: 'str' and 'int'
 - [x] Argumentos CLI
 - [ ] Logging
+- [ ] Añadir valor None en español
 - [ ] Sys.Stdin (-) como entrada
 - [ ] Concatenar con '..' (Crear stmt FINDELINEA que ignore .,y sin espacios?)
 
