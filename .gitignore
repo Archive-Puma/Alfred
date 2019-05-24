@@ -1,7 +1,9 @@
 venv
 build
 *.pyc
+*.lock
 *.spec
 *.egg*
 src/__pycache__
 lib/__pycache__
+lib/parsetab.py
