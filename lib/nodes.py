@@ -1,3 +1,6 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
 # -- Imports -------------------------------------------------------------------
 
 from defines import TMPVAR,EXIT_SUCCESS

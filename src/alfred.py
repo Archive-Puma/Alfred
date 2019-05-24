@@ -1,3 +1,6 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
 # -- Imports (Python) ----------------------------------------------------------
 
 import os.path as ospath
@@ -25,7 +28,8 @@ def main():
                 with open(argv.archivo,'r') as f:
                     try:
                         nodes = parser.parse(f.read())
-                        nodes.eval()
+                        print(nodes)
+                        # nodes.eval()
                     except Exception as err:
                         print(str(err), file=stderr)
                         exit(EXIT_FAILURE)

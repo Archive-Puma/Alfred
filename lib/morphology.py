@@ -1,3 +1,6 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
 # -- Imports -------------------------------------------------------------------
 
 from ply.yacc import yacc
