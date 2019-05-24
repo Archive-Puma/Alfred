@@ -8,32 +8,36 @@ from defines import EXIT_ERRDATA,IGNORECASE
 
 literals = [ '+', '-', '*', '/', '=', '>', '<' ]
 reserved = {
-    "alfred":   "ALFRED",
+    "alfred":       "ALFRED",
     # Methods
-    "adios":    "EXIT",
-    "di":       "PRINTLN",
-    "escribe":  "PRINT",
-    "pregunta": "INPUT",
-    "guardalo": "STORE",
-    "en":       "IN",
+    "adios":        "EXIT",
+    "di":           "PRINTLN",
+    "escribe":      "PRINT",
+    "pregunta":     "INPUT",
+    "guardalo":     "STORE",
+    "en":           "IN",
     # Conditionals
-    "si":       "IF",
-    "sino":     "ELSE",
-    "listo":    "END",
-    "mientras": "WHILE",
+    "si":           "IF",
+    "sino":         "ELSE",
+    "listo":        "END",
+    "mientras":     "WHILE",
     # Binary Operations
-    "mas":      "ADD",
-    "menos":    "SUB",
-    "por":      "BY",
-    "entre":    "BTWN",
+    "mas":          "ADD",
+    "menos":        "SUB",
+    "por":          "BY",
+    "entre":        "BTWN",
 
-    "es":       "IS",
-    "igual":    "EQUAL",
-    "menor":    "LOWER",
-    "mayor":    "GREATER",
+    "es":           "IS",
+    "igual":        "EQUAL",
+    "menor":        "LOWER",
+    "mayor":        "GREATER",
+    # Values
+    "verdad":       "TRUE",
+    "verdadero":    "TRUE_",
+    "falso":        "FALSE",
     # Auxiliary
-    "a":        "TO",
-    "que":      "THAN"
+    "a":            "TO",
+    "que":          "THAN"
 }
 tokens = [
     "ID",

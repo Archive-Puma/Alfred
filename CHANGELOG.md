@@ -2,10 +2,12 @@
 ---
 
 ### 0.0.1.dev7
-##### May 22th, 2019
+##### May 24th, 2019
 
 ###### Updates
 - [x] Argument Parser
+- [x] PipEnv: Pipfile
+- [x] Boolean values (*Verdad*, *Verdadero*, *Falso*)
 
 ###### Fixed Issues
 - [x] Language Code-Blocks in Docs
@@ -15,7 +17,7 @@
 ##### May 21th, 2019
 
 ###### Updates
-- [x] Better Docs: Language (*Alfred*,*Di*,*Escribe*,*Pregunta*,*Guardalo en*,*Comentarios*)
+- [x] Better Docs: Language (*Alfred*, *Di*, *Escribe*, *Pregunta*, *Guardalo en*, *Comentarios*)
 - [x] Exit Instruction (*Adios*)
 - [x] PyPI Repository (pip install alfred-lang)
 - [x] New Make Directive: publish

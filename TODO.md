@@ -14,7 +14,7 @@
 - [ ] Buscar sustituto de readline en Windows
 - [ ] Números decimales
 - [ ] Vectores
-- [ ] Valores booleanos
+- [x] Valores booleanos
 - [x] Comparaciones booleanas
 - [ ] Arreglar Operaciones Binarias concatenadas
 - [x] Excepción: unsupported operand type(s) for -: 'str' and 'int'

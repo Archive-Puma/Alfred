@@ -84,6 +84,22 @@ def Parser():
         """
         p[0] = Primitive(p[1])
 
+    def p_true(p):
+        """ boolean : TRUE
+                    | TRUE_
+        """
+        p[0] = Primitive(True)
+
+    def p_false(p):
+        """ boolean : FALSE """
+        p[0] = Primitive(False)
+
+    def p_boolean(p):
+        """ expression : IS boolean
+                       | boolean
+        """
+        p[0] = p[len(p) - 1]
+
     def p_assignment(p):
         """ assignment : fullid '=' expression
             assignment : fullid IS expression
