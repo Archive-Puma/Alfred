@@ -6,12 +6,12 @@ Tokens tokens;
 
 #include <iostream>
 
-void lex(std::string source)
+void lex(std::string * source)
 {
-    reader.source = &source;
-    while(reader.position < source.length())
+    reader.source = source;
+    while(reader.position < source->length())
     {
-        process(source.at(reader.position));
+        process(source->at(reader.position));
         reader.position++;
     }
     whitespace();

@@ -32,7 +32,7 @@ enum TokenType { LITERAL, STRING, NUMBER };
 typedef std::pair<TokenType,std::string> Token;
 typedef std::vector<Token> Tokens;
 
-void lex(std::string source);
+void lex(std::string * source);
 void process(unsigned char c);
 
 void comma(void);
