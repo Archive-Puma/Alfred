@@ -20,8 +20,15 @@ class Statement : public Node
 {
     public:
         Statement() = default;
-        Statement(Node * n);
         virtual ~Statement() = default;
+        virtual std::string toString() const;
+};
+
+class Print : public Node
+{
+    public:
+        Print() = default;
+        virtual ~Print() = default;
         virtual std::string toString() const;
 };
 

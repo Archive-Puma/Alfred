@@ -5,10 +5,21 @@ void Node::append(Node * n) { children.emplace_back(n); }
 
 // ------------------------------------------------------------------
 
-Statement::Statement(Node * n) { children.emplace_back(n); }
 std::string Statement::toString() const
 {
     std::string str = "<Statement [ ";
+    for(Node * n : children)
+        str += n->toString() + " ";
+    str += "]>";
+
+    return str;
+}
+
+// ------------------------------------------------------------------
+
+std::string Print::toString() const
+{
+    std::string str = "<Print [ ";
     for(Node * n : children)
         str += n->toString() + " ";
     str += "]>";

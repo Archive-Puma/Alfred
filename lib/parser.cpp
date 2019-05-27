@@ -5,7 +5,6 @@ Node * instruction;
 
 AST generateAST(Tokens tokens)
 {
-    ast.clear();
     for(Token t : tokens)
     {
         switch(t.first)
@@ -23,7 +22,8 @@ AST generateAST(Tokens tokens)
 
 void addRoot(void)
 {
-    ast.emplace_back(instruction);
+    if(instruction)
+        ast.emplace_back(instruction);
     instruction = nullptr;
 }
 
@@ -32,7 +32,7 @@ void addInstruction(std::string inst)
     inst = tolower(inst);
     if(instruction == nullptr)
     {
-        if(inst.compare("di") == 0) instruction = new Statement();
+        if(inst.compare("di") == 0) instruction = new Print();
     }
 }
 
