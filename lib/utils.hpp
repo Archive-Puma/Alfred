@@ -4,6 +4,7 @@
 #include <string>
 #include <locale>
 
+bool isnum(std::string str);
 std::string tolower(std::string str);
 
 #endif
