@@ -1,7 +1,7 @@
 FROM ubuntu:18.04
 
 RUN apt update -y
-RUN apt install build-essential -y
+RUN apt install build-essential clang -y
 
 WORKDIR /playground
 
