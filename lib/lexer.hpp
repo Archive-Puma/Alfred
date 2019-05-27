@@ -26,12 +26,16 @@ typedef struct {
     std::string current_word;
 } Reader;
 
+typedef std::vector<std::string> Tokens;
+
 void lex(std::string source);
 void process(unsigned char c);
 
 void string(void);
 void newline(void);
 void whitespace(void);
+
+void new_token(void);
 void append_word(unsigned char c);
 
 void check_alfred(std::string word);
