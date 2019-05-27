@@ -17,6 +17,13 @@ std::string Statement::toString() const
 
 // ------------------------------------------------------------------
 
+result Print::evaluate() const {
+    std::string value;
+    std::tie(std::ignore,value) = children[0]->evaluate();
+    std::cout << value << std::endl;
+
+    return result(0,"");    
+}
 std::string Print::toString() const
 {
     std::string str = "<Print [ ";
@@ -30,4 +37,5 @@ std::string Print::toString() const
 // ------------------------------------------------------------------
 
 String::String(const std::string &s) : str(s) { }
+result String::evaluate() const { return result(0,str); }
 std::string String::toString() const { return "<String \"" + str + "\">"; }

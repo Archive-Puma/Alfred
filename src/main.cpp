@@ -20,6 +20,9 @@ int main(int argc, char* argv[])
 
         for(Node * node : ast)
             std::cout << node->toString() << std::endl;
+
+        for(Node * node : ast)
+            node->evaluate();
     }
 
     return 0;
