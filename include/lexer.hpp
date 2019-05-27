@@ -20,7 +20,7 @@ typedef struct {
     unsigned int depth = 0;
 } Flags;
 
-enum TokenType { LITERAL, STRING, NUMBER };
+enum TokenType { LITERAL, STRING, NUMBER, OPERATOR, DELIMITER };
 typedef std::pair<TokenType,std::string> Token;
 typedef std::vector<Token> Tokens;
 
@@ -28,11 +28,14 @@ Tokens lex(std::string * source);
 
 void process(unsigned char c);
 
+void dot(void);
 void comma(void);
 void string(void);
 void newline(void);
 void whitespace(void);
+void symbol(unsigned char c);
 
+void new_word(void);
 void new_token(TokenType type);
 void append_word(unsigned char c);
 

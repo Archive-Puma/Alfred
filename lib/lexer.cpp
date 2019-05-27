@@ -41,8 +41,21 @@ void process(unsigned char c)
             case '"': string(); break;              // Iniciamos/cerramos una cadena de texto
             case '\n': newline(); break;            // Procesamos una nueva línea
             case ',': comma(); break;               // Parseamos comas según sean separadores o puntos decimales
-            case ' ':
-            case '.': whitespace(); break;          // Tratamos espacios y puntos como espacios (de momento)
+            case '.': dot(); break;                 // Parseamos puntos según sean separadores o concatenadores
+            case '\t': 
+            case ' ': whitespace(); break;          // Parseamos los espacios
+            case '<':
+            case '>':
+            case '=':
+            case '!':
+            case '&':
+            case '|':
+            case '+':
+            case '-':
+            case '/':
+            case '*':
+            case '^':
+            case '%': symbol(c); break;             // Parseamos los símbolos
             default: append_word(c); break;         // Añadimos la letra a una palabra
         }
         flags.escaped = false;                      // Eliminamos secuencias de escape huérfanas
@@ -51,15 +64,47 @@ void process(unsigned char c)
 
 // -----------------------------------------------------------------
 
+void dot(void)
+{
+    if(flags.string) append_word(',');
+    else
+    {
+        if(flags.word) new_word();
+        if(reader.position+1 < reader.source->size())
+        {
+            unsigned char next = reader.source->at(reader.position+1);
+            if(next == '.')
+            {
+                reader.current_word = "..";
+                new_token(OPERATOR);
+                reader.linepos++;
+                reader.position++;
+            }
+        }
+    }
+}
+
 void comma(void)
 {
-    if(flags.word)
+    if(flags.string) append_word(',');
+    else if(flags.word)
     {
         if(isnum(reader.current_word))
         {
-            unsigned char next = reader.source->at(reader.position+1);
-            if(next < '0' || next > '9') whitespace();
-            else append_word(',');
+            if(reader.position+1 < reader.source->size()) {
+                unsigned char next = reader.source->at(reader.position+1);
+                if(next < '0' || next > '9')
+                {
+                    new_word();
+                    reader.current_word = ",";
+                    new_token(DELIMITER);
+                } else append_word(',');
+            } else
+            {
+                new_word();
+                reader.current_word = ",";
+                new_token(DELIMITER);
+            }
         }
     }
 }
@@ -81,20 +126,36 @@ void newline(void)
     reader.lineno++;
     reader.linepos = 1;
 
-    whitespace();
+    if(flags.string) append_word('\n');
+    else if(flags.word) new_word();
 }
 
 void whitespace(void)
 {
-    if(flags.string) append_word(reader.source->at(reader.position)); // Only with ' ' and '.', else append_word(' ');
-    else if(flags.word)
+    if(flags.string) append_word(' ');
+    else if(flags.word) new_word();
+}
+
+void symbol(unsigned char c)
+{
+    if(flags.string) append_word(c);
+    else
     {
-        if(!flags.alfred) check_alfred(reader.current_word);
-        else {            
-            if(isnum(reader.current_word))
-                new_token(NUMBER);
-            else new_token(LITERAL);
-        }
+        if(flags.word) new_word();
+        reader.current_word = c;
+        new_token(OPERATOR);
+    }
+}
+
+void new_word(void)
+{
+    if(!flags.alfred) check_alfred(reader.current_word);
+    else {            
+        if(isnum(reader.current_word))
+            new_token(NUMBER);
+        else if(tolower(reader.current_word).compare("y") == 0)
+            new_token(DELIMITER);
+        else new_token(LITERAL);
     }
 }
 
