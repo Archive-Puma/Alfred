@@ -12,16 +12,14 @@ int main(int argc, char* argv[])
     else if(!args.filename.empty())
     {
         std::string source = readFile(args.filename);   // Read the source code
+        
         Tokens tokens = lex(&source);                   // Tokenize the source code
+        if(args.debug) writeLexLog(tokens);
+        
         AST ast = generateAST(tokens);                  // Generate the AST
+        if(args.debug) writeParseLog(ast);
 
-        for(Token token : tokens)
-            std::cout << "(" << token.first << ") - " << token.second << std::endl;
-
-        for(Node * node : ast)
-            std::cout << node->toString() << std::endl;
-
-        for(Node * node : ast)
+        for(Node * node : ast)                          // Evaluate the AST
             node->evaluate();
     }
 

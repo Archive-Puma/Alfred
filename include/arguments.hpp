@@ -7,9 +7,10 @@
 #include <getopt.h>
 
 typedef struct {
-    bool help = false;
-    bool version = false;
-    bool interactive = false;
+    bool debug          = false;
+    bool help           = false;
+    bool version        = false;
+    bool interactive    = false;
     std::string filename;
 } Arguments;
 

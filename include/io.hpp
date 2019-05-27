@@ -6,6 +6,11 @@
 #include <sstream>
 
 #include "error.hpp"
+#include "lexer.hpp"
+#include "parser.hpp"
+
+void writeParseLog(AST ast);
+void writeLexLog(Tokens tokens);
 
 std::string readFile(std::string filename);
 

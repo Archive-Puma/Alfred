@@ -41,6 +41,6 @@ test-clang: $(Ddist)/$(NAME)-clang
 
 .PHONY: clean
 clean:
-	@rm $(Dbuild)/*
+	@rm $(Dbuild)/* *.log
 
 	

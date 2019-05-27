@@ -6,10 +6,11 @@ Arguments parseArguments(int argc, char* argv[])
     Arguments args;
 
     if(argc == 1) args.help = true;
-    else while((option = getopt(argc,argv,"f:hiv")) != EOF)
+    else while((option = getopt(argc,argv,"df:hiv")) != EOF)
     {
         switch(option)
         {
+            case 'd': args.debug = true;        break;
             case 'f': args.filename = optarg;   break;
             case 'i': args.interactive = true;  break;
             case 'h': args.help = true;         break;
@@ -29,6 +30,8 @@ R"(Uso: )" + program + R"( [-i|-f archivo.alf] [-h] [-v]
 Opciones de ejecución:
   -f ARCHIVO      Ejecuta el programa leyendo un archivo.
   -i              Ejecuta el programa de forma interactiva (REPL).
+Opciones de desarrollo:
+  -d              Genera logs con los tokens y el AST (Debug).
 Opciones estándar:
   -h              Muestra esta ayuda y sale.
   -v              Muestra la versión y sale.)";
