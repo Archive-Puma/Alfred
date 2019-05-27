@@ -8,6 +8,7 @@
 
 #include "error.hpp"
 #include "utils.hpp"
+#include "reader.hpp"
 
 typedef struct {
     bool word = false;
@@ -19,20 +20,12 @@ typedef struct {
     unsigned int depth = 0;
 } Flags;
 
-typedef struct {
-    unsigned int lineno = 1;
-    unsigned int linepos = 1;
-    unsigned int position = 0;
-
-    std::string * source;
-    std::string current_word;
-} Reader;
-
 enum TokenType { LITERAL, STRING, NUMBER };
 typedef std::pair<TokenType,std::string> Token;
 typedef std::vector<Token> Tokens;
 
-void lex(std::string * source);
+Tokens lex(std::string * source);
+
 void process(unsigned char c);
 
 void comma(void);

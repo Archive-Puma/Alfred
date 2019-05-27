@@ -1,23 +1,27 @@
-NAME=alfred
+NAME := alfred
 
-Dsrc=src
-Dlib=lib
-Ddist=dist
+Dsrc := src
+Dlib := lib
+Ddist := dist
+Dbuild := build
+Dinclude := include
 
-SRC=$(wildcard $(Dsrc)/*.cpp)
-LIB=$(wildcard $(Dlib)/*.cpp)
-OBJ=$(LIB:.cpp=.o)
+CC := g++
+CFLAGS := -Wall
+CINCLUDE := -I./$(Dinclude)
 
-CC=g++
-CFLAGS=-Wall
-CINCLUDE=-I./$(Dlib)
+LIBS := $(wildcard $(Dlib)/*.cpp)
+OBJS := $(patsubst $(Dlib)/%.cpp, $(Dbuild)/%.o, $(LIBS))
 
 .PHONY: build
 build: $(Ddist)/$(NAME)
 	@true
 
-$(Ddist)/$(NAME): $(SRC) $(OBJ)
+$(Ddist)/$(NAME): $(Dsrc)/main.cpp $(OBJS)
 	$(CC) $(CFLAGS) $(CINCLUDE) -o $@ $^
+
+$(Dbuild)/%.o: $(Dlib)/%.cpp
+	$(CC) $(CFLAGS) $(CINCLUDE) -o $@ -c $<
 
 .PHONY: test
 test: $(Ddist)/$(NAME)
@@ -25,6 +29,6 @@ test: $(Ddist)/$(NAME)
 
 .PHONY: clean
 clean:
-	@rm $(OBJ)
+	@rm $(Dbuild)/*
 
 	
