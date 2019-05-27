@@ -1,29 +1,30 @@
-EXE=alfred
+NAME=alfred
 
-SRC=src
-LIB=lib
-DIST=dist
-DOCS=docs
-BUILD=build
-EXAMPLE=example
+Dsrc=src
+Dlib=lib
+Ddist=dist
 
-VERSION=$(shell cat VERSION)
+SRC=$(wildcard $(Dsrc)/*.cpp)
+LIB=$(wildcard $(Dlib)/*.cpp)
+OBJ=$(LIB:.cpp=.o)
 
-ifeq ($(OS),Windows_NT)
+CC=g++
+CFLAGS=-Wall
+CINCLUDE=-I./$(Dlib)
 
-else
-	BROWSER:=sensible-browser
-	KERNEL:=$(shell uname -s)
-	ARCHITECTURE:=$(shell uname -p)
-	VERSION:=$(VERSION)-$(KERNEL)
+.PHONY: build
+build: $(Ddist)/$(NAME)
+	@true
 
-	ifeq ($(KERNEL),Linux)
-		include Makefile.Linux
-	endif
-	ifeq ($(KERNEL),Darwin)
+$(Ddist)/$(NAME): $(SRC) $(OBJ)
+	$(CC) $(CFLAGS) $(CINCLUDE) -o $@ $^
 
-	endif
-endif
+.PHONY: test
+test: $(Ddist)/$(NAME)
+	./$< test/prueba.alf
 
-include Makefile.Docs
-BINARY=$(EXE)-$(VERSION)-$(ARCHITECTURE)
+.PHONY: clean
+clean:
+	@rm $(OBJ)
+
+	
