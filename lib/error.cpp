@@ -16,3 +16,10 @@ void alfred_error(unsigned int lineno, unsigned int linepos, std::string word)
     error("sintaxis (" + std::to_string(lineno) + "," + std::to_string(linepos) + ")",
         "Se esperaba la palabra clave 'Alfred' pero se ha hayado la palabra '" + word + "'.");
 }
+
+void token_error(unsigned int lineno, unsigned int linepos, std::string token)
+{
+    error("sintaxis (" + std::to_string(lineno) + "," + std::to_string(linepos) + ")",
+        "Este símbolo no está permitido fuera de textos o comentarios: " + token);
+}
+

@@ -13,6 +13,7 @@ typedef struct {
     bool alfred = false;
     bool string = false;
     bool comment = false;
+    bool escaped = false;
 
     unsigned int depth = 0;
 } Flags;
@@ -28,6 +29,7 @@ typedef struct {
 void lex(std::string source);
 void process(unsigned char c);
 
+void string(void);
 void newline(void);
 void whitespace(void);
 void append_word(unsigned char c);
