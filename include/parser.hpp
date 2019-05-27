@@ -17,5 +17,6 @@ void addRoot(void);
 
 void addInstruction(std::string inst);
 void addString(const std::string str);
+void addNumber(const std::string str);
 
 #endif

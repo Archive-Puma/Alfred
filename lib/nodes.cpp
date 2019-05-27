@@ -1,5 +1,4 @@
 #include "nodes.hpp"
-#include <iostream>
 
 void Node::append(Node * n) { children.emplace_back(n); }
 
@@ -16,13 +15,15 @@ std::string Statement::toString() const
 }
 
 // ------------------------------------------------------------------
-
+Print::Print() { children.reserve(1); }
 result Print::evaluate() const {
-    std::string value;
-    std::tie(std::ignore,value) = children[0]->evaluate();
-    std::cout << value << std::endl;
+    double number;
+    std::string text;
+    std::tie(number,text) = children.front()->evaluate();
+    if(text.compare(NOSTR) == 0) std::cout << number << std::endl;
+    else std::cout << text << std::endl;
 
-    return result(0,"");    
+    return result(NONUM,NOSTR);    
 }
 std::string Print::toString() const
 {
@@ -36,6 +37,12 @@ std::string Print::toString() const
 
 // ------------------------------------------------------------------
 
-String::String(const std::string &s) : str(s) { }
-result String::evaluate() const { return result(0,str); }
+String::String(const std::string &s) : str(s) { children.reserve(0); }
+result String::evaluate() const { return result(NONUM,str); }
 std::string String::toString() const { return "<String \"" + str + "\">"; }
+
+// ------------------------------------------------------------------
+
+Number::Number(const double &n) : number(n) { children.reserve(0); }
+result Number::evaluate() const { return result(number,NOSTR); }
+std::string Number::toString() const { return "<Number \"" + std::to_string(number) + "\">"; }

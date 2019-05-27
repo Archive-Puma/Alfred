@@ -68,58 +68,66 @@ void process(unsigned char c)
 
 // -----------------------------------------------------------------
 
-void dot(void)
-{
-    if(flags.string) append_word('.'); // Si es parte de un texto, añadimos el punto
-    else
-    {
-        if(flags.word) new_word(); // Si estábamos parseando una palabra, la añadimos
-        if(reader.position+1 < reader.source->size()) // Si no se ha terminado el texto ...
-        {
-            unsigned char next = reader.source->at(reader.position+1);
-            if(next == '.') // ... comprobamos si el siguiente es otro punto (concatenación)
-            {
-                reader.current_word = "..";
-                new_token(OPERATOR);
-                reader.linepos++;
-                reader.position++;
-            } else // Sino, parseamos el delimitador
-            {
-                reader.current_word = ".";
-                new_token(DELIMITER);
-            }
-        } else // Sino, parseamos el delimitador
-        {
-            reader.current_word = ".";
-            new_token(DELIMITER);
-        }
-    }
-}
-
 void comma(void)
 {
     if(flags.string) append_word(','); // Si es parte de un texto, añadimos la coma
     else
     {
-        if(flags.word)  // Si estábamos parseando una palabra...
+        if(flags.word) new_word(); // Si estábamos parseando una palabra, la añadimos
+        // Parseamos el delimitador
+        reader.current_word = ",";
+        new_token(DELIMITER);
+    }
+}
+
+void dot(void)
+{
+    if(flags.string) append_word('.'); // Si es un texto, lo agregamos
+    else
+    {
+        if(flags.word)
         {
-            if(isnum(reader.current_word)) // ... comprobamos si es un número ...
+            if(reader.position+1 < reader.source->size())
             {
-                if(reader.position+1 < reader.source->size()) {  //  ... o si se acabó el texto ...
-                    unsigned char next = reader.source->at(reader.position+1);
-                    if(next < '0' || next > '9') // ... y si el siguiente también es un número
+                unsigned char next = reader.source->at(reader.position+1);
+                if(isnum(reader.current_word))
+                {
+                    if(next < '0' || next > '9')
                     {
-                        // Si no es un número, añadimos la palabra y el delimitador
                         new_word();
-                        reader.current_word = ",";
+                        reader.current_word = ".";
                         new_token(DELIMITER);
-                    } else append_word(','); // Sino, añadimos la coma al número
-                } else // Sino, añadimos la palabra y el delimitador
-                {   
+                    } else append_word('.');
+                } else {
                     new_word();
-                    reader.current_word = ",";
+                    reader.current_word = ".";
                     new_token(DELIMITER);
                 }
+            } else
+            {
+                new_word();
+                reader.current_word = ".";
+                new_token(DELIMITER);
+            }
+        } else
+        {
+            if(reader.position+1 < reader.source->size())
+            {
+                unsigned char next = reader.source->at(reader.position+1);
+                if(next == '.')
+                {
+                    reader.current_word = "..";
+                    new_token(OPERATOR);
+                    reader.linepos++;
+                    reader.position++;
+                } else {
+                    reader.current_word = ".";
+                    new_token(DELIMITER);
+                }
+            } else
+            {
+                reader.current_word = ".";
+                new_token(DELIMITER);
             }
         }
     }
@@ -173,7 +181,7 @@ void new_word(void)
 {
     if(!flags.alfred) check_alfred(reader.current_word);
     else {            
-        if(isnum(reader.current_word))
+        if(iscnum(reader.current_word))
             new_token(NUMBER);
         else if(tolower(reader.current_word).compare("y") == 0)
             new_token(DELIMITER);

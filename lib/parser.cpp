@@ -10,7 +10,7 @@ AST generateAST(Tokens tokens)
         switch(t.first)
         {
             case LITERAL: addInstruction(t.second); break;
-            case NUMBER: break;
+            case NUMBER: addNumber(t.second);       break;
             case STRING: addString(t.second);       break;
             case DELIMITER: addRoot();              break;
             default: break; // TODO: Handler error
@@ -38,6 +38,15 @@ void addInstruction(std::string inst)
 
 void addString(const std::string str)
 {
-    if(instruction == nullptr) ;
+    if(instruction == nullptr) ; // TODO: Error Handler
     else instruction->append(new String(str));
+}
+
+void addNumber(const std::string str)
+{
+    if(instruction == nullptr) ; // TODO: Error Handler
+    else {
+        double number = std::stod(str);
+        instruction->append(new Number(number));
+    }
 }

@@ -1,21 +1,25 @@
 #ifndef NODE_HPP
 #define NODE_HPP 1
 
+#include <tuple>
 #include <vector>
 #include <string>
-#include <tuple>
+#include <iostream>
 
-typedef std::tuple<int,std::string> result;
+#define NONUM 0
+#define NOSTR ""
+
+typedef std::tuple<double,std::string> result;
 
 class Node
 {
     public:
         Node() = default;
         virtual ~Node() = default;
+        void append(Node * n);
         virtual result evaluate() const = 0;
         virtual std::string toString() const = 0;
     protected:
-        void append(Node * n);
         std::vector<Node *> children;
 };
 
@@ -31,7 +35,7 @@ class Statement : public Node
 class Print : public Node
 {
     public:
-        Print() = default;
+        Print();
         virtual ~Print() = default;
         virtual result evaluate() const;
         virtual std::string toString() const;
@@ -46,6 +50,17 @@ class String : public Node
         virtual std::string toString() const;
     private:
         std::string str;
+};
+
+class Number : public Node
+{
+    public:
+        Number(const double &n);
+        virtual ~Number() = default;
+        virtual result evaluate() const;
+        virtual std::string toString() const;
+    private:
+        double number;
 };
 
 #endif

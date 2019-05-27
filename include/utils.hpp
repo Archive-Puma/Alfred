@@ -5,6 +5,7 @@
 #include <locale>
 
 bool isnum(std::string str);
+bool iscnum(std::string str);
 std::string tolower(std::string str);
 
 #endif
