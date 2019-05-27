@@ -31,6 +31,7 @@ void process(unsigned char c);
 void dot(void);
 void comma(void);
 void string(void);
+void comment(void);
 void newline(void);
 void whitespace(void);
 void symbol(unsigned char c);

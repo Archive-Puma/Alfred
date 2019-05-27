@@ -12,7 +12,7 @@ Tokens lex(std::string * source)
         process(source->at(reader.position));
         reader.position++;
     }
-    whitespace();
+    if(!reader.current_word.empty()) new_word();
     
     return tokens;
 }
@@ -37,7 +37,7 @@ void process(unsigned char c)
     } else {
         switch(c)
         {
-            case '(': flags.comment = true; break;  // Iniciamos un comentario
+            case '(': comment(); break;  // Iniciamos un comentario
             case '"': string(); break;              // Iniciamos/cerramos una cadena de texto
             case '\n': newline(); break;            // Procesamos una nueva línea
             case ',': comma(); break;               // Parseamos comas según sean separadores o puntos decimales
@@ -55,6 +55,10 @@ void process(unsigned char c)
             case '/':
             case '*':
             case '^':
+            case '[':
+            case ']':
+            case '{':
+            case '}':
             case '%': symbol(c); break;             // Parseamos los símbolos
             default: append_word(c); break;         // Añadimos la letra a una palabra
         }
@@ -66,44 +70,56 @@ void process(unsigned char c)
 
 void dot(void)
 {
-    if(flags.string) append_word(',');
+    if(flags.string) append_word('.'); // Si es parte de un texto, añadimos el punto
     else
     {
-        if(flags.word) new_word();
-        if(reader.position+1 < reader.source->size())
+        if(flags.word) new_word(); // Si estábamos parseando una palabra, la añadimos
+        if(reader.position+1 < reader.source->size()) // Si no se ha terminado el texto ...
         {
             unsigned char next = reader.source->at(reader.position+1);
-            if(next == '.')
+            if(next == '.') // ... comprobamos si el siguiente es otro punto (concatenación)
             {
                 reader.current_word = "..";
                 new_token(OPERATOR);
                 reader.linepos++;
                 reader.position++;
+            } else // Sino, parseamos el delimitador
+            {
+                reader.current_word = ".";
+                new_token(DELIMITER);
             }
+        } else // Sino, parseamos el delimitador
+        {
+            reader.current_word = ".";
+            new_token(DELIMITER);
         }
     }
 }
 
 void comma(void)
 {
-    if(flags.string) append_word(',');
-    else if(flags.word)
+    if(flags.string) append_word(','); // Si es parte de un texto, añadimos la coma
+    else
     {
-        if(isnum(reader.current_word))
+        if(flags.word)  // Si estábamos parseando una palabra...
         {
-            if(reader.position+1 < reader.source->size()) {
-                unsigned char next = reader.source->at(reader.position+1);
-                if(next < '0' || next > '9')
-                {
+            if(isnum(reader.current_word)) // ... comprobamos si es un número ...
+            {
+                if(reader.position+1 < reader.source->size()) {  //  ... o si se acabó el texto ...
+                    unsigned char next = reader.source->at(reader.position+1);
+                    if(next < '0' || next > '9') // ... y si el siguiente también es un número
+                    {
+                        // Si no es un número, añadimos la palabra y el delimitador
+                        new_word();
+                        reader.current_word = ",";
+                        new_token(DELIMITER);
+                    } else append_word(','); // Sino, añadimos la coma al número
+                } else // Sino, añadimos la palabra y el delimitador
+                {   
                     new_word();
                     reader.current_word = ",";
                     new_token(DELIMITER);
-                } else append_word(',');
-            } else
-            {
-                new_word();
-                reader.current_word = ",";
-                new_token(DELIMITER);
+                }
             }
         }
     }
@@ -119,6 +135,12 @@ void string(void)
         flags.string = false;
         new_token(STRING);
     } else flags.string = true; 
+}
+
+void comment(void)
+{
+    if(flags.string) append_word('(');
+    else flags.comment = true;
 }
 
 void newline(void)
