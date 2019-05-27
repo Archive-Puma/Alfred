@@ -1,2 +1,0 @@
-Alfred, X = 3.
-Mientras X < 100, di "X: " + X. X = X + 1. Listo.
