@@ -4,9 +4,7 @@ Flags flags;
 Reader reader;
 Tokens tokens;
 
-#include <iostream>
-
-void lex(std::string * source)
+Tokens lex(std::string * source)
 {
     reader.source = source;
     while(reader.position < source->length())
@@ -15,9 +13,8 @@ void lex(std::string * source)
         reader.position++;
     }
     whitespace();
-
-    for(Token token : tokens)
-        std::cout << "(" << token.first << ") - " << token.second << std::endl;
+    
+    return tokens;
 }
 
 void process(unsigned char c)
