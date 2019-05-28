@@ -10,7 +10,7 @@ Dinclude := include
 
 CC := g++
 CLANG := clang++
-CFLAGS := -Wall
+CFLAGS := -std=c++17 -Wall
 CINCLUDE := -I./$(Dinclude)
 
 LIBS := $(wildcard $(Dlib)/*.cpp)
@@ -39,14 +39,16 @@ zipunix: $(Ddist)/$(NAME) $(Dtest)/$(FILE)
 
 .PHONY: test
 test: $(Ddist)/$(NAME)
-	./$< -f $(Dtest/$(FILE)
+	./$< -f $(Dtest)/$(FILE)
 
 .PHONY: test-clang
 test-clang: $(Ddist)/$(NAME)-clang
-	./$< -f $(Dtest/$(FILE)
+	./$< -f $(Dtest)/$(FILE)
 
 .PHONY: clean
 clean:
-	@rm $(Dbuild)/* *.log
+	@rm -f $(Dbuild)/* *.log
 
-	
+.PHONY: purge
+purge: clean
+	@rm -f $(Ddist)/*

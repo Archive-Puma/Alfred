@@ -1,5 +1,11 @@
 #include "nodes.hpp"
 
+// ------------------------------------------------------------------
+
+std::unordered_map<std::string,std::any> variables;
+
+// ------------------------------------------------------------------
+
 void Node::append(Node * n) { children.emplace_back(n); }
 
 // ------------------------------------------------------------------
@@ -16,14 +22,15 @@ std::string Statement::toString() const
 
 // ------------------------------------------------------------------
 Print::Print() { children.reserve(1); }
-result Print::evaluate() const {
-    double number;
-    std::string text;
-    std::tie(number,text) = children.front()->evaluate();
-    if(text.compare(NOSTR) == 0) std::cout << number << std::endl;
-    else std::cout << text << std::endl;
-
-    return result(NONUM,NOSTR);    
+void Print::evaluate() const {
+    children.front()->evaluate();
+    std::any value = variables.find(RESULT)->second;
+    switch(value.type().name()[0])
+    {
+        case 'd': std::cout << std::any_cast<double>(value) << std::endl; break;
+        case 'N': std::cout << std::any_cast<std::string>(value) << std::endl;  break;
+        default: ; // TODO: Error handler
+    }
 }
 std::string Print::toString() const
 {
@@ -38,11 +45,11 @@ std::string Print::toString() const
 // ------------------------------------------------------------------
 
 String::String(const std::string &s) : str(s) { children.reserve(0); }
-result String::evaluate() const { return result(NONUM,str); }
+void String::evaluate() const { variables.insert_or_assign(RESULT, str); }
 std::string String::toString() const { return "<String \"" + str + "\">"; }
 
 // ------------------------------------------------------------------
 
 Number::Number(const double &n) : number(n) { children.reserve(0); }
-result Number::evaluate() const { return result(number,NOSTR); }
+void Number::evaluate() const { variables.insert_or_assign(RESULT, number); }
 std::string Number::toString() const { return "<Number \"" + std::to_string(number) + "\">"; }
