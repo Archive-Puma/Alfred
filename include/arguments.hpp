@@ -7,11 +7,12 @@
 #include <getopt.h>
 
 typedef struct {
-    bool debug          = false;
-    bool help           = false;
-    bool version        = false;
-    bool interactive    = false;
+    bool debug              = false;
+    bool help               = false;
+    bool version            = false;
+    bool interactive        = false;
     std::string filename;
+    std::string debugname;
 } Arguments;
 
 Arguments parseArguments(int argc, char* argv[]);

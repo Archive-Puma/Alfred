@@ -13,5 +13,6 @@ void writeParseLog(AST ast);
 void writeLexLog(Tokens tokens);
 
 std::string readFile(std::string filename);
+std::string readSelf(std::string filename);
 
 #endif

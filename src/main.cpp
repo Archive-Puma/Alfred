@@ -5,14 +5,23 @@
 
 int main(int argc, char* argv[])
 {
-    Arguments args = parseArguments(argc,argv);
-    if(args.help) show_help(std::string(argv[0]));
-    else if(args.version) ; // show_version(version);
-    else if(args.interactive) ; // repl();
-    else if(!args.filename.empty())
+    Arguments args;
+    std::string source;
+    
+    std::string zippedsrc = readSelf(argv[0]);
+    if(zippedsrc.empty())
     {
-        std::string source = readFile(args.filename);   // Read the source code
-        
+        args = parseArguments(argc,argv);
+
+        if(args.help) show_help(std::string(argv[0]));      // Show the help message
+        else if(args.version) ; // show_version(version);
+        else if(args.interactive) ; // repl();
+        else if(!args.filename.empty())
+            source = readFile(args.filename);
+    } else source = zippedsrc;
+
+    if(!source.empty())
+    {           
         Tokens tokens = lex(&source);                   // Tokenize the source code
         if(args.debug) writeLexLog(tokens);
         
