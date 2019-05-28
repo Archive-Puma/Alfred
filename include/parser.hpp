@@ -1,22 +1,17 @@
 #ifndef PARSER_HPP
 #define PARSER_HPP 1
 
-#include <vector>
-#include <string>
+#include <list>
 
-#include "nodes.hpp"
 #include "lexer.hpp"
+#include "nodes.hpp"
 #include "utils.hpp"
-#include "reader.hpp"
 
-typedef std::vector<Node *> AST;
+typedef std::list<Node *> AST;
 
-AST generateAST(Tokens tokens);
+AST parse(Tokens tokens);
 
-void addRoot(void);
-
-void addInstruction(std::string inst);
-void addString(const std::string str);
-void addNumber(const std::string str);
+void set_number(std::string value);
+void set_string(std::string value);
 
 #endif

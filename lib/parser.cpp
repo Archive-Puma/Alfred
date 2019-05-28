@@ -1,52 +1,29 @@
 #include "parser.hpp"
 
 AST ast;
-Node * instruction;
-
-AST generateAST(Tokens tokens)
+AST parse(Tokens tokens)
 {
-    for(Token t : tokens)
+    unsigned int level = 0;
+    for(std::list<Token>::iterator it = tokens.begin(); it != tokens.end(); ++it)
     {
-        switch(t.first)
+        std::string value(it->second);
+        switch(it->first)
         {
-            case LITERAL: addInstruction(t.second); break;
-            case NUMBER: addNumber(t.second);       break;
-            case STRING: addString(t.second);       break;
-            case DELIMITER: addRoot();              break;
-            default: break; // TODO: Handler error
+            case NUMBER: set_number(value); break;
+            case STRING: set_string(value); break;
+            default: ;
         }
     }
-
     return ast;
 }
 
-void addRoot(void)
+void set_number(std::string value)
 {
-    if(instruction)
-        ast.emplace_back(instruction);
-    instruction = nullptr;
+    double number = std::stod(value);
+    ast.emplace_back(new Number(number));
 }
 
-void addInstruction(std::string inst)
+void set_string(std::string value)
 {
-    inst = tolower(inst);
-    if(instruction == nullptr)
-    {
-        if(inst.compare("di") == 0) instruction = new Print();
-    }
-}
-
-void addString(const std::string str)
-{
-    if(instruction == nullptr) ; // TODO: Error Handler
-    else instruction->append(new String(str));
-}
-
-void addNumber(const std::string str)
-{
-    if(instruction == nullptr) ; // TODO: Error Handler
-    else {
-        double number = std::stod(str);
-        instruction->append(new Number(number));
-    }
+    ast.emplace_back(new String(value));
 }

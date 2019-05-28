@@ -44,10 +44,14 @@ void process(unsigned char c)
             case '.': dot(); break;                 // Parseamos puntos según sean separadores o concatenadores
             case '\t': 
             case ' ': whitespace(); break;          // Parseamos los espacios
+            case '[':
+            case ']':
+            case '{':
+            case '}':
+            case '!': symbol(OP,c); break;
             case '<':
             case '>':
             case '=':
-            case '!':
             case '&':
             case '|':
             case '+':
@@ -55,11 +59,7 @@ void process(unsigned char c)
             case '/':
             case '*':
             case '^':
-            case '[':
-            case ']':
-            case '{':
-            case '}':
-            case '%': symbol(c); break;             // Parseamos los símbolos
+            case '%': symbol(BINOP,c); break;             // Parseamos los símbolos
             default: append_word(c); break;         // Añadimos la letra a una palabra
         }
         flags.escaped = false;                      // Eliminamos secuencias de escape huérfanas
@@ -76,7 +76,7 @@ void comma(void)
         if(flags.word) new_word(); // Si estábamos parseando una palabra, la añadimos
         // Parseamos el delimitador
         reader.current_word = ",";
-        new_token(DELIMITER);
+        new_token(DELIM);
     }
 }
 
@@ -96,18 +96,18 @@ void dot(void)
                     {
                         new_word();
                         reader.current_word = ".";
-                        new_token(DELIMITER);
+                        new_token(DELIM);
                     } else append_word('.');
                 } else {
                     new_word();
                     reader.current_word = ".";
-                    new_token(DELIMITER);
+                    new_token(DELIM);
                 }
             } else
             {
                 new_word();
                 reader.current_word = ".";
-                new_token(DELIMITER);
+                new_token(DELIM);
             }
         } else
         {
@@ -117,17 +117,17 @@ void dot(void)
                 if(next == '.')
                 {
                     reader.current_word = "..";
-                    new_token(OPERATOR);
+                    new_token(OP);
                     reader.linepos++;
                     reader.position++;
                 } else {
                     reader.current_word = ".";
-                    new_token(DELIMITER);
+                    new_token(DELIM);
                 }
             } else
             {
                 reader.current_word = ".";
-                new_token(DELIMITER);
+                new_token(DELIM);
             }
         }
     }
@@ -166,14 +166,14 @@ void whitespace(void)
     else if(flags.word) new_word();
 }
 
-void symbol(unsigned char c)
+void symbol(TokenType t, unsigned char c)
 {
     if(flags.string) append_word(c);
     else
     {
         if(flags.word) new_word();
         reader.current_word = c;
-        new_token(OPERATOR);
+        new_token(t);
     }
 }
 
@@ -184,7 +184,7 @@ void new_word(void)
         if(iscnum(reader.current_word))
             new_token(NUMBER);
         else if(tolower(reader.current_word).compare("y") == 0)
-            new_token(DELIMITER);
+            new_token(DELIM);
         else new_token(LITERAL);
     }
 }
