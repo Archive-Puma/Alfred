@@ -1,8 +1,10 @@
 NAME := alfred
+FILE := prueba.alf
 
 Dsrc := src
 Dlib := lib
 Ddist := dist
+Dtest := test
 Dbuild := build
 Dinclude := include
 
@@ -31,13 +33,17 @@ $(Ddist)/$(NAME)-clang: $(Dsrc)/main.cpp $(OBJS)
 $(Dbuild)/%.o: $(Dlib)/%.cpp
 	$(CC) $(CFLAGS) $(CINCLUDE) -o $@ -c $<
 
+.PHONY: zipunix
+zipunix: $(Ddist)/$(NAME) $(Dtest)/$(FILE)
+	cat $^ > $(Ddist)/$(NAME)-zipped
+
 .PHONY: test
 test: $(Ddist)/$(NAME)
-	./$< -f test/prueba.alf
+	./$< -f $(Dtest/$(FILE)
 
 .PHONY: test-clang
 test-clang: $(Ddist)/$(NAME)-clang
-	./$< -f test/prueba.alf
+	./$< -f $(Dtest/$(FILE)
 
 .PHONY: clean
 clean:
