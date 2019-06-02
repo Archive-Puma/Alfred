@@ -25,7 +25,8 @@ int main(int argc, char* argv[])
         Tokens tokens = lex(&source);                   // Tokenize the source code
         if(args.debug) writeLexLog(tokens);
         
-        AST ast = parse(tokens);                  // Generate the AST
+        
+        AST ast = parse(tokens);                        // Generate the AST
 
         if(args.debug) writeParseLog(ast);
 

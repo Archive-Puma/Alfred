@@ -1,7 +1,7 @@
 #ifndef LEXER_HPP
 #define LEXER_HPP 1
 
-#include <list>
+#include <vector>
 #include <string>
 #include <cstdint>
 #include <utility>
@@ -16,13 +16,11 @@ typedef struct {
     bool string = false;
     bool comment = false;
     bool escaped = false;
-
-    unsigned int depth = 0;
 } Flags;
 
 enum TokenType { LITERAL, STRING, NUMBER, OP, BINOP, DELIM };
 typedef std::pair<TokenType,std::string> Token;
-typedef std::list<Token> Tokens;
+typedef std::vector<Token> Tokens;
 
 Tokens lex(std::string * source);
 

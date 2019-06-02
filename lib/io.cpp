@@ -54,7 +54,6 @@ void writeLexLog(Tokens tokens)
     output.close();
 }
 
-
 void writeParseLog(AST ast)
 {
     std::string filename = "alfred-parser.log";

@@ -1,29 +1,90 @@
 #include "parser.hpp"
 
-AST ast;
+AST root;
+Node * current;
+Processor processor;
+std::string predict;
+
 AST parse(Tokens tokens)
 {
-    unsigned int level = 0;
-    for(std::list<Token>::iterator it = tokens.begin(); it != tokens.end(); ++it)
+    predict.clear();
+    processor.reserved.reserve(RESERVLEN);
+    processor.reserved.emplace_back("di");
+
+    processor.tokens = &tokens;
+    while(processor.position < processor.tokens->size())
+        get_next();
+
+    return root;
+}
+
+void get_next()
+{
+    if(!processor.init)
     {
-        std::string value(it->second);
-        switch(it->first)
+        if(currentType() == DELIM)
+            processor.init = true;
+        else
         {
-            case NUMBER: set_number(value); break;
-            case STRING: set_string(value); break;
-            default: ;
+            // Handle error
+        }
+    } else
+    {
+        switch(currentType())
+        {
+            case LITERAL:
+                update_predict();
+                if(make_predict())
+                    current = instruction(&predict);
+                break;
+            case STRING: break;
+            case NUMBER: break;
+            case OP: break;
+            case BINOP: break;
+            case DELIM:
+                if(current)
+                    root.emplace_back(current);
+                predict.clear();
+                current = nullptr;
+                break;
+            default: break;
         }
     }
-    return ast;
+
+    processor.position++;
 }
 
-void set_number(std::string value)
+void update_predict()
 {
-    double number = std::stod(value);
-    ast.emplace_back(new Number(number));
+    if(!predict.empty())
+        predict += " ";
+    predict += util::tolower(currentValue());
 }
 
-void set_string(std::string value)
+bool make_predict()
 {
-    ast.emplace_back(new String(value));
+    bool end;
+    std::vector<std::string> tmp;
+    tmp.reserve(RESERVLEN);
+
+    end = util::contains(processor.reserved, predict);
+    return end;
 }
+
+Node * instruction(std::string * instr)
+{
+    if(instr->compare("di") == 0) return new Print();
+    else return nullptr;
+}
+
+TokenType currentType()
+{
+    return processor.tokens->at(processor.position).first;
+}
+
+std::string currentValue()
+{
+    return processor.tokens->at(processor.position).second;
+}
+
+// https://mariusbancila.ro/blog/2009/02/05/evaluating-expressions-part-3-building-the-ast/

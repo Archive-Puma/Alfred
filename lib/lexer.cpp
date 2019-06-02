@@ -90,7 +90,7 @@ void dot(void)
             if(reader.position+1 < reader.source->size())
             {
                 unsigned char next = reader.source->at(reader.position+1);
-                if(isnum(reader.current_word))
+                if(util::isnum(reader.current_word))
                 {
                     if(next < '0' || next > '9')
                     {
@@ -181,9 +181,9 @@ void new_word(void)
 {
     if(!flags.alfred) check_alfred(reader.current_word);
     else {            
-        if(iscnum(reader.current_word))
+        if(util::iscnum(reader.current_word))
             new_token(NUMBER);
-        else if(tolower(reader.current_word).compare("y") == 0)
+        else if(util::tolower(reader.current_word).compare("y") == 0)
             new_token(DELIM);
         else new_token(LITERAL);
     }
@@ -206,7 +206,7 @@ void append_word(unsigned char c)
 
 void check_alfred(std::string word)
 {
-    if(tolower(word).compare("alfred") == 0)
+    if(util::tolower(word).compare("alfred") == 0)
     {
         flags.word = false;
         flags.alfred = true;
