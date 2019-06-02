@@ -15,9 +15,9 @@ typedef struct {
     AST ast;
     Tokens * tokens;
 
-    bool filtering;
-    bool init = false;
-    unsigned int position = 0;
+    bool init;
+    std::string predict;
+    unsigned int position;
 
     std::vector<std::string> reserved;
     std::vector<std::string *> filtered;
@@ -28,9 +28,9 @@ AST parse(Tokens tokens);
 void get_next();
 bool make_predict();
 void update_predict();
+Node * instruction();
 TokenType nextType();
 TokenType currentType();
 std::string currentValue();
-Node * instruction(std::string * instr);
 
 #endif
