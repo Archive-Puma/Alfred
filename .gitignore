@@ -1,2 +1,5 @@
+*.log
+*.alf
+dist/*
 build/*
 .vscode
