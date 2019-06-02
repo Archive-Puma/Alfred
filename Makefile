@@ -1,5 +1,5 @@
 NAME := alfred
-FILE := prueba.alf
+FILE := test.alf
 
 Dsrc := src
 Dlib := lib
@@ -39,7 +39,7 @@ zipunix: $(Ddist)/$(NAME) $(Dtest)/$(FILE)
 
 .PHONY: test
 test: $(Ddist)/$(NAME)
-	./$< -f $(Dtest)/$(FILE)
+	./$< -df $(Dtest)/$(FILE)
 
 .PHONY: test-clang
 test-clang: $(Ddist)/$(NAME)-clang
