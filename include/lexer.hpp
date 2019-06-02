@@ -18,7 +18,7 @@ typedef struct {
     bool escaped = false;
 } Flags;
 
-enum TokenType { LITERAL, STRING, NUMBER, OP, BINOP, DELIM };
+enum TokenType { LITERAL, STRING, NUMBER, OP, BINOP, DELIM, UNKNOWN };
 typedef std::pair<TokenType,std::string> Token;
 typedef std::vector<Token> Tokens;
 

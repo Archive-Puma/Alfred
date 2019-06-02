@@ -26,4 +26,15 @@ class Print : public Node
         std::string toString() const;
 };
 
+class String : public Node
+{
+    public:
+        String(const std::string &s);
+        ~String() = default;
+        void evaluate() const;
+        std::string toString() const;
+    private:
+        std::string str;
+};
+
 #endif

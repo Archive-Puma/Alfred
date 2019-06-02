@@ -18,3 +18,10 @@ std::string Print::toString() const
 
     return str;
 }
+
+// --
+
+
+String::String(const std::string &s) : str(s) { children.reserve(0); }
+void String::evaluate() const { std::cout << "STR" << std::endl; } // variables.insert_or_assign(RESULT, str); }
+std::string String::toString() const { return "<String \"" + str + "\">"; }

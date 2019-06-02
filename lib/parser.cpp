@@ -9,7 +9,7 @@ AST parse(Tokens tokens)
 {
     predict.clear();
     processor.reserved.reserve(RESERVLEN);
-    processor.reserved.emplace_back("di");
+    processor.reserved = { "di" };
 
     processor.tokens = &tokens;
     while(processor.position < processor.tokens->size())
@@ -22,6 +22,7 @@ void get_next()
 {
     if(!processor.init)
     {
+        // Comprobamos que lo primero es un delimitador
         if(currentType() == DELIM)
             processor.init = true;
         else
@@ -37,7 +38,12 @@ void get_next()
                 if(make_predict())
                     current = instruction(&predict);
                 break;
-            case STRING: break;
+            case STRING:
+                if(current) // && nextType() != TokenType::BINOP)
+                    current->append(new String(currentValue()));
+                else
+                    ; // Error Handler
+                break;
             case NUMBER: break;
             case OP: break;
             case BINOP: break;
@@ -85,6 +91,14 @@ TokenType currentType()
 std::string currentValue()
 {
     return processor.tokens->at(processor.position).second;
+}
+
+TokenType nextType()
+{
+    TokenType type = TokenType::UNKNOWN;
+    if(processor.position + 1 < processor.tokens->size())
+        type = processor.tokens->at(processor.position + 1).first;
+    return type;
 }
 
 // https://mariusbancila.ro/blog/2009/02/05/evaluating-expressions-part-3-building-the-ast/

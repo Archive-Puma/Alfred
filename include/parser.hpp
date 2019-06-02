@@ -28,6 +28,7 @@ AST parse(Tokens tokens);
 void get_next();
 bool make_predict();
 void update_predict();
+TokenType nextType();
 TokenType currentType();
 std::string currentValue();
 Node * instruction(std::string * instr);
