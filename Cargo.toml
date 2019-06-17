@@ -1,0 +1,7 @@
+[package]
+name = "alfred"
+version = "0.1.0"
+authors = ["Kike Fontán (@CosasDePuma)"]
+edition = "2018"
+
+[dependencies]
