@@ -1,113 +1,39 @@
-#[derive(Debug)]
-pub enum TokenType
-{
-    KEYWORD, ARGUMENT, STRING, NUMBER, DELIMITER
-}
-
-#[derive(Clone,PartialEq)]
+#[derive(PartialEq)]
 enum State
 {
-    NONE, COMMENT,
-    KEYWORD, ARGUMENTS,
-    STRING, ESCAPED, NUMBER, DECIMAL
+    RAW, COMMENT,
+    LITERAL, STRING, ESCAPED, NUMBER, DECIMAL
 }
 
+#[derive(Debug)]
+pub enum TokenType { LITERAL, STRING, NUMBER, DELIMITER }
 pub type Token = (TokenType, String);
+
 pub fn tokenize(source: &str) -> Vec<Token>
 {
-    let keywords: Vec<&str> = vec![
-        "escribe", "di"
-    ];
-
     let mut tokens: Vec<Token> = Vec::new();
 
-    let mut state: State = State::NONE;
+    let mut state: State = State::RAW;
     let mut current_str: String = String::new();
-    let mut previous_state: State = State::NONE;
 
     for (index, ch) in source.chars().enumerate()
     {        
-        if state == State::NONE
+        if state == State::RAW
         {
             match ch
             {
+                '"' => state = State::STRING,
+                '(' => state = State::COMMENT,
+                '0' ... '9' => { current_str.push(ch); state = State::NUMBER; }
+                'a' ... 'z' | 'A' ... 'Z' => { current_str.push(ch); state = State::LITERAL; }
                 ' ' | '\n' | '\t' | '\r' => continue,
-                '(' => {
-                    previous_state = state;
-                    state = State::COMMENT;
-                }
-                'a' ... 'z' | 'A' ... 'Z' => {
-                    current_str.push(ch);
-                    state = State::KEYWORD;
-                }
-                _ => panic!("Unexpected token"),
+                '.' | ',' => tokens.push((TokenType::DELIMITER, ch.to_string())),
+                _ => panic!("Unexpected token in RAW state: {}", ch),
             }
         }
         else if state == State::COMMENT
         {
-            if ch == ')' { state = previous_state.clone(); }
-        }
-        else if state == State::KEYWORD
-        {
-            match ch
-            {
-                ' ' => current_str.push(ch),
-                'a' ... 'z' | 'A' ... 'Z' | '0' ... '9' => {
-                    current_str.push(ch);
-                    let current_tolower: String = current_str.to_lowercase();
-                    if keywords.contains(&current_tolower.as_ref())
-                    {
-                        tokens.push((TokenType::KEYWORD, current_tolower));
-                        current_str.clear();
-                        state = State::ARGUMENTS;
-                    }
-                }
-                _ => panic!("Keyword not found (Maybe function or variable assigment"),
-            }
-        }
-        else if state == State::ARGUMENTS
-        {
-            match ch
-            {
-                '(' => {
-                    previous_state = state;
-                    state = State::COMMENT;
-                }
-                '"' => {
-                    if !current_str.trim().is_empty()
-                    {
-                        let current_tolower: String = current_str.trim().to_lowercase();
-                        tokens.push((TokenType::ARGUMENT, current_tolower));
-                    }
-                    current_str.clear();
-                    state = State::STRING;
-                }
-                '0' ... '9' => {
-                    if !current_str.trim().is_empty()
-                    {
-                        let current_tolower: String = current_str.trim().to_lowercase();
-                        tokens.push((TokenType::ARGUMENT, current_tolower));
-                    }
-                    current_str.clear();
-                    current_str.push(ch);
-                    state = State::NUMBER;
-                }
-                ' ' | '\n' | '\t' | '\r' => {
-                    if !current_str.ends_with(' ') { current_str.push(' '); }
-                }
-                'a' ... 'z' | 'A' ... 'Z' => current_str.push(ch),
-                '.' => {
-                    if !current_str.trim().is_empty()
-                    {
-                        let current_tolower: String = current_str.trim().to_lowercase();
-                        tokens.push((TokenType::ARGUMENT, current_tolower));
-                    }
-                    current_str.clear();
-                    tokens.push((TokenType::DELIMITER, ch.to_string()));
-                    state = State::NONE
-                }
-                _ => panic!("Unknown token: {}", ch),
-            }
+            if ch == ')' { state = State::RAW; }
         }
         else if state == State::STRING
         {
@@ -117,7 +43,7 @@ pub fn tokenize(source: &str) -> Vec<Token>
                 '"' => {
                     tokens.push((TokenType::STRING, current_str.clone()));
                     current_str.clear();
-                    state = State::ARGUMENTS;
+                    state = State::RAW;
                 }
                 _ => current_str.push(ch),
             }
@@ -133,7 +59,7 @@ pub fn tokenize(source: &str) -> Vec<Token>
                 '0' => current_str.push('\0'),
                 '\\' => current_str.push('\\'),
                 '\'' => current_str.push('\''),
-                _ => panic!("Unknown character escape: {}", ch),
+                _ => panic!("Unexpected token in ESCAPED state: {}", ch),
             }
             state = State::STRING;
         }
@@ -141,10 +67,11 @@ pub fn tokenize(source: &str) -> Vec<Token>
         {
             match ch
             {
+                '0' ... '9' => current_str.push(ch),
                 '.' => {
                     match source.chars().nth(index+1)
                     {
-                        Some(c) => match c
+                        Some(character) => match character
                         {
                             '0' ... '9' => {
                                 current_str.push(ch);
@@ -154,24 +81,29 @@ pub fn tokenize(source: &str) -> Vec<Token>
                                 tokens.push((TokenType::NUMBER, current_str.clone()));
                                 tokens.push((TokenType::DELIMITER, ch.to_string()));
                                 current_str.clear();
-                                state = State::NONE;
+                                state = State::RAW;
                             }
                         }
                         None => {
                             tokens.push((TokenType::NUMBER, current_str.clone()));
                             tokens.push((TokenType::DELIMITER, ch.to_string()));
                             current_str.clear();
-                            state = State::NONE;
+                            state = State::RAW;
                         }
                     }
                 }
-                '0' ... '9' => current_str.push(ch),
-                _ => {
+                ',' => {
+                    tokens.push((TokenType::NUMBER, current_str.clone()));
+                    tokens.push((TokenType::DELIMITER, ch.to_string()));
+                    current_str.clear();
+                    state = State::RAW;
+                }
+                ' ' | '\n' | '\t' | '\r' => {
                     tokens.push((TokenType::NUMBER, current_str.clone()));
                     current_str.clear();
-                    current_str.push(ch);
-                    state = State::ARGUMENTS;
+                    state = State::RAW;
                 }
+                _ => panic!("Unexpected token in NUMBER state: {}", ch),
             }
         }
         else if state == State::DECIMAL
@@ -179,21 +111,40 @@ pub fn tokenize(source: &str) -> Vec<Token>
             match ch
             {
                 '0' ... '9' => current_str.push(ch),
-                '.' => {
+                '.' | ',' => {
                     tokens.push((TokenType::NUMBER, current_str.clone()));
                     tokens.push((TokenType::DELIMITER, ch.to_string()));
                     current_str.clear();
-                    state = State::NONE;
+                    state = State::RAW;
                 }
-                _ => {
+                ' ' | '\n' | '\t' | '\r' => {
                     tokens.push((TokenType::NUMBER, current_str.clone()));
                     current_str.clear();
-                    current_str.push(ch);
-                    state = State::ARGUMENTS;
+                    state = State::RAW;
                 }
+                _ => panic!("Unexpected token in NUMBER state: {}", ch),
+            }
+        }
+        else if state == State::LITERAL
+        {
+            match ch
+            {
+                '0' ... '9' | 'a' ... 'z' | 'A' ... 'Z' => current_str.push(ch),
+                ' ' | '\n' | '\t' | '\r' => {
+                    tokens.push((TokenType::LITERAL, current_str.clone()));
+                    current_str.clear();
+                    state = State::RAW;
+                }
+                '.' | ',' => {
+                    tokens.push((TokenType::LITERAL, current_str.clone()));
+                    tokens.push((TokenType::DELIMITER, ch.to_string()));
+                    current_str.clear();
+                    state = State::RAW;
+                }
+                _ => panic!("Unexpected token in LITERAL state: {}", ch),
             }
         }
     }
-    if state != State::NONE { panic!("Syntax error"); }
+    if state != State::RAW { panic!("Syntax error. Should end in a RAW state"); }
     return tokens;
 }
