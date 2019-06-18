@@ -131,12 +131,12 @@ pub fn tokenize(source: &str) -> Vec<Token>
             {
                 '0' ... '9' | 'a' ... 'z' | 'A' ... 'Z' => current_str.push(ch),
                 ' ' | '\n' | '\t' | '\r' => {
-                    tokens.push((TokenType::LITERAL, current_str.clone()));
+                    tokens.push((TokenType::LITERAL, current_str.to_lowercase()));
                     current_str.clear();
                     state = State::RAW;
                 }
                 '.' | ',' => {
-                    tokens.push((TokenType::LITERAL, current_str.clone()));
+                    tokens.push((TokenType::LITERAL, current_str.to_lowercase()));
                     tokens.push((TokenType::DELIMITER, ch.to_string()));
                     current_str.clear();
                     state = State::RAW;
