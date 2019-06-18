@@ -1,26 +1,17 @@
-mod lexer;
-mod arguments;
-mod self_reader;
+mod lib;
+use lib::*;
 
 fn main() {
-    let mut source: String = String::new();
-    let args: arguments::Arguments = arguments::get_arguments();
+    let mut source: String;
+    let args: env::Arguments = env::get_arguments();
 
-    if args.itself
-    {
-        source = self_reader::get_source(&args.path);
-    }
-    else
-    {
-        let content = std::fs::read_to_string(&args.file);
-        if content.is_ok() { source = content.unwrap(); }
-    }
-    
+    if args.itself { source = utils::get_source(&args.path); }
+    else { source = std::fs::read_to_string(&args.file).unwrap_or_default(); }
 
     if !source.is_empty()
     {
-        let tokens: Vec<lexer::Token> = lexer::tokenize(&source);
-        println!("{:?}", tokens);
+        let tokens: Vec<core::Token> = core::tokenize(&source);
+        if args.debug { log::tokens(&tokens); }
     }
-    else { arguments::display_help(&args.name); }
+    else { env::display_help(&args.name); }
 }
