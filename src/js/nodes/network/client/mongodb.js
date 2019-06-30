@@ -29,6 +29,8 @@ function MongoDB() {
         this.connectSocket.bind(this)
     );
 
+    this.addInput("", LiteGraph.ACTION);
+    this.addOutput("", LiteGraph.EVENT);
     this.addOutput("json", []);
 
     this.properties = {
@@ -58,10 +60,17 @@ MongoDB.prototype.connectSocket = function() {
     this.db[this.properties["coleccion"]].find(function(err, docs)
     {
         let index = that.properties["documento"];
-        if(err || index >= docs.length) { that.setOutputData(0, []); }
-        else { that.setOutputData(0, docs[index]); }
+        if(err || index >= docs.length) { that.setOutputData(1, []); }
+        else { that.setOutputData(1, docs[index]); }
     });
+
+    if(this.outputs[0]) { this.triggerSlot(0, "mongodb"); }
 };
+
+MongoDB.prototype.onAction = function()
+{
+    this.connectSocket();
+}
 
 MongoDB.prototype.setURI = function(URI) {
     this.properties["URI"] = URI;

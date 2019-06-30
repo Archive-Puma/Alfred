@@ -21,6 +21,9 @@ Muestra.toString = function(o) {
         return "";
     } else if (o.constructor === Number) {
         return o.toFixed(6);
+    } else if (o.constructor === Boolean)
+    {
+        return o ? "Verdadero" : "Falso";
     } else if (o.constructor === Array) {
         var str = "[";
         for (var i = 0; i < o.length; ++i) {
