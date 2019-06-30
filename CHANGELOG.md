@@ -4,12 +4,21 @@
 ##### June 30th, 2019
 
 ###### Updates
+- [x] Borrado código innecesario: Punto y coma tras funciones prototipo
+- [x] Nodo modificado: Cliente/MongoDB sólo estará disponible en Electron
+- [x] Nodos modificados: El conjunto Variable para a ser Constante
+- [x] Nodo modificado: Básico/Muestra un nuevo valor predeterminado
+- [x] Creada tabla global de variables
+- [x] Añadido nuevo nodo: Básico/Variables
+
+
 - [x] Nodo modificado: Básico/Mostrar muestra valores booleanos
 - [x] Añadido nuevo nodo: Control/Condicional
 - [x] Añadido nuevo nodo: Variable/Booleano
 - [x] Nodo modificado: Cliente/MongoDB se maneja mediante eventos o botón
 - [x] Ahora se manejan los nodos mediante eventos
 - [x] Nodo remodelado: Básico/Alfred
+
 
 - [x] Añadido nuevo nodo: Cliente/MongoDB
 - [x] Nodo modificado: Básico/Mostrar muestra valores JSON
@@ -33,4 +42,7 @@
 - [x] Nueva "visualización" de cómo llevar a cabo el proyecto
 
 ###### Issues
+- [x] Corregido valor por defecto del nodo Constante/Booleano
+
+
 - [x] Corregido error en el nodo Básico/Alfred que impedia ejecutar graph

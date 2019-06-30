@@ -17,7 +17,7 @@ Numero.markers_color = "#666";
 
 Numero.prototype.onExecute = function() {
     this.setOutputData(0, this.properties["valor"]);
-};
+}
 
 Numero.prototype.getTitle = function() {
     if (this.flags.collapsed) { return this.properties["valor"].toFixed(this._precision); }
@@ -54,12 +54,12 @@ Numero.prototype.onDrawForeground = function(ctx) {
         x,
         h * 0.68
     );
-};
+}
 
 Numero.prototype.onPropertyChanged = function(name, value) {
     var t = (this.properties["pasos"] + "").split(".");
     this._precision = t.length > 1 ? t[1].length : 0;
-};
+}
 
 Numero.prototype.onMouseDown = function(e, pos) {
     if (pos[1] < 0) { return; }
@@ -69,7 +69,7 @@ Numero.prototype.onMouseDown = function(e, pos) {
     this._mouse_captured = true;
 
     return true;
-};
+}
 
 Numero.prototype.onMouseMove = function(e) {
     if (!this._mouse_captured) { return; }
@@ -91,7 +91,7 @@ Numero.prototype.onMouseMove = function(e) {
     this.properties["valor"] = v;
     this.graph._version++;
     this.setDirtyCanvas(true);
-};
+}
 
 Numero.prototype.onMouseUp = function(e, pos) {
     if (e.click_time < 200) {
@@ -109,6 +109,6 @@ Numero.prototype.onMouseUp = function(e, pos) {
         this._mouse_captured = false;
         this.captureInput(false);
     }
-};
+}
 
-LiteGraph.registerNodeType("Variable/Número", Numero);
+LiteGraph.registerNodeType("Constante/Número", Numero);

@@ -9,16 +9,16 @@ Muestra.desc = "Muestra el valor de la entrada";
 
 Muestra.prototype.onExecute = function() {
     if (this.inputs[0]) { this.value = this.getInputData(0); }
-};
+}
 
 Muestra.prototype.getTitle = function() {
     if (this.flags.collapsed) { return this.inputs[0].label; }
     return this.title;
-};
+}
 
 Muestra.toString = function(o) {
     if (o == null) {
-        return "";
+        return "- -";
     } else if (o.constructor === Number) {
         return o.toFixed(6);
     } else if (o.constructor === Boolean)
@@ -43,10 +43,10 @@ Muestra.toString = function(o) {
     } else {
         return String(o);
     }
-};
+}
 
 Muestra.prototype.onDrawBackground = function(ctx) {
     this.inputs[0].label = Muestra.toString(this.value);
-};
+}
 
 LiteGraph.registerNodeType("Básico/Muestra", Muestra);
