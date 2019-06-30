@@ -11,7 +11,9 @@ function createWindow () {
     height: 1080,
     frame: true,
     resizable: true,
-
+    webPreferences: {
+      nodeIntegration: true
+    }
   })
   mainWindow.setMenu(null);
 

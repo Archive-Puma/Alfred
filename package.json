@@ -15,6 +15,7 @@
     "electromon": "^1.0.10"
   },
   "dependencies": {
-    "electron": "^5.0.6"
+    "electron": "^5.0.6",
+    "mongojs": "^2.6.0"
   }
 }

@@ -13,10 +13,6 @@ Alfred.title = "Alfred";
 Alfred.desc = "Inicia y restaura el programa";
 Alfred.font = "Arial";
 
-Alfred.prototype.onExecute = function() {
-    // if(!this.properties["corriendo"]) { graph.stop(); }
-};
-
 Alfred.prototype.onDrawForeground = function(ctx) {
     if (this.flags.collapsed) {
         return;
@@ -75,7 +71,7 @@ Alfred.prototype.onMouseDown = function(e, local_pos) {
         } else {
             this.properties["programa"] = JSON.stringify(graph.serialize());
             this.properties["corriendo"] = true;
-            graph.stop();
+            graph.start();
             this.button_text = this._texts[1];
         }
         this.clicked = !this.clicked;

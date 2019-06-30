@@ -28,6 +28,15 @@ Muestra.toString = function(o) {
         }
         str += "]";
         return str;
+    } else if (o.constructor === Object)
+    {
+        let json = JSON.stringify(o);
+        if (json.length > 100)
+        {
+            console.log(o);
+            json = "<JSON>";
+        }
+        return json;
     } else {
         return String(o);
     }
