@@ -1,0 +1,20 @@
+{
+  "name": "alfred-visual",
+  "version": "1.0.0",
+  "description": "Just another programming language...",
+  "main": "src/main.js",
+  "directories": {
+    "src": "src"
+  },
+  "scripts": {
+    "test": "electromon src/main.js"
+  },
+  "author": "Kike Fontán <kikefontanlorenzo@gmail.com>",
+  "license": "ISC",
+  "devDependencies": {
+    "electromon": "^1.0.10"
+  },
+  "dependencies": {
+    "electron": "^5.0.6"
+  }
+}

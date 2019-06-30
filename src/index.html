@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <link rel="stylesheet" type="text/css" href="css/litegraph.css">
+        
+        <script type="text/javascript" src="js/engine/litegraph.js"></script>
+        <script type="text/javascript" src="js/nodes/basic/muestra.js"></script>
+        <script type="text/javascript" src="js/nodes/variable/texto.js"></script>
+        <script type="text/javascript" src="js/nodes/variable/numero.js"></script>
+
+        <style>
+            html, body {
+                margin: 0;
+                width: 100%;
+                height: 100%;
+                overflow: hidden;
+                background-color: #333;
+            }
+        </style>
+    </head>
+    <body>
+        <canvas id='graphcanvas'></canvas>
+        <script>
+            LiteGraph.debug = true;
+        
+            let graph = new LGraph();
+            let canvas = new LGraphCanvas("#graphcanvas", graph);
+            canvas.resize(1920,1080);
+            graph.start();
+        </script>
+    </body>    
+</html>

@@ -1,7 +1,2 @@
-venv
-build
-*.pyc
-*.spec
-*.egg*
-src/__pycache__
-lib/__pycache__
+node_modules/
+package-lock.json

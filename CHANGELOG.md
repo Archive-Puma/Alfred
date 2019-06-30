@@ -1,39 +1,15 @@
 # :chart_with_upwards_trend: CHANGELOG
 ---
-### 0.0.1.dev6
-##### May 21th, 2019
+### 1.0.0.dev1
+##### June 30th, 2019
 
 ###### Updates
-- [x] Better Docs: Language (*Alfred*,*Di*,*Escribe*,*Pregunta*,*Guardalo en*,*Comentarios*)
-- [x] Exit Instruction (*Adios*)
-- [x] PyPI Repository (pip install alfred-lang)
-- [x] New Make Directive: publish
-- [x] Conditionals
-- [x] While Loop
-- [x] Binary Operations (=, <, >)
+- [x] Nueva rama creada en el repositorio de GitHub
+- [x] Añadidos nuevos nodos: Básico/Muestra, Variable/Texto y Variable/Número
+- [x] Nodos predeterminados eliminados
+- [x] Modificación de Litegraph eliminando código innecesario
+- [x] Litegraph añadido
+- [x] Electron añadido
+- [x] Nueva "visualización" de cómo llevar a cabo el proyecto
 
 ###### Issues
-- [x] Fixing TmpVar error
-- [ ] Skipped v0.0.1.dev3 - v0.0.1.dev5: PyPi Errors
-
-### 0.0.1.dev2
-##### May 17th, 2019
-
-###### Updates
-- [x] Variable added
-- [x] Custom Makefile
-- [x] More specific version (uname -rs)
-- [x] Docs added!
-- [x] New error icon [🐛]
-- [x] REPL (Interactive Mode)
-- [x] Binary Operations added (+, -, \*, /)
-
-
-### 0.0.1.dev1
-##### May 17th, 2019
-
-###### Updates
-- [x] Temporal variable created!
-- [x] Now you can ask and store the answer (*Pregunta*, *guardalo*)
-- [x] Code comments using (*( comentario )*)
-- [x] Ignored some dialog auxiliary chars: (. , y)
