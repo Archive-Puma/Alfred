@@ -5,9 +5,6 @@
         <link rel="stylesheet" type="text/css" href="css/litegraph.css">
         
         <script type="text/javascript" src="js/engine/litegraph.js"></script>
-        <script type="text/javascript" src="js/nodes/basic/muestra.js"></script>
-        <script type="text/javascript" src="js/nodes/variable/texto.js"></script>
-        <script type="text/javascript" src="js/nodes/variable/numero.js"></script>
 
         <style>
             html, body {
@@ -21,13 +18,14 @@
     </head>
     <body>
         <canvas id='graphcanvas'></canvas>
-        <script>
-            LiteGraph.debug = true;
-        
-            let graph = new LGraph();
-            let canvas = new LGraphCanvas("#graphcanvas", graph);
-            canvas.resize(1920,1080);
-            graph.start();
-        </script>
+
+        <script type="text/javascript" src="js/engine/initialize.js"></script>
+
+        <script type="text/javascript" src="js/nodes/basic/alfred.js"></script>
+        <script type="text/javascript" src="js/nodes/basic/muestra.js"></script>
+        <script type="text/javascript" src="js/nodes/variable/texto.js"></script>
+        <script type="text/javascript" src="js/nodes/variable/numero.js"></script>
+
+        <script type="text/javascript" src="js/nodes/default.js"></script>
     </body>    
 </html>

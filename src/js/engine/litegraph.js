@@ -8497,6 +8497,14 @@ LGraphNode.prototype.executeAction = function(action)
         }
 
         function inner_create(v, e) {
+            // CUSTOM: Avoid duplicate key nodes (Alfred, Fin...)
+            if(v.content === "Alfred")
+            {
+                for(let node of global.graph._nodes) {
+                    if(node.title === v.content) { return ; }
+                }
+            }
+            // --- end custom
             var first_event = prev_menu.getFirstEvent();
             var node = LiteGraph.createNode(v.value);
             if (node) {
