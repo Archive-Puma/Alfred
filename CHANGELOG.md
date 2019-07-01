@@ -4,6 +4,8 @@
 ##### July 1st, 2019
 
 ###### Updates
+- [x] Añadido nuevo nodo: API/¿He sido hackeado?
+
 - [x] Añadido nuevo nodo: Control/Siempre
 - [x] Añadido nuevo nodo: Operación/Matemáticas
 - [x] Añadido nuevo nodo: Operación/Comparar
