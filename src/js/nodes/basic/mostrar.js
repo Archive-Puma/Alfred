@@ -1,22 +1,22 @@
-function Muestra() {
+function Mostrar() {
     this.size = [60, 20];
     this.value = "";
     this.addInput("Texto", "", { label: "" });
 }
 
-Muestra.title = "Muestra";
-Muestra.desc = "Muestra el valor de la entrada";
+Mostrar.title = "Mostrar";
+Mostrar.desc = "Muestra el valor de la entrada";
 
-Muestra.prototype.onExecute = function() {
+Mostrar.prototype.onExecute = function() {
     if (this.inputs[0]) { this.value = this.getInputData(0); }
 }
 
-Muestra.prototype.getTitle = function() {
+Mostrar.prototype.getTitle = function() {
     if (this.flags.collapsed) { return this.inputs[0].label; }
     return this.title;
 }
 
-Muestra.toString = function(o) {
+Mostrar.toString = function(o) {
     if (o == null) {
         return "- -";
     } else if (o.constructor === Number) {
@@ -27,7 +27,7 @@ Muestra.toString = function(o) {
     } else if (o.constructor === Array) {
         var str = "[";
         for (var i = 0; i < o.length; ++i) {
-            str += Muestra.toString(o[i]) + (i + 1 != o.length ? "," : "");
+            str += Mostrar.toString(o[i]) + (i + 1 != o.length ? "," : "");
         }
         str += "]";
         return str;
@@ -45,8 +45,8 @@ Muestra.toString = function(o) {
     }
 }
 
-Muestra.prototype.onDrawBackground = function(ctx) {
-    this.inputs[0].label = Muestra.toString(this.value);
+Mostrar.prototype.onDrawBackground = function(ctx) {
+    this.inputs[0].label = Mostrar.toString(this.value);
 }
 
-LiteGraph.registerNodeType("Básico/Muestra", Muestra);
+LiteGraph.registerNodeType("Básico/Mostrar", Mostrar);
