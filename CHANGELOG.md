@@ -1,5 +1,17 @@
 # :chart_with_upwards_trend: CHANGELOG
 ---
+### 1.0.0.dev3
+##### July 1st, 2019
+
+###### Updates
+- [x] Cambios de ES6 a ES5: let/const -> var, for of -> for in, ** -> Math.pow
+- [x] Los nodos por defecto pasan a ser parte de la carpeta engine
+- [x] Archivos JS, CSS y HTML concatenados y minificados
+- [x] Añadido Gulp al flujo de desarrollo
+
+###### Issues
+- [x] Corregido nodo de salida Resultado del nodo Operación/Comparar
+
 ### 1.0.0.dev2
 ##### July 1st, 2019
 

@@ -25,8 +25,8 @@ Matematicas.prototype.getTitle = function()
 
 Matematicas.prototype.onAction = function()
 {
-    let A = this.getInputData(1);
-    let B = this.getInputData(2);
+    var A = this.getInputData(1);
+    var B = this.getInputData(2);
     if(A !== undefined && B !== undefined &&
         A.constructor === Number && B.constructor === Number) {
         switch(this.op.value)
@@ -35,8 +35,8 @@ Matematicas.prototype.onAction = function()
             case "-": this.setOutputData(1, A - B); break;
             case "*": this.setOutputData(1, A * B); break;
             case "/": this.setOutputData(1, A / B); break;
-            case "^": this.setOutputData(1, A ** B); break;
             case "%": this.setOutputData(1, A % B); break;
+            case "^": this.setOutputData(1, Math.pow(A,B)); break;
         }
         this.triggerSlot(0, "matematicas");
     } else { this.setOutputData(1, undefined); }

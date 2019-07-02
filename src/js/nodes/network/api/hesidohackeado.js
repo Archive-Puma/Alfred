@@ -21,7 +21,7 @@ HeSidoHackeado.desc = "Comprueba si un email ha sido hackeado mediante HIBP";
 
 HeSidoHackeado.prototype.onAction = function()
 {
-    let input_email = this.getInputData(1);
+    var input_email = this.getInputData(1);
     if(input_email !== undefined) {
         this.email_widget.value = input_email;
     }
@@ -35,16 +35,16 @@ HeSidoHackeado.prototype.onAction = function()
 
 HeSidoHackeado.prototype.checkEmail = function()
 {
-    let that = this;
-    let good_request = false;
-    let email = this.email_widget.value;
-    let xmlHttp = new XMLHttpRequest();
+    var that = this;
+    var good_request = false;
+    var email = this.email_widget.value;
+    var xmlHttp = new XMLHttpRequest();
     xmlHttp.open("GET", this.API.concat(email), true);
     xmlHttp.onloadend = function() {
         if(xmlHttp.readyState === 4 && xmlHttp.status === 200) {
             accounts = [];
             data = JSON.parse(xmlHttp.responseText);
-            for(let service of data) { accounts.push(service.Name); }
+            for(var index in data) { accounts.push(data[index].Name); }
             response = { result: true, accounts: accounts };
             good_request = true;
         } else if(xmlHttp.status === 404) {

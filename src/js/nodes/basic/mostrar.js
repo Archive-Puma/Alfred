@@ -33,7 +33,7 @@ Mostrar.toString = function(o) {
         return str;
     } else if (o.constructor === Object)
     {
-        let json = JSON.stringify(o);
+        var json = JSON.stringify(o);
         if (json.length > 100)
         {
             console.log(o);

@@ -8500,8 +8500,8 @@ LGraphNode.prototype.executeAction = function(action)
             // CUSTOM: Avoid duplicate key nodes (Alfred, Fin...)
             if(v.content === "Alfred")
             {
-                for(let node of global.graph._nodes) {
-                    if(node.title === v.content) { return ; }
+                for (var index in global.graph._nodes) {
+                    if(global.graph._nodes[index].title === v.content) { return; }
                 }
             }
             // --- end custom

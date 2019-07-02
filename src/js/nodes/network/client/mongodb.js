@@ -1,6 +1,8 @@
-if(process.versions.electron)
+if(typeof(process) !== "undefined"
+    && typeof(process.versions) !== "undefined"
+        && typeof(process.versions.electron) !== "undefined")
 {
-    const mongodb = require("mongojs");
+    var mongodb = require("mongojs");
 
     function MongoDB() {
         this.size = [60, 20];
@@ -57,11 +59,11 @@ if(process.versions.electron)
             return;
         }
     
-        let that = this;
+        var that = this;
         this.db = mongodb(this.properties["URI"], [ this.properties["coleccion"] ]);
         this.db[this.properties["coleccion"]].find(function(err, docs)
         {
-            let index = that.properties["documento"];
+            var index = that.properties["documento"];
             if(err || index >= docs.length) { that.setOutputData(1, []); }
             else { that.setOutputData(1, docs[index]); }
         });

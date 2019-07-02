@@ -17,7 +17,7 @@ function createWindow () {
   })
   mainWindow.setMenu(null);
 
-  mainWindow.loadURL(`file://${__dirname}/index.html`)
+  mainWindow.loadURL(`file://${__dirname}/../build/index.html`)
 
   mainWindow.webContents.openDevTools()
 
