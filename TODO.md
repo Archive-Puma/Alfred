@@ -8,6 +8,9 @@
 ####### Instrucciones:
 
 ####### Nodos:
+- Dweet
+- VirusTotal
+- Scrapper (LinkedIn, Facebook...)
 
 ####### Distribución:
 
