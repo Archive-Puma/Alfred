@@ -1,7 +1,15 @@
 # :chart_with_upwards_trend: CHANGELOG
 ---
 ### 1.0.0.dev3
-##### July 1st, 2019
+##### July 2nd, 2019
+
+###### Updates
+- [x] Añadido nuevo nodo: Control/Unión
+- [x] Nodo remodelado: Básico/Variable
+
+###### Issues
+
+##### July 2nd, 2019
 
 ###### Updates
 - [x] Cambios de ES6 a ES5: let/const -> var, for of -> for in, ** -> Math.pow

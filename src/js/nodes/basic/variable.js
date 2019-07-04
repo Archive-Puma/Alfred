@@ -1,5 +1,12 @@
 function Variable()
 {
+    this.nombre_widget = this.addWidget(
+        "text",
+        "Nombre",
+        "",
+        function() {}
+    );
+
     this.addInput("", LiteGraph.ACTION);
     this.addInput("Nombre", "");
     this.addInput("Valor", 0);
@@ -23,10 +30,15 @@ Variable.prototype.onAction = function()
     var input_nombre = this.getInputData(1);
     var input_value = this.getInputData(2);
 
-    if(input_nombre && input_value !== undefined) {
-        variables_table[input_nombre] = input_value; }
-    if(input_nombre && variables_table[input_nombre] !== undefined) {
-        this.setOutputData(1, variables_table[input_nombre]);
+    if(input_nombre !== undefined && input_nombre.constructor === String) {
+        this.nombre_widget.value = input_nombre; }
+    var nombre = this.nombre_widget.value;
+    if(nombre === undefined || nombre.constructor !== String || nombre === "") {
+        return; }
+    if(input_value !== undefined) {
+        variables_table[nombre] = input_value; }
+    if(variables_table[nombre] !== undefined) {
+        this.setOutputData(1, variables_table[nombre]);
         this.triggerSlot(0, "variable");
     }
 }
