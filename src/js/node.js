@@ -55,7 +55,7 @@ function Node(position)
 
 function createStartNode()
 {
-    var position = createVector(100,100);
+    var position = createVector(56,111);
     var node = new Node(position);
     node.code = "Inicio";
     node.show = function()
