@@ -48,7 +48,24 @@ function Node(position)
             fill(this.color.text);
             text(this.code, this.position.x, this.position.y - this.radius * 1.1);
         }
+
+        if(this.show) { this.show(); }
     }
+}
+
+function createStartNode()
+{
+    var position = createVector(100,100);
+    var node = new Node(position);
+    node.code = "Inicio";
+    node.show = function()
+    {
+        fill(255);
+        noStroke();
+        ellipse(this.position.x, this.position.y,
+            this.radius / 2.5, this.radius / 2.5);
+    }
+    appendNode(node);
 }
 
 function createNode(x,y)
@@ -59,7 +76,31 @@ function createNode(x,y)
     node.writing = true;
     node.selected = true;
     SelectedNode = node;
+    appendNode(node);
+}
+
+function appendNode(node)
+{
+    node.id = Nodes.length === 0 ? 0 : Nodes[Nodes.length - 1].id + 1;
     Nodes.push(node);
+    console.log(Nodes);
+}
+
+function binaryGetNode(id)
+{
+    var wanted;
+    var min = 0;
+    var max = Nodes.length - 1;
+    while(!wanted && min <= max)
+    {
+        var mid = Math.floor((max + min) / 2);
+        var node = Nodes[mid];
+        if(node.id === id) { wanted = node; }
+        else if(node.id > id) { max = mid - 1; }
+        else { min = mid + 1; }
+    }
+    
+    return wanted;
 }
 
 function releaseNode()

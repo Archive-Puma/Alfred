@@ -18,10 +18,19 @@ function mousePressed()
     if(item)
     {
         if(SelectedNode === item)  { SelectedNode.writing = true; }
-        else { releaseNode(); SelectedNode = item; }
+        else {
+            if(keyIsDown(SHIFT)) { Links.push(new Link(SelectedNode, item)); }
+            releaseNode();
+            SelectedNode = item;
+        }
     } else {
         if(SelectedNode) {
-            releaseNode();
+            if(keyIsDown(SHIFT))
+            {
+                var node = SelectedNode;
+                createNode(mouseX, mouseY);
+                Links.push(new Link(node, SelectedNode));
+            } else { releaseNode(); }
         } else {
             if(dist(mouseX,mouseY,lastClick.x, lastClick.y) < 1)
             {
@@ -39,10 +48,6 @@ function mouseDragged()
     {
         SelectedNode.position = createVector(mouseX, mouseY);
     }
-}
-
-function mouseReleased()
-{
 }
 
 function keyReleased()
