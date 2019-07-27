@@ -74,12 +74,24 @@ function keyReleased()
 
         if(lowerkey === "delete")
         {
-            var index = Nodes.indexOf(SelectedNode);
+            var node = SelectedNode;
+            var index = Nodes.indexOf(node);
             if(index !== -1)
             {
                 releaseNode();
                 lastClick = createVector(-1,-1);
                 Nodes.splice(index, 1);
+
+                var i = 0;
+                while(i < Links.length)
+                {
+                    var link = Links[i];
+                    if(link.from.id === node.id ||
+                        link.to.id === node.id)
+                    {
+                        Links.splice(i, 1);
+                    } else { i++; }
+                }
             }
         }
     } 
