@@ -13,58 +13,109 @@
        General
    =============== */
 * {
-    box-sizing: border-box;
+    color: #CECDD5;
 }
+
 body {
+    margin: 0;
     font-family: "Roboto", sans-serif;
-    background: $gray-light;
+    background-color: $rare-background;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100%;
     height: 100%;
-    margin: 0 auto;
-}
 
-/* ===============
-      Side Menu
-   =============== */
-#sidemenu {
-    background: $purple-light;
-    width: 250px;
-    position: absolute;
-    top: 0;
-    bottom: 0;
+    .app-container {
+        position: relative;
+        margin: 0 auto;
+        display: block;
+        width: 98%;
+        height: 98%;
+        overflow: none;
+        background-color: $blue-smoothdark;
+        border-radius: 25px;
 
-    nav {
-        padding-top: 100px;
+        .menu-container {
+            width: 250px;
+            height: 100%;
+            margin-top: 0;
+            margin-left: 0;
+            background: $blue-smotherdark;
+            border-top-left-radius: 25px;
+            border-radius: 25px 0 0 25px;
 
-        a {
-            color: $gray-dark;
-            display: block;
-            text-decoration: none;
-            padding: 15px 30px;
-            transition: all 0.3s ease-in-out;
+            .title {
+                height: 100px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 25px;
+                font-weight: 900;
+                border-bottom: 1px solid #CECDD5;
+            } // title
 
-            &.active {
-                background: $purple-dark;
-                border-left: 5px solid $green-neon;
-                padding: 15px 30px 15px 35px;
-            }
-            
-            &:hover {
-                background: $green-neon;
-                padding: 15px 30px 15px 35px;
-            }
-        }
-    }
-}
+            .element-container {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
 
-/* ===============
-      Side Menu
-   =============== */
-#optionmenu {
-    background: $purple-light;
-    width: 200px;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    right: 0;
-}
+                height: 40%;
+                background-color: $purple-dark;
+                border-bottom: 1px solid #CECDD5;
+
+                .menu {
+                    padding: 3px 0 3px 20px;
+                    width: calc(100% - 20px);
+                    
+                    border-bottom: 1px solid $gray-dark;
+
+                    &#first {
+                        border-top: 1px solid $gray-dark;
+                    }
+
+                    &:hover {
+                        background-color: $granate-normal;
+                    }
+                    
+                    label {
+                        font-size: 20px;
+                        width: 100%;
+                    }
+
+                    input {
+                        display: none;
+
+                        &:checked ~ .menu-content {
+                            max-height: 100%;
+                        } // :checked
+
+                    } // input
+
+                    .menu-content {
+                        max-height: 0;
+                        overflow: hidden;
+                        display: flex;
+                        flex-direction: column;
+
+                        ul {
+                            padding-left: 10px;
+                            list-style: none;
+                        } // ul
+
+                    } // menu-content
+
+                } // menu
+
+            } // element-container
+
+        } // menu-container
+
+    } // app-container
+
+} // body
+
+
+
+// https://dribbble.com/shots/7594418-Web-Platform-Car-diagnostics

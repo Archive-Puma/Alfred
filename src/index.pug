@@ -3,18 +3,29 @@ html(lang='es')
     head
         title Alfred!
         link(rel="stylesheet" href="css/style.css")
-        link(rel="stylesheet" href="assets/icons/icomoon.css")
     body
-        section#sidemenu
-            nav
-                a.active(href="#") Item
-                a(href="#") Item
-                a(href="#") Item
-                a(href="#") Item
-        section#optionmenu
-        div
-            canvas#canvas(width="200" height="100")
-        header
+        .app-container
+            .menu-container
+                .title LOGO
+                .element-container                
+                    .menu#first
+                        input#menu(type="checkbox")
+                        label(for="menu") Ataque
+                        .menu-content
+                            ul
+                                li Bruteforce
+                                li Exploit
+                                li SQL Injection
+                    .menu
+                        input#recon(type="checkbox")
+                        label(for="recon") Reconocimiento
+                        .menu-content
+                            ul
+                                li Harverster
+                                li Escaneo de CMS
+                                li Escaneo de Puertos
+            .options-container
+            .canvas-container
 
         script(src="js/canvas.js")
 // https://www.youtube.com/watch?v=q3Wb_7Ec7dw
