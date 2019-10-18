@@ -1,0 +1,70 @@
+/* ===============
+       Imports
+   =============== */
+@import 'fonts';
+@import 'palette';
+
+/* ===============
+        Fonts
+   =============== */
+@include font('Roboto', '../assets/fonts/Roboto');
+
+/* ===============
+       General
+   =============== */
+* {
+    box-sizing: border-box;
+}
+body {
+    font-family: "Roboto", sans-serif;
+    background: $gray-light;
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+}
+
+/* ===============
+      Side Menu
+   =============== */
+#sidemenu {
+    background: $purple-light;
+    width: 250px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+
+    nav {
+        padding-top: 100px;
+
+        a {
+            color: $gray-dark;
+            display: block;
+            text-decoration: none;
+            padding: 15px 30px;
+            transition: all 0.3s ease-in-out;
+
+            &.active {
+                background: $purple-dark;
+                border-left: 5px solid $green-neon;
+                padding: 15px 30px 15px 35px;
+            }
+            
+            &:hover {
+                background: $green-neon;
+                padding: 15px 30px 15px 35px;
+            }
+        }
+    }
+}
+
+/* ===============
+      Side Menu
+   =============== */
+#optionmenu {
+    background: $purple-light;
+    width: 200px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+}
