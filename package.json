@@ -1,0 +1,32 @@
+{
+  "name": "alfred-lang-frontend",
+  "version": "1.0.0",
+  "description": "Alfred Language Frontend",
+  "main": " ",
+  "scripts": {
+    "compile": "grunt compile"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cosasdepuma/alfred.git"
+  },
+  "keywords": [
+    "alfred",
+    "visual-programming",
+    "alfred-lang"
+  ],
+  "author": "Kike Fontan (@CosasDePuma)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cosasdepuma/alfred/issues"
+  },
+  "homepage": "https://github.com/cosasdepuma/alfred#readme",
+  "devDependencies": {
+    "grunt": "^1.0.4",
+    "grunt-contrib-coffee": "^2.1.0",
+    "grunt-contrib-concat": "^1.0.1",
+    "grunt-contrib-pug": "^2.0.0",
+    "grunt-contrib-sass": "^1.0.0",
+    "grunt-contrib-uglify": "^4.0.1"
+  }
+}
