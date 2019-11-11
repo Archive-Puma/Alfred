@@ -29,6 +29,21 @@ Arguments:
         # Default argument values
         @to = to or undefined
 
+### Methods
+
+| Name | Arguments | Return | Description |
+| --- | --- | --- | --- |
+| removePath | [object] event | [boolean] `false` | Create a new path from the selected output |
+
+        removePath = (event) ->
+            # Prevent defaults
+            event.preventDefault()
+            # Destroy the path
+            $.destroy()
+            # Return (prevent defaults)
+            event.stopPropagation()
+            false
+
 ### Variables
 
 | Name | Type | Description |
@@ -46,6 +61,7 @@ Arguments:
                 y: 0
         # DOM Element
         @dom = document.createElementNS context.ns, 'path'
+        @dom.onclick = removePath
         @updateCoordinatesBetweenNodes().updateRoute()
         context.appendChild @dom
 
