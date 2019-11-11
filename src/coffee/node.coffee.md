@@ -8,7 +8,7 @@ A `Node` is an entity that contains all the information of a `Task`.
 2. [Methods](#Methods)
 3. [Variables](#Variables)
 4. [Return](#Return)
-5. [Prototype](#Prototype)
+5. [Prototype](#🤖-Prototype)
 
 ## 🏷️ Definition
 ---
