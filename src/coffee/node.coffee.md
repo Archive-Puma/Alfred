@@ -25,7 +25,9 @@ Arguments:
 | pos | object | `{ x: 0, y: 0 }` | Position of the visual DOM element |
 
     Node = (@icon, pos) ->
+        # 'this' nickname
         $ = @
+        # Default argument values
         @pos = pos or
             x: 0
             y: 0
@@ -37,8 +39,11 @@ Arguments:
 | drag | [object] event | [boolean] `false` | Start the drag event. |
 
         drag = (event) ->
+            # Prevent defaults
             event.preventDefault()
+            # Update the Z-Index of the selected Node
             $.dom.style.zIndex = Nodes.length + 10;
+            # Update the last position of the Node
             $.ppos =
                 x: event.clientX
                 y: event.clientY
@@ -53,12 +58,13 @@ Arguments:
 | move | [object] event | [boolean] `false` | Update the position of the Node in a smooth way using the mouse coordinates as a reference. |
 
         move = (event) ->
+            # Prevent defaults
             event.preventDefault()
             # Calculate the new position in a smooth way
             $.pos =
                 x: $.ppos.x - event.clientX
                 y: $.ppos.y - event.clientY
-            # Update the last position
+            # Update the last position of the Node
             $.ppos =
                 x: event.clientX
                 y: event.clientY
@@ -67,13 +73,18 @@ Arguments:
             $.dom.style.top = ($.dom.offsetTop - $.pos.y) + 'px'
             # Update inputs
             for path in $.inputs
+                # Calculate and update the new path
                 route = path.getAttribute('d').split(" L ")[0] + " L " + $.dom.offsetLeft + " " + ($.dom.offsetTop + $.dom.offsetHeight/2)
                 path.setAttribute('d', route)
             # Update outputs (FIXME pls)
             for out in $.outputs
-                pos = out.getCoordinates()
-                route = "M " + pos.x + " " + pos.y + " L " + out.path.getAttribute('d').split(" L ")[1] if out.path
-                out.path.setAttribute('d', route) if route and out.path
+                # Check if output and path exist
+                if out and out.path
+                    # Get the output coordinates
+                    pos = out.getCoordinates()
+                    # Calculate and update the new path
+                    route = "M " + pos.x + " " + pos.y + " L " + out.path.getAttribute('d').split(" L ")[1]
+                    out.path.setAttribute('d', route)
             # Return (prevent defaults)
             event.stopPropagation()
             false
@@ -83,23 +94,31 @@ Arguments:
 | undrag | [object] event | [boolean] `false` | End the drag event and update the visual layout of the layers. |
 
         undrag = (event) ->
+            # Prevent defaults
             event.preventDefault()
+            # Unset the canvas events
             canvas.onmouseup = null
             canvas.onmousemove = null
+            # Update the Z-Index of the selected Node
             $.dom.style.zIndex = 9
+            # Reorder nodes by Z-Index
             Nodes = reorderByZIndex Nodes
             node.dom.style.zIndex = index + 10 for node, index in Nodes
-            # Return (rpevent defaults)
+            # Return (prevent defaults)
             false
 
 ### Variables
 
 | Name | Type | Description |
 | --- | --- | --- |
-| ppos | object | The las position of the DOM element |
+| ppos | object | The last position of the DOM element |
 | dom | object | The DOM element |
+| inputs | object | All the input paths |
+| outputs | object | All the output slots |
 
+        # Last position
         @ppos = @pos
+        # Slot variables
         @inputs = []
         @outputs = []
         # DOM Element
@@ -110,26 +129,34 @@ Arguments:
 
 ### Return
 
-It is necessary for the class to return itself to concatenate functions.
+| Name | Type | Description |
+| --- | --- | --- |
+| `this` | object | It is necessary for the class to return itself to concatenate functions. |
 
         @
 
 ## 🤖 Prototype
 ---
 
+    Node.prototype =
+
 | Name | Arguments | Return | Description |
 | --- | --- | --- | --- |
-| show | | [object] `this` | Append the DOM element to the canvas |
+| show | [void] | [object] `this` | Append the DOM element to the canvas |
 
-    Node.prototype =
+    
         show: () ->
+            # Append the Node to the Canvas
             canvas.appendChild @dom
+            # Return itself to concatenate functions
             @
 
 | Name | Arguments | Return | Description |
 | --- | --- | --- | --- |
-| appendOutput |  | [object] `this` | Append an output `Slot` to the `Node` |
+| appendOutput | [void] | [object] `this` | Append an output slot to the `Node` |
 
         appendOutput: () ->
+            # Append an Output to the Node
             @outputs.push new Output @
+            # Return itself to concatenate functions
             @
