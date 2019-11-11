@@ -26,7 +26,7 @@ module.exports = function(grunt) {
                     noSourceMap: true,
                     style: 'compressed'
                 },
-                files: { 'dist/css/alfred.min.css': 'src/sass/node-editor.sass' }
+                files: { 'dist/css/alfred.min.css': ['src/sass/node-editor.sass'] }
             }
         },
         coffee:
