@@ -7,6 +7,8 @@ An `Output Slot` is an entity that allows connect different `Nodes`.
 1. [Constructor](#Constructor)
 2. [Methods](#Methods)
 3. [Variables](#Variables)
+4. [Return](#Return)
+5. [Prototype](#Prototype)
 
 ## 🏷️ Definition
 ---
@@ -32,10 +34,7 @@ Special type of subroutine called to create an `Object`.
             event.preventDefault()
             detachPath $.path if $.path
             # Create the new path
-            start =
-                x: $.dom.offsetParent.offsetLeft + $.dom.offsetParent.offsetWidth + $.dom.offsetWidth / 2
-                y: $.dom.offsetParent.offsetTop + $.dom.offsetParent.offsetHeight / 2
-            route = calculatePath start,
+            route = calculatePath $.getCoordinates(),
                 x: event.pageX
                 y: event.pageY
             $.path = document.createElementNS context.ns, 'path'
@@ -51,10 +50,7 @@ Special type of subroutine called to create an `Object`.
         recalculatePath = (event) ->
             event.preventDefault()
             # If there is no path, creates a new one
-            start =
-                x: $.dom.offsetParent.offsetLeft + $.dom.offsetParent.offsetWidth + $.dom.offsetWidth
-                y: $.dom.offsetParent.offsetTop + $.dom.offsetParent.offsetHeight / 2
-            route = calculatePath start,
+            route = calculatePath $.getCoordinates(),
                     x: event.pageX
                     y: event.pageY
             $.path.setAttribute('d', route)
@@ -71,7 +67,9 @@ Special type of subroutine called to create an `Object`.
                 x: event.pageX
                 y: event.pageY
             if hoverNode
-                console.log("Hi")
+                $.path.setAttribute 'd', calculatePath $.getCoordinates(),
+                    x: hoverNode.dom.offsetLeft
+                    y: hoverNode.dom.offsetTop + hoverNode.dom.offsetHeight / 2
             else detachPath $.path
             # Return (prevent defaults)
             false
@@ -89,3 +87,15 @@ Special type of subroutine called to create an `Object`.
 ### Return
 
         @
+
+## 🤖 Prototype
+---
+
+| Name | Arguments | Return | Description |
+| --- | --- | --- | --- |
+| show | | [object] `this` | Append the DOM element to the canvas |
+
+    Output.prototype =
+        getCoordinates: () ->
+            x: @dom.offsetParent.offsetLeft + @dom.offsetParent.offsetWidth + @dom.offsetWidth
+            y: @dom.offsetParent.offsetTop + @dom.offsetParent.offsetHeight / 2
