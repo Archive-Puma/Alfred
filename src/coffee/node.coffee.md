@@ -69,6 +69,11 @@ Arguments:
             for path in $.inputs
                 route = path.getAttribute('d').split(" L ")[0] + " L " + $.dom.offsetLeft + " " + ($.dom.offsetTop + $.dom.offsetHeight/2)
                 path.setAttribute('d', route)
+            # Update outputs (FIXME pls)
+            for out in $.outputs
+                pos = out.getCoordinates()
+                route = "M " + pos.x + " " + pos.y + " L " + out.path.getAttribute('d').split(" L ")[1] if out.path
+                out.path.setAttribute('d', route) if route and out.path
             # Return (prevent defaults)
             event.stopPropagation()
             false
@@ -96,6 +101,7 @@ Arguments:
 
         @ppos = @pos
         @inputs = []
+        @outputs = []
         # DOM Element
         @dom = document.createElement 'div'
         @dom.classList.add 'node', 'fas', 'fa-' + @icon
@@ -125,5 +131,5 @@ It is necessary for the class to return itself to concatenate functions.
 | appendOutput |  | [object] `this` | Append an output `Slot` to the `Node` |
 
         appendOutput: () ->
-            new Output @
+            @outputs.push new Output @
             @
