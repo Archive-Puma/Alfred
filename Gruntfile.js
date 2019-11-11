@@ -2,6 +2,14 @@ module.exports = function(grunt) {
     // Project configuration.
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
+        watch:
+        {
+            dev:
+            {
+                files: [ 'src/**/*' ],
+                tasks: ['pug','sass','concat:coffee','coffee','uglify:js'],
+            }
+        },
         pug:
         {
             compile:
@@ -56,11 +64,13 @@ module.exports = function(grunt) {
         }
     });
 
+    grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-pug');
     grunt.loadNpmTasks('grunt-contrib-sass');
     grunt.loadNpmTasks('grunt-contrib-coffee');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-uglify');
 
+    grunt.registerTask('dev', ['watch:dev']);
     grunt.registerTask('compile', ['pug','sass', 'concat:coffee', 'coffee', 'uglify:js']);
 };
