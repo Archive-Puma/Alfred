@@ -17,7 +17,7 @@ An `Output Slot` is an entity that allows connect different `Nodes`.
 
 Special type of subroutine called to create an `Object`.
 
-    Output = () ->
+    Output = (@parent) ->
         $ = @
 
 ### Methods
@@ -70,9 +70,11 @@ Special type of subroutine called to create an `Object`.
                 $.path.setAttribute 'd', calculatePath $.getCoordinates(),
                     x: hoverNode.dom.offsetLeft
                     y: hoverNode.dom.offsetTop + hoverNode.dom.offsetHeight / 2
+                hoverNode.inputs.push($.path)
             else detachPath $.path
             # Return (prevent defaults)
             false
+
 ### Variables
 
 | Name | Type | Description |
@@ -83,6 +85,7 @@ Special type of subroutine called to create an `Object`.
         @dom = document.createElement 'div'
         @dom.classList.add 'output'
         @dom.onmousedown = createPath
+        @parent.dom.appendChild @dom
 
 ### Return
 

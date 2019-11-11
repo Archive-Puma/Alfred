@@ -23,7 +23,6 @@ Related to:
         Nodes.sort(comparator)
 
     getHoverNode = (mouse) ->
-        # FIXME
         hoverNode = undefined
         index = Nodes.length
         while not hoverNode and index isnt 0

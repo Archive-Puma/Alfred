@@ -65,6 +65,10 @@ Arguments:
             # Update the position of the DOM element
             $.dom.style.left = ($.dom.offsetLeft - $.pos.x) + 'px'
             $.dom.style.top = ($.dom.offsetTop - $.pos.y) + 'px'
+            # Update inputs
+            for path in $.inputs
+                route = path.getAttribute('d').split(" L ")[0] + " L " + $.dom.offsetLeft + " " + ($.dom.offsetTop + $.dom.offsetHeight/2)
+                path.setAttribute('d', route)
             # Return (prevent defaults)
             event.stopPropagation()
             false
@@ -91,6 +95,7 @@ Arguments:
 | dom | object | The DOM element |
 
         @ppos = @pos
+        @inputs = []
         # DOM Element
         @dom = document.createElement 'div'
         @dom.classList.add 'node', 'fas', 'fa-' + @icon
@@ -120,6 +125,5 @@ It is necessary for the class to return itself to concatenate functions.
 | appendOutput |  | [object] `this` | Append an output `Slot` to the `Node` |
 
         appendOutput: () ->
-            output = new Output
-            @dom.appendChild output.dom
+            new Output @
             @
