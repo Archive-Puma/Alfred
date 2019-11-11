@@ -8,7 +8,7 @@ An `Output Slot` is an entity that allows connect different `Nodes`.
 2. [Methods](#Methods)
 3. [Variables](#Variables)
 4. [Return](#Return)
-5. [Prototype](#Prototype)
+5. [Prototype](#🤖-Prototype)
 
 ## 🏷️ Definition
 ---
@@ -17,29 +17,27 @@ An `Output Slot` is an entity that allows connect different `Nodes`.
 
 Special type of subroutine called to create an `Object`.
 
+Arguments:
+
+| Name | Type | Default | Description |
+| --- | --- | --- | --- |
+| parent | object | `undefined` | The parent element of the current `Output` |
+
     Output = (@parent) ->
+        # 'this' nickname
         $ = @
 
 ### Methods
 
-        detachPath = () ->
-            context.removeChild $.path
-            $.path = undefined
-
 | Name | Arguments | Return | Description |
 | --- | --- | --- | --- |
-| createPath | [object] event | [boolean] `false` | Update the position of the Node in a smooth way using the mouse coordinates as a reference. |
+| createPath | [object] event | [boolean] `false` | Create a new path from the selected output |
 
         createPath = (event) ->
+            # Prevent defaults
             event.preventDefault()
-            detachPath $.path if $.path
             # Create the new path
-            route = calculatePath $.getCoordinates(),
-                x: event.pageX
-                y: event.pageY
-            $.path = document.createElementNS context.ns, 'path'
-            $.path.setAttributeNS null, 'd', route
-            context.appendChild $.path
+            $.path = new Path $
             # Update the canvas events
             canvas.onmousemove = recalculatePath
             canvas.onmouseup = finishPath
@@ -47,32 +45,45 @@ Special type of subroutine called to create an `Object`.
             event.stopPropagation()
             false
 
+| Name | Arguments | Return | Description |
+| --- | --- | --- | --- |
+| recalculatePath | [object] event | [boolean] `false` | Update the path coordinates |
+
         recalculatePath = (event) ->
+            # Prevent defaults
             event.preventDefault()
-            # If there is no path, creates a new one
-            route = calculatePath $.getCoordinates(),
-                    x: event.pageX
-                    y: event.pageY
-            $.path.setAttribute('d', route)
+            # Update the path using the mouse coordinates
+            $.path.updateMouseCoordinates().updateRoute()
             # Return (prevent defaults)
             event.stopPropagation()
             false
 
+| Name | Arguments | Return | Description |
+| --- | --- | --- | --- |
+| finishPath | [object] event | [boolean] `false` | Connect the path to a node |
+
         finishPath = (event) ->
+            # Prevent defaults
             event.preventDefault()
             # Update the canvas events
             canvas.onmouseup = null
             canvas.onmousemove = null
+            # Get the node over the mouse
             hoverNode = getHoverNode
                 x: event.pageX
                 y: event.pageY
+            # Append path to the node if exists
             if hoverNode
-                $.path.setAttribute 'd', calculatePath $.getCoordinates(),
-                    x: hoverNode.dom.offsetLeft
-                    y: hoverNode.dom.offsetTop + hoverNode.dom.offsetHeight / 2
-                hoverNode.inputs.push($.path)
-            else detachPath $.path
+                hoverNode.inputs.push
+                    element: $
+                    path: $.path
+                $.path.to = hoverNode
+                # Update the route
+                $.path.updateCoordinatesBetweenNodes().updateRoute()
+            # Destroy the path if there is no node
+            else $.path.destroy()
             # Return (prevent defaults)
+            event.stopPropagation()
             false
 
 ### Variables
@@ -89,16 +100,21 @@ Special type of subroutine called to create an `Object`.
 
 ### Return
 
+| Name | Type | Description |
+| --- | --- | --- |
+| `this` | object | It is necessary for the class to return itself to concatenate functions. |
+
         @
 
 ## 🤖 Prototype
 ---
 
+    Output.prototype =
+
 | Name | Arguments | Return | Description |
 | --- | --- | --- | --- |
-| show | | [object] `this` | Append the DOM element to the canvas |
+| getCoordinates | [void] | [object] coordinates | Get the coordinates of the output |
 
-    Output.prototype =
         getCoordinates: () ->
             x: @dom.offsetParent.offsetLeft + @dom.offsetParent.offsetWidth + @dom.offsetWidth
             y: @dom.offsetParent.offsetTop + @dom.offsetParent.offsetHeight / 2

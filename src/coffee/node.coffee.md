@@ -71,20 +71,10 @@ Arguments:
             # Update the position of the DOM element
             $.dom.style.left = ($.dom.offsetLeft - $.pos.x) + 'px'
             $.dom.style.top = ($.dom.offsetTop - $.pos.y) + 'px'
-            # Update inputs
-            for path in $.inputs
-                # Calculate and update the new path
-                route = path.getAttribute('d').split(" L ")[0] + " L " + $.dom.offsetLeft + " " + ($.dom.offsetTop + $.dom.offsetHeight/2)
-                path.setAttribute('d', route)
-            # Update outputs (FIXME pls)
-            for out in $.outputs
-                # Check if output and path exist
-                if out and out.path
-                    # Get the output coordinates
-                    pos = out.getCoordinates()
-                    # Calculate and update the new path
-                    route = "M " + pos.x + " " + pos.y + " L " + out.path.getAttribute('d').split(" L ")[1]
-                    out.path.setAttribute('d', route)
+            # Update the inputs
+            input.path.updateCoordinatesBetweenNodes().updateRoute() for input in $.inputs
+            # Update the outputs
+            out.path.updateCoordinatesBetweenNodes().updateRoute() for out in $.outputs when out.path
             # Return (prevent defaults)
             event.stopPropagation()
             false
