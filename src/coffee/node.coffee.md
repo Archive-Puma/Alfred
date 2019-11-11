@@ -34,6 +34,22 @@ Arguments:
 
 | Name | Arguments | Return | Description |
 | --- | --- | --- | --- |
+| drag | [object] event | [boolean] `false` | Start the drag event. |
+
+        drag = (event) ->
+            event.preventDefault()
+            $.dom.style.zIndex = Nodes.length + 10;
+            $.ppos =
+                x: event.clientX
+                y: event.clientY
+            # Update the canvas events
+            canvas.onmousemove = move
+            canvas.onmouseup = undrag
+            # Return (prevent defaults)
+            false
+
+| Name | Arguments | Return | Description |
+| --- | --- | --- | --- |
 | move | [object] event | [boolean] `false` | Update the position of the Node in a smooth way using the mouse coordinates as a reference. |
 
         move = (event) ->
@@ -49,7 +65,7 @@ Arguments:
             # Update the position of the DOM element
             $.dom.style.left = ($.dom.offsetLeft - $.pos.x) + 'px'
             $.dom.style.top = ($.dom.offsetTop - $.pos.y) + 'px'
-            # Return (pevent defaults)
+            # Return (prevent defaults)
             event.stopPropagation()
             false
 
@@ -64,22 +80,7 @@ Arguments:
             $.dom.style.zIndex = 9
             Nodes = reorderByZIndex Nodes
             node.dom.style.zIndex = index + 10 for node, index in Nodes
-            # Return (pevent defaults)
-            false
-
-| Name | Arguments | Return | Description |
-| --- | --- | --- | --- |
-| drag | [object] event | [boolean] `false` | Start the drag event. |
-
-        drag = (event) ->
-            event.preventDefault()
-            $.dom.style.zIndex = Nodes.length + 10;
-            $.ppos =
-                x: event.clientX
-                y: event.clientY
-            canvas.onmousemove = move
-            canvas.onmouseup = undrag
-            # Return (pevent defaults)
+            # Return (rpevent defaults)
             false
 
 ### Variables
