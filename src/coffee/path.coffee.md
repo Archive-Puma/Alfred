@@ -59,6 +59,8 @@ Arguments:
             to:
                 x: 0
                 y: 0
+        # Add the path to the original Node
+        @from.parent.outputs.push @
         # DOM Element
         @dom = document.createElementNS context.ns, 'path'
         @dom.onclick = removePath
@@ -131,6 +133,7 @@ Arguments:
             @dom.removeAttributeNS null, 'd'
             context.removeChild @dom
             # Remove from the connected Node
+            @from.parent.outputs.splice(index, 1) for index, output in @from.parent.outputs when output = @
             @to.inputs.splice(index, 1) for index, input in @to.inputs when input.path = @ if @to
             # Remove from the output
             @from.path = undefined
