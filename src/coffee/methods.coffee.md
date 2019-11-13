@@ -41,6 +41,18 @@ Related to:
         # Return the Node if the mouse points to it
         hoverNode
 
+| Name | Arguments | Return | Description |
+| --- | --- | --- | --- |
+| getStartNodes | [void] | [object] nodes | Get all the Nodes without inputs |
+
+    getStartNodes = () ->
+        # Define the result array
+        nodes = []
+        # Iterate in order finding all the start nodes
+        nodes.push node for node in Nodes when node.inputs.length is 0
+        # Return the starting nodes
+        nodes
+
 ### Paths
 
 | Name | Arguments | Return | Description |
