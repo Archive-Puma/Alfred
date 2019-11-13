@@ -134,7 +134,7 @@ Arguments:
             context.removeChild @dom
             # Remove from the connected Node
             @from.parent.outputs.splice(index, 1) for index, output in @from.parent.outputs when output = @
-            @to.inputs.splice(index, 1) for index, input in @to.inputs when input.path = @ if @to
+            @to.inputs.splice(index, 1) for index, input in @to.inputs when input.path = @ if @to?
             # Remove from the output
             @from.path = undefined
             # Return void
