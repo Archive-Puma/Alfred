@@ -7,6 +7,7 @@ All the `global` methods **must** be defined in this file.
 Related to:
 1. [Nodes](#Nodes)
 2. [Paths](#Paths)
+3. [Canvas](#canvas)
 
 ## 🧵 Related to
 ---
@@ -61,3 +62,21 @@ Related to:
 
     calculatePath = (start, end) ->
         "M " + start.x + " " + start.y + " L " + end.x + " " + end.y
+
+### Canvas
+
+| Name | Arguments | Return | Description |
+| --- | --- | --- | --- |
+| createNewNode | [object] event | [void] | Create a new Node by double-clicking |
+
+    createNewNode = (event) ->
+        # Timeout function
+        timeout = () ->
+            canvas.doubleclick = false
+        # Check the state of the flag
+        if canvas.doubleclick
+            prompt "Implementar nuevo nodo"
+        else
+            # Set flag to true and start a timeout
+            canvas.doubleclick = true
+            setTimeout timeout, 300

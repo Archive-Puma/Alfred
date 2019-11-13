@@ -19,6 +19,12 @@ Related to:
 
     # Canvas Node Editor
     canvas = document.getElementById 'canvas'
+    # Canvas double click flag
+    canvas.doubleclick = false
+    # Canvas events
+    canvas.onclick = createNewNode
+    canvas.onmouseup = null
+    canvas.onmousemove = null
     # Canvas Context
     context = document.getElementById 'context'
     # Context Namespace

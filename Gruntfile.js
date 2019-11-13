@@ -47,8 +47,8 @@ module.exports = function(grunt) {
             {
                 dest: 'build/alfred.coffee.md',
                 src: [
-                    'src/coffee/variables.coffee.md',
                     'src/coffee/methods.coffee.md',
+                    'src/coffee/variables.coffee.md',
                     'src/coffee/path.coffee.md',
                     'src/coffee/output.coffee.md',
                     'src/coffee/node.coffee.md',
