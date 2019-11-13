@@ -82,6 +82,8 @@ Arguments:
                 $.path.updateCoordinatesBetweenNodes().updateRoute()
             # Destroy the path if there is no node
             else $.path.destroy()
+            # Remove the reference
+            $.path = undefined
             # Return (prevent defaults)
             event.stopPropagation()
             false
@@ -92,6 +94,8 @@ Arguments:
 | --- | --- | --- |
 | dom | object | The DOM element |
 
+        # Append output to the parent
+        @parent.child = @
         # DOM Element
         @dom = document.createElement 'div'
         @dom.classList.add 'output'

@@ -74,7 +74,7 @@ Arguments:
             # Update the inputs
             input.path.updateCoordinatesBetweenNodes().updateRoute() for input in $.inputs
             # Update the outputs
-            out.path.updateCoordinatesBetweenNodes().updateRoute() for out in $.outputs when out.path
+            outpath.updateCoordinatesBetweenNodes().updateRoute() for outpath in $.outputs
             # Return (prevent defaults)
             event.stopPropagation()
             false
@@ -103,12 +103,15 @@ Arguments:
 | --- | --- | --- |
 | ppos | object | The last position of the DOM element |
 | dom | object | The DOM element |
+| child | object | The output slot |
 | inputs | object | All the input paths |
-| outputs | object | All the output slots |
+| outputs | object | All the output paths |
 
         # Last position
         @ppos = @pos
-        # Slot variables
+        # The output slot
+        @child = undefined
+        # Path variables
         @inputs = []
         @outputs = []
         # DOM Element
@@ -147,6 +150,6 @@ Arguments:
 
         appendOutput: () ->
             # Append an Output to the Node
-            @outputs.push new Output @
+            new Output @
             # Return itself to concatenate functions
             @
