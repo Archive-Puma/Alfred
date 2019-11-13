@@ -54,6 +54,32 @@ Related to:
         # Return the starting nodes
         nodes
 
+| Name | Arguments | Return | Description |
+| --- | --- | --- | --- |
+| getNodesByExecution | [void] | [object] nodes | Get all the Nodes following their outputs |
+
+    getNodesByExecution = () ->
+        # Define the result array
+        index = 0
+        nodes = []
+        visited = []
+        # Get the starting nodes
+        nodes.push getStartNodes()
+        # Iterate over nodes
+        until visited.length == Nodes.length
+            # Increment index
+            last = index
+            index++
+            # Generate the new level
+            nodes[index] = []
+            for node in nodes[last]
+                # Check the visited nodes
+                visited.push node if visited.indexOf node < 0
+                # Iterate over output paths
+                nodes[index].push path.to for path in node.outputs
+        # Return the starting nodes (FIXME: Last index is useless)
+        nodes
+
 ### Paths
 
 | Name | Arguments | Return | Description |
@@ -71,8 +97,7 @@ Related to:
 
     createNewNode = (event) ->
         # Timeout function
-        timeout = () ->
-            canvas.doubleclick = false
+        timeout = () -> canvas.doubleclick = false
         # Check the state of the flag
         if canvas.doubleclick
             prompt "Implementar nuevo nodo"
@@ -80,3 +105,5 @@ Related to:
             # Set flag to true and start a timeout
             canvas.doubleclick = true
             setTimeout timeout, 300
+        # Return void
+        return
