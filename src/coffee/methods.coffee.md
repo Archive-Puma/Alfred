@@ -100,7 +100,13 @@ Related to:
         timeout = () -> canvas.doubleclick = false
         # Check the state of the flag
         if canvas.doubleclick
-            prompt "Implementar nuevo nodo"
+            hoverNode = getHoverNode
+                x: event.pageX
+                y: event.pageY
+            if not hoverNode?
+                prompt "Implementar nuevo nodo"
+            else
+                showModal()
         else
             # Set flag to true and start a timeout
             canvas.doubleclick = true

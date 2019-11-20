@@ -17,3 +17,11 @@
     Nodes.push new Node("radiation") 
     node.appendOutput().show() for node in Nodes
 
+    # Show Modal
+    showModal = () ->
+        modal = document.getElementById 'modal'
+        modal.style.bottom = '20px'
+    hideModal = () ->
+        modal = document.getElementById 'modal'
+        modal.style.bottom = '-500px'
+
