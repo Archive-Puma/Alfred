@@ -7,14 +7,14 @@ module.exports = function(grunt) {
             dev:
             {
                 files: [ 'src/**/*' ],
-                tasks: ['pug','sass','concat:coffee','coffee','uglify:js'],
+                tasks: ['concat:sass','concat:coffee','pug','sass','coffee','uglify:js'],
             }
         },
         pug:
         {
             compile:
             {
-                files: { 'dist/index.html': 'src/index.pug' }
+                files: { 'dist/index.html': 'src/pug/index.pug' }
             }
         },
         sass:
@@ -23,10 +23,11 @@ module.exports = function(grunt) {
             {
                 options:
                 {
-                    noSourceMap: true,
-                    style: 'compressed'
+                    sourcemap: 'none',
+                    style: 'compressed',
+                    noCache: true
                 },
-                files: { 'dist/css/alfred.min.css': ['src/sass/node-editor.sass'] }
+                files: { 'dist/css/alfred.min.css': 'build/alfred.sass' }
             }
         },
         coffee:
@@ -54,6 +55,16 @@ module.exports = function(grunt) {
                     'src/coffee/node.coffee.md',
                     'src/coffee/main.coffee.md'
                 ]
+            },
+            sass:
+            {
+                dest: 'build/alfred.sass',
+                src: [
+                    'src/sass/variables.sass',
+                    'src/sass/colors.sass',
+                    'src/sass/app.sass',
+                    'src/sass/node-editor.sass'
+                ]
             }
         },
         uglify:
@@ -73,5 +84,5 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-uglify');
 
     grunt.registerTask('dev', ['watch:dev']);
-    grunt.registerTask('compile', ['pug','sass', 'concat:coffee', 'coffee', 'uglify:js']);
+    grunt.registerTask('compile', ['concat:sass','concat:coffee','pug','sass','coffee','uglify:js']);
 };
