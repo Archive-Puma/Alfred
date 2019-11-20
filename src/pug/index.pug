@@ -1,3 +1,5 @@
+include includes/modal
+
 doctype html
 html
     head
@@ -7,7 +9,9 @@ html
         script(src="js/fontawesome.min.js")
         link(rel="stylesheet" href="css/alfred.min.css")
     body
-        #canvas
-            svg#context
+        include includes/canvas
+        
+        +modal
+        
         script(src="../build/alfred.js")
         // script(src="js/alfred.min.js")
