@@ -1,1 +1,2 @@
-https://codepen.io/pascaloliv/pen/LVZaeE
+https://codepen.io/pascaloliv/pen/LVZaeE (nice card style)
+https://stackoverflow.com/a/27641804 (change select arrow)
