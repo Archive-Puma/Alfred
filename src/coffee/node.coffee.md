@@ -69,7 +69,8 @@ Arguments:
                 x: event.clientX
                 y: event.clientY
             # Update the position of the DOM element
-            $.move()
+            $.dom.style.left = ($.dom.offsetLeft - $.pos.x) + 'px'
+            $.dom.style.top = ($.dom.offsetTop - $.pos.y) + 'px'
             # Update the inputs
             input.path.updateCoordinatesBetweenNodes().updateRoute() for input in $.inputs
             # Update the outputs
@@ -150,5 +151,15 @@ Arguments:
         appendOutput: () ->
             # Append an Output to the Node
             new Output @
+            # Return itself to concatenate functions
+            @
+
+| Name | Arguments | Return | Description |
+| --- | --- | --- | --- |
+| move | [void] | [object] `this` | Translate the node to the new position |
+
+        move: () ->
+            @dom.style.left = @pos.x + 'px'
+            @dom.style.top = @pos.y + 'px'
             # Return itself to concatenate functions
             @

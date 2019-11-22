@@ -151,7 +151,7 @@ Related to:
 
 | Name | Arguments | Return | Description |
 | --- | --- | --- | --- |
-| runModal_newNode | [object] event | [boolean] false | Create a new Node |
+| runModal_newNode | [object] event | [boolean] false | Model callback: Create a new Node |
 
     runModal_newNode = (event) ->
         # Prevent defaults
@@ -160,5 +160,11 @@ Related to:
         icon = switch "work"
             when 'Port Scanner' then 'radiation'
             else 'file'
+        # Create the new node
+        node = new Node icon, currentModal.opts
+        node.appendOutput().move().show()
+        Nodes.push node
+        # Hide the modal
+        hideModal currentModal.name
         # Return (prevent defaults)
         false
