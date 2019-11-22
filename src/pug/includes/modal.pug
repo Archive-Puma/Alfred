@@ -1,2 +1,14 @@
-mixin modal
-    #modal
+mixin modal(data)
+    .modal(id=data.id)
+        h2= data.title
+        form(onsubmit="runModal_" + data.id + "(event); return false")
+            each argument in data.opts
+                    label= argument.name
+                    if argument.itype == 'select'
+                        select(name=argument.name)
+                            each option in argument.options
+                                option(value=option)= option
+                    else
+                        input(type=argument.itype,name=argument.name)
+            button(type="submit") Enviar
+

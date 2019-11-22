@@ -69,8 +69,7 @@ Arguments:
                 x: event.clientX
                 y: event.clientY
             # Update the position of the DOM element
-            $.dom.style.left = ($.dom.offsetLeft - $.pos.x) + 'px'
-            $.dom.style.top = ($.dom.offsetTop - $.pos.y) + 'px'
+            $.move()
             # Update the inputs
             input.path.updateCoordinatesBetweenNodes().updateRoute() for input in $.inputs
             # Update the outputs

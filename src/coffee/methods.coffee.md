@@ -7,7 +7,8 @@ All the `global` methods **must** be defined in this file.
 Related to:
 1. [Nodes](#Nodes)
 2. [Paths](#Paths)
-3. [Canvas](#canvas)
+3. [Canvas](#Canvas)
+4. [Modals](#Modals)
 
 ## 🧵 Related to
 ---
@@ -100,16 +101,64 @@ Related to:
         timeout = () -> canvas.doubleclick = false
         # Check the state of the flag
         if canvas.doubleclick
+            # Show the needed modal
             hoverNode = getHoverNode
                 x: event.pageX
                 y: event.pageY
+            # New node
             if not hoverNode?
-                prompt "Implementar nuevo nodo"
+                currentModal =
+                    name: 'newNode'
+                    opts:
+                        x: event.pageX
+                        y: event.pageY
+                showModal currentModal.name
+            # Node options
             else
-                showModal()
+                showModal hoverNode.icon
         else
+            # Hide modal
+            hideModal currentModal.name if currentModal?
             # Set flag to true and start a timeout
             canvas.doubleclick = true
             setTimeout timeout, 300
         # Return void
         return
+    canvas.onclick = createNewNode
+
+### Modals
+
+| Name | Arguments | Return | Description |
+| --- | --- | --- | --- |
+| showModal | [string] name | [void] | Show a modal dialog |
+
+    # Show Modal
+    showModal = (name) ->
+        if name?
+            modal = document.getElementById name
+            modal.style.bottom = '20px' if modal?
+        return
+
+| Name | Arguments | Return | Description |
+| --- | --- | --- | --- |
+| hideModal | [string] name | [void] | Hide a modal dialog |
+
+    hideModal = (name) ->
+        if name?
+            modal = document.getElementById name
+            modal.style.bottom = '-500px' if modal?
+        return
+
+| Name | Arguments | Return | Description |
+| --- | --- | --- | --- |
+| runModal_newNode | [object] event | [boolean] false | Create a new Node |
+
+    runModal_newNode = (event) ->
+        # Prevent defaults
+        event.preventDefault()
+        # Choose the right icon
+        icon = switch "work"
+            when 'Port Scanner' then 'radiation'
+            else 'file'
+        # Return (prevent defaults)
+        false

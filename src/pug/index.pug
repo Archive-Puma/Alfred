@@ -10,8 +10,9 @@ html
         link(rel="stylesheet" href="css/alfred.min.css")
     body
         include includes/canvas
-        
-        +modal
+        - newNode = { id: 'newNode', title: "add node", opts: [ { 'name': 'Work name:', 'itype': 'select', 'options': ['Port Scan','Whois'] } ] }
+
+        +modal(newNode)
         
         script(src="../build/alfred.js")
         // script(src="js/alfred.min.js")

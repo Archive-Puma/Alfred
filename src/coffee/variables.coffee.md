@@ -7,6 +7,7 @@ All the `global` variables **must** be defined in this file.
 Related to:
 1. [Arrays](#Arrays)
 2. [Canvas](#Canvas)
+4. [Modals](#Modals)
 
 ## 🧵 Related to
 ---
@@ -22,10 +23,17 @@ Related to:
     # Canvas double click flag
     canvas.doubleclick = false
     # Canvas events
-    canvas.onclick = createNewNode
+    canvas.onclick = null
     canvas.onmouseup = null
     canvas.onmousemove = null
     # Canvas Context
     context = document.getElementById 'context'
     # Context Namespace
     context.ns = 'http://www.w3.org/2000/svg'
+
+### Modals
+
+    # Current visible Modal
+    currentModal =
+        name: undefined
+        opts: undefined
