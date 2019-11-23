@@ -1,2 +1,3 @@
 https://codepen.io/pascaloliv/pen/LVZaeE (nice card style)
 https://stackoverflow.com/a/27641804 (change select arrow)
+https://www.youtube.com/watch?v=627VBkAhKTc (electron+python)

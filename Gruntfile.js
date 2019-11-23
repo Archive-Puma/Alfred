@@ -6,7 +6,7 @@ module.exports = function(grunt) {
         {
             dev:
             {
-                files: [ 'src/**/*' ],
+                files: [ 'frontend/src/**/*' ],
                 tasks: ['concat:sass','concat:coffee','pug','sass','coffee','uglify:js'],
             }
         },
@@ -14,7 +14,7 @@ module.exports = function(grunt) {
         {
             compile:
             {
-                files: { 'dist/index.html': 'src/pug/index.pug' }
+                files: { 'frontend/dist/index.html': 'frontend/src/pug/index.pug' }
             }
         },
         sass:
@@ -27,7 +27,7 @@ module.exports = function(grunt) {
                     style: 'compressed',
                     noCache: true
                 },
-                files: { 'dist/css/alfred.min.css': 'build/alfred.sass' }
+                files: { 'frontend/dist/css/alfred.min.css': 'frontend/build/alfred.sass' }
             }
         },
         coffee:
@@ -39,34 +39,34 @@ module.exports = function(grunt) {
                     bare: true
                 },
                 files:
-                { 'build/alfred.js': 'build/alfred.coffee.md' }
+                { 'frontend/build/alfred.js': 'frontend/build/alfred.coffee.md' }
             }
         },
         concat:
         {
             coffee:
             {
-                dest: 'build/alfred.coffee.md',
+                dest: 'frontend/build/alfred.coffee.md',
                 src: [
-                    'src/coffee/variables.coffee.md',
-                    'src/coffee/methods.coffee.md',
-                    'src/coffee/path.coffee.md',
-                    'src/coffee/output.coffee.md',
-                    'src/coffee/node.coffee.md',
-                    'src/coffee/work2node.coffee.md',
-                    'src/coffee/main.coffee.md'
+                    'frontend/src/coffee/variables.coffee.md',
+                    'frontend/src/coffee/methods.coffee.md',
+                    'frontend/src/coffee/path.coffee.md',
+                    'frontend/src/coffee/output.coffee.md',
+                    'frontend/src/coffee/node.coffee.md',
+                    'frontend/src/coffee/work2node.coffee.md',
+                    'frontend/src/coffee/main.coffee.md'
                 ]
             },
             sass:
             {
-                dest: 'build/alfred.sass',
+                dest: 'frontend/build/alfred.sass',
                 src: [
-                    'src/sass/variables.sass',
-                    'src/sass/colors.sass',
-                    'src/sass/app.sass',
-                    'src/sass/windowbar.sass',
-                    'src/sass/modal.sass',
-                    'src/sass/node-editor.sass'
+                    'frontend/src/sass/variables.sass',
+                    'frontend/src/sass/colors.sass',
+                    'frontend/src/sass/app.sass',
+                    'frontend/src/sass/windowbar.sass',
+                    'frontend/src/sass/modal.sass',
+                    'frontend/src/sass/node-editor.sass'
                 ]
             }
         },
@@ -74,7 +74,7 @@ module.exports = function(grunt) {
         {
             js:
             {
-                files: { 'dist/js/alfred.min.js': 'build/alfred.js' }
+                files: { 'frontend/dist/js/alfred.min.js': 'frontend/build/alfred.js' }
             }
         }
     });
