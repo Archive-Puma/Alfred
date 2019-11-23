@@ -63,6 +63,8 @@ module.exports = function(grunt) {
                     'src/sass/variables.sass',
                     'src/sass/colors.sass',
                     'src/sass/app.sass',
+                    'src/sass/windowbar.sass',
+                    'src/sass/modal.sass',
                     'src/sass/node-editor.sass'
                 ]
             }
