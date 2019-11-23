@@ -10,7 +10,7 @@ html
         link(rel="stylesheet" href="css/alfred.min.css")
     body
         include includes/canvas
-        - newNode = { id: 'newNode', title: "add node", opts: [ { 'name': 'Work name:', 'itype': 'select', 'options': ['Port Scan','Whois'] } ] }
+        - newNode = { id: 'newNode', title: "add node", opts: [ { label: 'Work name', name: 'work', itype: 'select', options: ['Port Scan','Whois'] } ] }
 
         +modal(newNode)
         

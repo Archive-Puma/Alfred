@@ -153,15 +153,13 @@ Related to:
 | --- | --- | --- | --- |
 | runModal_newNode | [object] event | [boolean] false | Model callback: Create a new Node |
 
-    runModal_newNode = (event) ->
+    runModal_newNode = (event,form) ->
         # Prevent defaults
         event.preventDefault()
-        # Choose the right icon
-        icon = switch "work"
-            when 'Port Scanner' then 'radiation'
-            else 'file'
+        # Format the work name
+        name = form.work.value.toLowerCase().replace(/ /g,'-')
         # Create the new node
-        node = new Node icon, currentModal.opts
+        node = new Node name, currentModal.opts
         node.appendOutput().move().show()
         Nodes.push node
         # Hide the modal

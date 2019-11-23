@@ -21,10 +21,10 @@ Arguments:
 
 | Name | Type | Default | Description |
 | --- | --- | --- | --- |
-| icon | string | `undefined` | Icon belonging to the FontAwesome library |
+| work | string | `undefined` | Work type |
 | pos | object | `{ x: 0, y: 0 }` | Position of the visual DOM element |
 
-    Node = (@icon, pos) ->
+    Node = (@work, pos) ->
         # 'this' nickname
         $ = @
         # Default argument values
@@ -101,12 +101,18 @@ Arguments:
 
 | Name | Type | Description |
 | --- | --- | --- |
+| icon | string | `undefined` | Icon belonging to the FontAwesome library |
 | ppos | object | The last position of the DOM element |
 | dom | object | The DOM element |
 | child | object | The output slot |
 | inputs | object | All the input paths |
 | outputs | object | All the output paths |
 
+        # Icon
+        @icon = switch @work
+            when 'port-scan'    then 'sitemap'
+            when 'whois'        then 'radiation'
+            else 'file'
         # Last position
         @ppos = @pos
         # The output slot
