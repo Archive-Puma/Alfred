@@ -30,6 +30,8 @@ Related to:
     context = document.getElementById 'context'
     # Context Namespace
     context.ns = 'http://www.w3.org/2000/svg'
+    # Double click Timer
+    doubleClickTimer = 300
 
 ### Modals
 

@@ -11,9 +11,15 @@ html
     body
         // include includes/windowbar
         include includes/canvas
-        - newNode = { id: 'newNode', title: "add node", opts: [ { label: 'Work name', name: 'work', itype: 'select', options: ['Port Scan','Whois'] } ] }
 
-        +modal(newNode)
+        // Modals
+        -
+            modals = [
+                { id: 'modalNewNode', title: "Add node", opts: [ { label: 'Work name', name: 'work', itype: 'select', options: ['Port Scan','Whois'] } ] },
+                { id: 'modalPortScan', title: "Scan ports", opts: [ { label: 'IPv4', name: 'ipv4', itype: 'ipv4', options: [] } ] }
+            ]
+        each modal in modals
+            +modal(modal)
         
         script(src="../build/alfred.js")
         // script(src="js/alfred.min.js")

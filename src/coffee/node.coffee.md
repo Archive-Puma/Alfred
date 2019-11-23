@@ -47,9 +47,18 @@ Arguments:
             $.ppos =
                 x: event.clientX
                 y: event.clientY
-            # Update the canvas events
-            canvas.onmousemove = move
-            canvas.onmouseup = undrag
+            # Double click event
+            if $.doubleclicked
+                # Show the modal with the options
+                $.showModalOpts()
+            else
+                # Update the canvas events
+                canvas.onmousemove = move
+                canvas.onmouseup = undrag
+                # Update the double click event
+                $.doubleclicked = true
+                doubleclickEvent = -> $.doubleclicked = false
+                setTimeout doubleclickEvent, doubleClickTimer
             # Return (prevent defaults)
             false
 
@@ -107,12 +116,15 @@ Arguments:
 | child | object | The output slot |
 | inputs | object | All the input paths |
 | outputs | object | All the output paths |
+| doubleclicked | boolean | Double click flag | 
 
         # Icon
         @icon = switch @work
             when 'port-scan'    then 'sitemap'
             when 'whois'        then 'radiation'
             else 'file'
+        # Double clicked
+        @doubleclicked = false
         # Last position
         @ppos = @pos
         # The output slot
@@ -125,6 +137,8 @@ Arguments:
         @dom.classList.add 'node', 'fas', 'fa-' + @icon
         @dom.style.zIndex = Nodes.length + 10
         @dom.onmousedown = drag
+        # Modal
+        @modal = undefined
 
 ### Return
 
@@ -167,5 +181,29 @@ Arguments:
         move: () ->
             @dom.style.left = @pos.x + 'px'
             @dom.style.top = @pos.y + 'px'
+            # Return itself to concatenate functions
+            @
+
+| Name | Arguments | Return | Description |
+| --- | --- | --- | --- |
+| setModal | [string] name | [object] `this` | Set the linked modal |
+
+        setModal: (name) ->
+            @modal = document.getElementById "modal" + name
+            # Return itself to concatenate functions
+            @
+
+| Name | Arguments | Return | Description |
+| --- | --- | --- | --- |
+| showModalOpts | [void] | [object] `this` | Display the linked modal |
+
+        showModalOpts: () ->
+            # Hide the displayed modal
+            hideModal currentModal.name if currentModal.name?
+            # Show the modal with the options
+            currentModal =
+                name: @modal.id
+                opts: undefined
+            showModal currentModal.name
             # Return itself to concatenate functions
             @

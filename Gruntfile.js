@@ -53,6 +53,7 @@ module.exports = function(grunt) {
                     'src/coffee/path.coffee.md',
                     'src/coffee/output.coffee.md',
                     'src/coffee/node.coffee.md',
+                    'src/coffee/work2node.coffee.md',
                     'src/coffee/main.coffee.md'
                 ]
             },

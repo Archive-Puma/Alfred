@@ -1,14 +1,21 @@
 mixin modal(data)
     .modal(id=data.id)
+        // Title
         h2= data.title
-        form(onsubmit="return runModal_" + data.id + "(event,this);")
+        // Form
+        form(onsubmit="return runModal('" + data.id + "',event,this);")
+            // Options
             each argument in data.opts
-                    label= argument.label + ":"
-                    if argument.itype == 'select'
-                        select(name=argument.name)
-                            each option in argument.options
-                                option(value=option)= option
-                    else
-                        input(type=argument.itype,name=argument.name)
-            button(type="submit") Enviar
+                // Label
+                label= argument.label + ":"
+                // Input
+                if argument.itype == 'select'
+                    select(name=argument.name)
+                        each option in argument.options
+                            option(value=option)= option
+                else if argument.itype == 'ipv4'
+                    input(type="text",name=argument.name,pattern="^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$")
+                else
+                    input(type=argument.itype,name=argument.name)
+            button(type="submit") OK
 

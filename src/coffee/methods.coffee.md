@@ -108,7 +108,7 @@ Related to:
             # New node
             if not hoverNode?
                 currentModal =
-                    name: 'newNode'
+                    name: 'modalNewNode'
                     opts:
                         x: event.pageX
                         y: event.pageY
@@ -121,7 +121,7 @@ Related to:
             hideModal currentModal.name if currentModal?
             # Set flag to true and start a timeout
             canvas.doubleclick = true
-            setTimeout timeout, 300
+            setTimeout timeout, doubleClickTimer
         # Return void
         return
     canvas.onclick = createNewNode
@@ -151,17 +151,20 @@ Related to:
 
 | Name | Arguments | Return | Description |
 | --- | --- | --- | --- |
-| runModal_newNode | [object] event | [boolean] false | Model callback: Create a new Node |
+| runModal | [object] event | [boolean] false | Model callback: Create a new Node |
 
-    runModal_newNode = (event,form) ->
+    runModal = (name,event,form) ->
         # Prevent defaults
         event.preventDefault()
-        # Format the work name
-        name = form.work.value.toLowerCase().replace(/ /g,'-')
-        # Create the new node
-        node = new Node name, currentModal.opts
-        node.appendOutput().move().show()
-        Nodes.push node
+        if name is 'modalNewNode'
+            # Format the work name
+            name = form.work.value.toLowerCase().replace(/ /g,'-')
+            # Create the new node
+            node = switch name
+                when 'port-scan' then PortScan currentModal.opts
+                else new Node name, currentModal.opts
+            node.appendOutput().move().show()
+            Nodes.push node
         # Hide the modal
         hideModal currentModal.name
         # Return (prevent defaults)
