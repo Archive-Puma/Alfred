@@ -36,6 +36,36 @@ Arguments:
 
 | Name | Arguments | Return | Description |
 | --- | --- | --- | --- |
+| keepInBounds | [object] event | [void] | Check if an element is inside a Canvas and translate it to a correct position. |
+
+        keepInBounds = (event) ->
+            # Padding
+            padding = 5
+            # Checks
+            before = 
+                t: $.dom.style.top
+                l: $.dom.style.left
+            # Top
+            $.dom.style.top = ($.dom.parentElement.offsetTop + padding) + "px" if $.dom.offsetTop < $.dom.parentElement.offsetTop
+            # Bottom
+            bottom =
+                child: $.dom.offsetTop + $.dom.offsetHeight,
+                parent: $.dom.parentElement.offsetTop + $.dom.parentElement.offsetHeight
+            $.dom.style.top = (bottom.parent - $.dom.offsetHeight - padding) + "px" if bottom.child > bottom.parent
+            # Left
+            $.dom.style.left = ($.dom.parentElement.offsetLeft + padding) + "px" if $.dom.offsetLeft < $.dom.parentElement.offsetLeft
+            # Right
+            right =
+                child: $.dom.offsetLeft + $.dom.offsetWidth,
+                parent: $.dom.parentElement.offsetLeft + $.dom.parentElement.offsetWidth
+            $.dom.style.left = (right.parent - $.dom.offsetWidth - padding) + "px" if right.child > right.parent
+            # Finish drag event
+            undrag event if $.dom.style.top != before.t or $.dom.style.left != before.l
+            # Return nothing
+            return
+
+| Name | Arguments | Return | Description |
+| --- | --- | --- | --- |
 | drag | [object] event | [boolean] `false` | Start the drag event. |
 
         drag = (event) ->
@@ -78,8 +108,10 @@ Arguments:
                 x: event.clientX
                 y: event.clientY
             # Update the position of the DOM element
-            $.dom.style.left = ($.dom.offsetLeft - $.pos.x) + 'px'
             $.dom.style.top = ($.dom.offsetTop - $.pos.y) + 'px'
+            $.dom.style.left = ($.dom.offsetLeft - $.pos.x) + 'px'
+            # Keep the Node inside the Canvas
+            keepInBounds event
             # Update the inputs
             input.path.updateCoordinatesBetweenNodes().updateRoute() for input in $.inputs
             # Update the outputs

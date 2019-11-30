@@ -53,7 +53,7 @@ Arguments:
             # Prevent defaults
             event.preventDefault()
             # Update the path using the mouse coordinates
-            $.path.updateMouseCoordinates().updateRoute()
+            $.path.updateMouseCoordinates(event).updateRoute()
             # Return (prevent defaults)
             event.stopPropagation()
             false
@@ -120,5 +120,10 @@ Arguments:
 | getCoordinates | [void] | [object] coordinates | Get the coordinates of the output |
 
         getCoordinates: () ->
-            x: @dom.offsetParent.offsetLeft + @dom.offsetParent.offsetWidth + @dom.offsetWidth
-            y: @dom.offsetParent.offsetTop + @dom.offsetParent.offsetHeight / 2
+            parent = @dom.parentElement
+            # x: @dom.offsetParent.offsetLeft + @dom.offsetParent.offsetWidth + @dom.offsetWidth
+            # y: @dom.offsetParent.offsetTop + @dom.offsetParent.offsetHeight / 2
+
+            x: parent.offsetLeft + parent.offsetWidth + @dom.offsetWidth
+            y: parent.offsetTop + parent.offsetHeight / 2 - parent.parentElement.offsetTop
+            

@@ -107,8 +107,8 @@ Arguments:
             @coordinates.from = @from.getCoordinates()
             # Update the coordinates of the input
             @coordinates.to =
-                x: @to.dom.offsetLeft if @to
-                y: @to.dom.offsetTop + @to.dom.offsetHeight / 2 if @to
+                x: @to.dom.offsetLeft - @to.dom.parentElement.offsetLeft if @to
+                y: @to.dom.offsetTop + @to.dom.offsetHeight / 2 - @to.dom.parentElement.offsetTop if @to
             # Return itself to concatenate functions
             @
         
@@ -116,11 +116,11 @@ Arguments:
 | --- | --- | --- | --- |
 | updateMouseCoordinates | [object] event | [object] `this` | Create the route between a `Node` and the mouse |
     
-        updateMouseCoordinates: () ->
+        updateMouseCoordinates: (event) ->
             # Update the coordinates of the mouse
             @coordinates.to =
-                x: event.pageX
-                y: event.pageY
+                x: event.pageX - @from.parent.dom.parentElement.offsetLeft
+                y: event.pageY - @from.parent.dom.parentElement.offsetTop
             # Return itself to concatenate functions
             @
 
