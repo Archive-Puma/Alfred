@@ -1,13 +1,13 @@
 mixin modal(data)
-    .modal(id=data.id)
+    .modal.noselect(id=data.id)
         // Title
-        h2= data.title
+        h2.noselect= data.title
         // Form
         form(onsubmit="return runModal('" + data.id + "',event,this);")
             // Options
             each argument in data.opts
                 // Label
-                label= argument.label + ":"
+                label.noselect= argument.label + ":"
                 // Input
                 if argument.itype == 'select'
                     select(name=argument.name)
