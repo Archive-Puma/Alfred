@@ -1,2 +1,5 @@
-node_modules
-frontend/build
+# Files
+main.js
+# Folders
+build/
+node_modules/

@@ -5,7 +5,8 @@
   "main": "",
   "scripts": {
     "dev": "grunt dev",
-    "compile": "grunt compile"
+    "compile": "grunt compile",
+    "gui": "npm run compile && electron main.js"
   },
   "repository": {
     "type": "git",
@@ -23,6 +24,7 @@
   },
   "homepage": "https://github.com/cosasdepuma/alfred#readme",
   "devDependencies": {
+    "electron": "^7.1.2",
     "grunt": "^1.0.4",
     "grunt-contrib-coffee": "^2.1.0",
     "grunt-contrib-concat": "^1.0.1",

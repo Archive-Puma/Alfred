@@ -14,7 +14,7 @@ module.exports = function(grunt) {
         {
             compile:
             {
-                files: { 'frontend/dist/index.html': 'frontend/src/pug/index.pug' }
+                files: { 'dist/index.html': 'frontend/src/pug/index.pug' }
             }
         },
         sass:
@@ -27,7 +27,7 @@ module.exports = function(grunt) {
                     style: 'compressed',
                     noCache: true
                 },
-                files: { 'frontend/dist/css/alfred.min.css': 'frontend/build/alfred.sass' }
+                files: { 'dist/css/alfred.min.css': 'build/alfred.sass' }
             }
         },
         coffee:
@@ -39,14 +39,18 @@ module.exports = function(grunt) {
                     bare: true
                 },
                 files:
-                { 'frontend/build/alfred.js': 'frontend/build/alfred.coffee.md' }
+                {
+                    'main.js': 'frontend/src/coffee/electron.coffee.md', // Dev
+                    'dist/main.js': 'frontend/src/coffee/electron.coffee.md',
+                    'build/alfred.js': 'build/alfred.coffee.md'
+                }
             }
         },
         concat:
         {
             coffee:
             {
-                dest: 'frontend/build/alfred.coffee.md',
+                dest: 'build/alfred.coffee.md',
                 src: [
                     'frontend/src/coffee/variables.coffee.md',
                     'frontend/src/coffee/methods.coffee.md',
@@ -59,7 +63,7 @@ module.exports = function(grunt) {
             },
             sass:
             {
-                dest: 'frontend/build/alfred.sass',
+                dest: 'build/alfred.sass',
                 src: [
                     'frontend/src/sass/variables.sass',
                     'frontend/src/sass/colors.sass',
@@ -74,7 +78,7 @@ module.exports = function(grunt) {
         {
             js:
             {
-                files: { 'frontend/dist/js/alfred.min.js': 'frontend/build/alfred.js' }
+                files: { 'dist/js/alfred.min.js': 'build/alfred.js' }
             }
         }
     });
