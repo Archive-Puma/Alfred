@@ -3,4 +3,5 @@ main.js
 # Folders
 venv/
 build/
+.vscode/
 node_modules/
