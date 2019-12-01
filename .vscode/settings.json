@@ -1,6 +1,0 @@
-{
-    "python.pythonPath": "d:\\Coding\\Alfred\\venv\\Scripts\\python.exe",
-    "python.linting.pylintEnabled": false,
-    "python.linting.enabled": false,
-    "python.linting.banditEnabled": true
-}
