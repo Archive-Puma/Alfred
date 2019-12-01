@@ -36,6 +36,8 @@ We need a variable that allows us to manage the active window at all times.
 
     # Active window
     window = null
+    # Remove electron security warning
+    process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true';
 
 ## Window
 ---
@@ -60,7 +62,7 @@ Initialize the window with some parameters, such as size or integration with Nod
         #window.loadFile 'index.html'
         window.loadFile 'dist/index.html'
         # Uncomment if we need the DevTools
-        #window.webContents.openDevTools()
+        window.webContents.openDevTools()
         # Run the window in maximize mode
         window.maximize()
         # Show the window

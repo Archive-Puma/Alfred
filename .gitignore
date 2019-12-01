@@ -1,5 +1,6 @@
 # Files
 main.js
 # Folders
+venv/
 build/
 node_modules/

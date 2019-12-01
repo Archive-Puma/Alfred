@@ -58,6 +58,7 @@ module.exports = function(grunt) {
                     'frontend/src/coffee/output.coffee.md',
                     'frontend/src/coffee/node.coffee.md',
                     'frontend/src/coffee/work2node.coffee.md',
+                    'frontend/src/coffee/python2js.coffee.md',
                     'frontend/src/coffee/main.coffee.md'
                 ]
             },
