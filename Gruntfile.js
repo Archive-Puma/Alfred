@@ -71,7 +71,8 @@ module.exports = function(grunt) {
                     'frontend/src/sass/app.sass',
                     'frontend/src/sass/windowbar.sass',
                     'frontend/src/sass/modal.sass',
-                    'frontend/src/sass/node-editor.sass'
+                    'frontend/src/sass/node-editor.sass',
+                    'frontend/src/sass/gui.sass'
                 ]
             }
         },
