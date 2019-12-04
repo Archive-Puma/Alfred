@@ -60,26 +60,43 @@ Related to:
 | getNodesByExecution | [void] | [object] nodes | Get all the Nodes following their outputs |
 
     getNodesByExecution = () ->
-        # Define the result array
-        index = 0
-        nodes = []
-        visited = []
-        # Get the starting nodes
-        nodes.push getStartNodes()
-        # Iterate over nodes
-        until visited.length == Nodes.length
-            # Increment index
-            last = index
-            index++
-            # Generate the new level
-            nodes[index] = []
-            for node in nodes[last]
-                # Check the visited nodes
-                visited.push node if visited.indexOf node < 0
-                # Iterate over output paths
-                nodes[index].push path.to for path in node.outputs
-        # Return the starting nodes (FIXME: Last index is useless)
-        nodes
+        nodesPool = Nodes.slice()
+        nodesByExecution = []
+        # First layer, starting nodes
+        nodesByExecution.push getStartNodes()
+        # Check the length
+        return false if nodesByExecution[0].length is 0
+        # Remove starting nodes from the pool
+        nodesPool.splice nodesPool.indexOf(startingNode), 1 for startingNode in nodesByExecution[0]
+        # Check the rest of the levels
+        while nodesPool.length != 0
+            # From selected nodes in the last level...
+            for parent in nodesByExecution[nodesByExecution.length - 1]
+                # Create the new level
+                nextLevel = []
+                # Check all this childs
+                for output in parent.outputs
+                    # Get the child
+                    child = output.to
+                    # Check the requisites (variables)
+                    i = 0
+                    needMore = false
+                    # Check the requisites (algorithm) - All parents computed
+                    while not needMore and i < child.inputs.length
+                        connectedFrom = child.inputs[i].path.from.parent
+                        needMore = nodesPool.indexOf(connectedFrom) != - 1
+                        needMore ||= nextLevel.indexOf(connectedFrom) != -1
+                        i = i + 1
+                    # Check the requisites (result?)
+                    if not needMore
+                        nextLevel.push child
+                        nodesPool.splice(nodesPool.indexOf(child), 1)
+            # Check if the level has any node (no loops)
+            return false if nextLevel.length is 0
+            # Insert the level in the list
+            nodesByExecution.push nextLevel
+        # All correctly done
+        nodesByExecution
 
 ### Paths
 
