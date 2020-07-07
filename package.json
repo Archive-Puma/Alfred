@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/cosasdepuma/alfred#readme",
   "devDependencies": {
-    "electron": "^7.1.2",
+    "electron": "^7.2.4",
     "grunt": "^1.0.4",
     "grunt-contrib-coffee": "^2.1.0",
     "grunt-contrib-concat": "^1.0.1",
